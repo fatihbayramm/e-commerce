@@ -40,7 +40,7 @@ function ProductList({ products }) {
                   ad!
                 </Typography>
                 <Typography sx={{ marginTop: "25px", fontSize: "24px" }}>
-                  {product.price} TL
+                  ₺{product.price}
                 </Typography>
               </CardContent>
               {/* <CardActions>
