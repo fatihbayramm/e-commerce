@@ -1,4 +1,4 @@
-.header-container {
+.header-container header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -51,7 +51,7 @@
 }
 
 @media (max-width: 768px) {
-  .header-container {
+  .header-container header {
     flex-direction: row;
     align-items: center;
     text-align: center;

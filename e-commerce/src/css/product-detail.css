@@ -1,0 +1,98 @@
+.product-detail-container {
+  margin-top: 30px;
+  display: flex;
+}
+
+.product-detail-image {
+  width: 700px;
+  height: 700px;
+}
+
+.product-info {
+  padding-top: 60px;
+  width: 100%;
+}
+
+.product-info-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-name {
+  font-size: 32px;
+}
+
+.product-material {
+  font-size: 16px;
+  color: #d33918;
+  margin-bottom: 5px;
+}
+
+.product-category {
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+.product-sku {
+  margin-right: 150px;
+  color: #a9a9a9;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.product-info-main {
+  margin-top: 80px;
+}
+
+.product-price {
+  font-size: 24px;
+}
+
+.product-stock {
+  margin-top: 30px;
+  font-size: 20px;
+}
+
+.pd-btn {
+  width: 376px;
+  height: 60px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 50px;
+  font-size: 16px;
+}
+
+.basket-fav-btn {
+  margin-top: 50px;
+}
+
+.basket-btn {
+  margin-bottom: 15px;
+}
+
+.add-to-basket-btn {
+  color: #fff;
+  background-color: #000;
+}
+
+.add-to-basket-btn:hover {
+  opacity: 0.6;
+}
+
+.favorite-btn {
+  color: #000;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+.favorite-btn:hover {
+  border: 1px solid black;
+}
+
+.favorite-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,9 +1,8 @@
-.product-list-container {
+.product-list-container main section {
   display: grid;
-  /* grid-template-columns: repeat(3, 1fr); */
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-
   gap: 1rem;
+  margin-top: 50px;
   flex-wrap: wrap;
 }
 
