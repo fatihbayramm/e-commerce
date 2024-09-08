@@ -1,14 +1,26 @@
 import { useLocation } from "react-router-dom";
 import "../css/product-detail.css";
 import { MdFavoriteBorder } from "react-icons/md";
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useState } from "react";
 
 function ProductDetail() {
+  // TODO: Responsive yap.
   const location = useLocation();
   const { product } = location.state || {};
+
+  const [expanded, setExpanded] = useState("" | false);
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
 
   if (!product) {
     return <p>No product information found.</p>;
   }
+
   return (
     <div className="product-detail-container">
       <div className="product-image">
@@ -47,7 +59,63 @@ function ProductDetail() {
               </button>
             </div>
           </div>
-          <div className="accordion-menu"></div>
+          <div className="accordion-menu">
+            <Accordion
+              expanded={expanded === "panel1"}
+              onChange={handleChange("panel1")}
+            >
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <span className="accordion-title">Product Features</span>
+              </AccordionSummary>
+              <AccordionDetails>
+                Nulla facilisi. Phasellus sollicitudin nulla et quam mattis
+                feugiat. Aliquam eget maximus est, id dignissim quam.Nulla
+                facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
+                Aliquam eget maximus est, id dignissim quam.Nulla facilisi.
+                Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam
+                eget maximus est, id dignissim quam.
+              </AccordionDetails>
+            </Accordion>
+            <Accordion
+              expanded={expanded === "panel2"}
+              onChange={handleChange("panel2")}
+            >
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <span className="accordion-title">Product Use</span>
+              </AccordionSummary>
+              <AccordionDetails>
+                Donec placerat, lectus sed mattis semper, neque lectus feugiat
+                lectus, varius pulvinar diam eros in elit. Pellentesque
+                convallis laoreet laoreet.
+              </AccordionDetails>
+            </Accordion>
+            <Accordion
+              expanded={expanded === "panel3"}
+              onChange={handleChange("panel3")}
+            >
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <span className="accordion-title">Return</span>
+              </AccordionSummary>
+              <AccordionDetails>
+                Nunc vitae orci ultricies, auctor nunc in, volutpat nisl.
+                Integer sit amet egestas eros, vitae egestas augue. Duis vel est
+                augue.
+              </AccordionDetails>
+            </Accordion>
+            <Accordion
+              expanded={expanded === "panel4"}
+              onChange={handleChange("panel4")}
+            >
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <span className="accordion-title">Seller Information</span>
+              </AccordionSummary>
+              <AccordionDetails>
+                Nunc vitae orci ultricies, auctor nunc in, volutpat nisl.
+                Integer sit amet egestas eros, vitae egestas augue. Duis vel est
+                augue.
+              </AccordionDetails>
+            </Accordion>
+          </div>
         </div>
       </div>
     </div>

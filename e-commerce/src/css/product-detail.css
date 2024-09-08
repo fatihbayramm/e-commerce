@@ -96,3 +96,16 @@
   align-items: center;
   justify-content: center;
 }
+
+.accordion-menu {
+  margin-top: 30px;
+}
+
+.accordion-title {
+  font-size: 24px;
+  font-weight: bolder;
+}
+
+.acd {
+  box-shadow: none;
+}
