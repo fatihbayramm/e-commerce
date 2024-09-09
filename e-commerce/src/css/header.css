@@ -50,32 +50,12 @@
   gap: 15px;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 320px) {
   .header-container header {
+    display: flex;
     flex-direction: row;
-    align-items: center;
-    text-align: center;
+    justify-content: space-between;
   }
-
-  .search-box {
-    margin-bottom: 15px;
-  }
-
-  .auth-box {
-    flex-direction: row;
-    gap: 10px;
-  }
-
-  .logo {
-    margin-bottom: 20px;
-  }
-
-  .search-input {
-    width: 80%;
-  }
-}
-
-@media (max-width: 480px) {
   .search-input {
     font-size: 16px;
     height: 35px;
