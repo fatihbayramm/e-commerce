@@ -5,13 +5,16 @@ import Typography from "@mui/material/Typography";
 import "../css/product-list.css";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineFilterList } from "react-icons/md";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
+import { useDispatch, useSelector } from "react-redux";
+import { filterProducts } from "../redux/slices/product-slice";
 
 function ProductList({ products }) {
   // buradan da app.jsx e gonderilip goruntulenecek.
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleCardClick = (product) => {
     navigate("/product-detail/" + product.id, { state: { product } });
@@ -19,7 +22,14 @@ function ProductList({ products }) {
 
   const [toggleFilter, setToggleFilter] = useState(false);
 
-  console.log(toggleFilter);
+  const { filteredProducts } = useSelector((store) => store.product);
+
+  useEffect(() => {
+    dispatch(filterProducts({ min: 1, max: 100 }));
+  }, [dispatch]);
+
+  console.log(filteredProducts);
+
   return (
     <div className="product-list-container">
       <main>
