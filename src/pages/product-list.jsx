@@ -4,6 +4,9 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import "../css/product-list.css";
 import { useNavigate } from "react-router-dom";
+import { MdOutlineFilterList } from "react-icons/md";
+import { useState } from "react";
+import TextField from "@mui/material/TextField";
 
 function ProductList({ products }) {
   // buradan da app.jsx e gonderilip goruntulenecek.
@@ -13,9 +16,46 @@ function ProductList({ products }) {
   const handleCardClick = (product) => {
     navigate("/product-detail/" + product.id, { state: { product } });
   };
+
+  const [toggleFilter, setToggleFilter] = useState(false);
+
+  console.log(toggleFilter);
   return (
     <div className="product-list-container">
       <main>
+        <nav className="filters-box">
+          <div>
+            <button
+              className={toggleFilter ? "show-filters-active" : "show-filters"}
+              onClick={() => setToggleFilter(!toggleFilter)}
+            >
+              <div>Show Filters</div>
+              <div>
+                <MdOutlineFilterList size={24} />
+              </div>
+            </button>
+
+            {toggleFilter ? (
+              <div className="filters">
+                <div className="filter-title">Browse by price</div>
+                <TextField
+                  id="outlined-number"
+                  label="Min"
+                  type="number"
+                  size="small"
+                />
+                <TextField
+                  id="outlined-number"
+                  label="Max"
+                  type="number"
+                  size="small"
+                />
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
+        </nav>
         <section>
           {products &&
             products.map((product) => (

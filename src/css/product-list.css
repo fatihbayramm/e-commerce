@@ -11,3 +11,37 @@
   cursor: pointer;
   transition: 0.4s all;
 }
+
+.filters-box {
+  margin-top: 50px;
+}
+
+.show-filters {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.show-filters-active {
+  color: #b94e0c;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.filters {
+  margin-top: 30px;
+  padding: 20px;
+}
+
+.filter-title {
+  margin-bottom: 15px;
+}

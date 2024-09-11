@@ -8,7 +8,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
 
 function ProductDetail() {
-  // TODO: Responsive yap.
   const location = useLocation();
   const { product } = location.state || {};
 
