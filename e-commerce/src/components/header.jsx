@@ -157,7 +157,7 @@ export default function PrimarySearchAppBar() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, position: "sticky", top: 0, zIndex: 1000 }}>
       <AppBar position="static" sx={{ boxShadow: "none" }}>
         <Toolbar sx={{ backgroundColor: "#fff", color: "#000" }}>
           <IconButton
@@ -173,7 +173,9 @@ export default function PrimarySearchAppBar() {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            E-Commerce
+            <a href="/" className="header-logo">
+              E-Commerce
+            </a>
           </Typography>
           <Search>
             <SearchIconWrapper>

@@ -1,79 +1,210 @@
-.product-detail-container {
-  margin-top: 30px;
-  display: flex;
+/* @media screen and (max-width: 2560px) {
+  .product-detail-container {
+    margin-top: 30px;
+    display: flex;
+  }
+
+  .product-detail-image {
+    max-width: 700px;
+    height: auto;
+  }
+
+  .product-info {
+    padding-top: 60px;
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .product-info-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .product-name {
+    font-size: 32px;
+  }
+
+  .product-material {
+    font-size: 16px;
+    color: #d33918;
+    margin-bottom: 5px;
+  }
+
+  .product-category {
+    font-size: 16px;
+    margin-top: 5px;
+  }
+
+  .product-sku {
+    color: #a9a9a9;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  .product-info-main {
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .product-price {
+    font-size: 24px;
+  }
+
+  .product-stock {
+    margin-top: 30px;
+    font-size: 20px;
+  }
+
+  .pd-btn {
+    width: 376px;
+    height: 60px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    font-size: 16px;
+  }
+
+  .basket-btn {
+    margin-bottom: 15px;
+  }
+
+  .add-to-basket-btn {
+    color: #fff;
+    background-color: #000;
+  }
+
+  .add-to-basket-btn:hover {
+    opacity: 0.6;
+  }
+
+  .favorite-btn {
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #ccc;
+  }
+
+  .favorite-btn:hover {
+    border: 1px solid black;
+  }
+
+  .favorite-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .accordion-menu {
+    margin-top: 30px;
+  }
+
+  .accordion-title {
+    font-size: 20px;
+  }
 }
 
-.product-detail-image {
-  max-width: 700px;
-  height: auto;
+@media screen and (max-width: 768px) {
+  .product-detail-container {
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .product-detail-container {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+
+  .product-detail-image {
+    max-width: 500px;
+
+    height: auto;
+  }
+
+  .product-sku {
+    color: #a9a9a9;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+} */
+
+.product-detail-container {
+  margin: 50px 0px;
+}
+
+.product-info-header-2 {
+  display: none;
 }
 
 .product-info {
-  padding-top: 60px;
   width: 100%;
-  padding: 0 20px;
-}
-
-.product-info-header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.product-name {
-  font-size: 32px;
 }
 
 .product-material {
-  font-size: 16px;
   color: #d33918;
-  margin-bottom: 5px;
+  font-size: 1rem;
+}
+
+.product-name {
+  font-size: 1.25rem;
+  color: #111111;
+  line-height: 1.5;
 }
 
 .product-category {
-  font-size: 16px;
-  margin-top: 5px;
+  color: #111111;
 }
 
 .product-sku {
-  margin-right: 150px;
-  color: #a9a9a9;
-  font-size: 20px;
-  display: flex;
-  align-items: center;
+  color: #cccccc;
+  margin-top: 5px;
 }
 
-.product-info-main {
-  margin-top: 80px;
+.product-image {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+}
+
+.product-detail-image {
+  max-width: 18.75rem;
 }
 
 .product-price {
-  font-size: 24px;
+  color: #111111;
+  margin: 5px 0px;
 }
 
-.product-stock {
-  margin-top: 30px;
-  font-size: 20px;
+.basket-fav-btn {
+  margin: 30px 0px;
 }
 
 .pd-btn {
-  width: 376px;
-  height: 60px;
-  background: none;
+  min-width: 17rem;
+  width: 100%;
+  height: auto;
   border: none;
+  background: none;
   cursor: pointer;
+  border: 1px solid #ccc;
   border-radius: 50px;
-  font-size: 16px;
-}
-
-.basket-btn {
-  margin-bottom: 15px;
+  padding: 0.938rem;
+  font-size: 1rem;
 }
 
 .add-to-basket-btn {
-  color: #fff;
   background-color: #000;
+  color: #fff;
+}
+
+.basket-btn {
+  margin-bottom: 10px;
 }
 
 .add-to-basket-btn:hover {
@@ -83,7 +214,6 @@
 .favorite-btn {
   color: #000;
   background-color: #fff;
-  border: 1px solid #ccc;
 }
 
 .favorite-btn:hover {
@@ -92,98 +222,66 @@
 
 .favorite-box {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
-.accordion-menu {
-  margin-top: 30px;
-}
-
-.accordion-title {
-  font-size: 20px;
-}
-
-@media (min-width: 320px) {
+@media screen and (min-width: 1024px) {
   .product-detail-container {
-    flex-direction: column;
-    justify-content: space-between;
-    flex-wrap: wrap;
-  }
-  .product-info-header {
-    flex-direction: row;
-
-    justify-content: space-between;
-  }
-
-  .product-info-main {
-    flex-direction: row;
-    align-items: flex-start;
-  }
-
-  .product-sku {
-    margin-right: 5rem;
-    margin-top: 0;
-  }
-}
-
-@media (min-width: 425px) {
-  .product-detail-container {
-    flex-direction: column;
-    justify-content: space-between;
+    display: flex;
+    margin: 50px 0px;
   }
 
   .product-info-header {
-    flex-direction: row;
-    align-items: center;
+    display: none;
+  }
+
+  .product-info-header-2 {
+    display: flex;
     justify-content: space-between;
   }
 
-  .product-info-main {
-    flex-direction: row;
-    align-items: flex-start;
+  .product-info-2 {
+    width: 100%;
   }
 
-  .product-sku {
-    margin-right: 5rem;
-    margin-top: 0;
-  }
-}
-
-@media (min-width: 768px) {
-  .product-detail-container {
-    flex-direction: row; /* Tablet ve üzeri için yatay düzen */
-    justify-content: space-between;
+  .product-material-2 {
+    color: #d33918;
+    font-size: 1rem;
   }
 
-  .product-info-header {
-    flex-direction: row; /* Tablet ve üzeri için yatay düzen */
-    align-items: center;
-    justify-content: space-between;
+  .product-name-2 {
+    font-size: 1.25rem;
+    color: #111111;
+    line-height: 1.5;
   }
 
-  .product-info-main {
-    flex-direction: row; /* Tablet ve üzeri için yatay düzen */
-    align-items: flex-start;
+  .product-category-2 {
+    color: #111111;
   }
 
-  .product-sku {
-    margin-right: 5rem; /* Orta ekranlar için sağa boşluk */
-    margin-top: 0;
+  .product-sku-2 {
+    color: #cccccc;
+    margin-top: 5px;
   }
-}
 
-/* Büyük ekranlar (masaüstü) için medya sorgusu */
-@media (min-width: 1024px) {
-  .product-detail-container {
-    padding: 0 2.5rem; /* Daha büyük ekranlar için yanlardan boşluk */
+  .product-detail-image {
+    min-width: 50rem;
   }
 
   .product-info-main {
-    justify-content: space-between; /* Büyük ekranlar için düzen */
+    margin-top: 50px;
+  }
+
+  .basket-fav-btn {
+    margin: 30px 0px;
+  }
+
+  .basket-btn {
+    margin-bottom: 10px;
   }
 
   .pd-btn {
-    width: 18.75rem; /* Büyük ekranlar için daha küçük buton */
+    max-width: 23.5rem;
   }
 }

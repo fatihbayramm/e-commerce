@@ -23,6 +23,14 @@ function ProductDetail() {
 
   return (
     <div className="product-detail-container">
+      <div className="product-info-header">
+        <div className="product-name-box">
+          <div className="product-material">Lorem ipsum dolor sit amet.</div>
+          <div className="product-name"> {product.name}</div>
+          <div className="product-category"> Lorem, ipsum dolor.</div>
+        </div>
+        <div className="product-sku">Product sku: {product.sku}</div>
+      </div>
       <div className="product-image">
         <img
           src={product.image}
@@ -31,13 +39,15 @@ function ProductDetail() {
         />
       </div>
       <div className="product-info">
-        <div className="product-info-header">
-          <div className="product-name">
-            <div className="product-material">Lorem ipsum dolor sit amet.</div>
-            <div> {product.name}</div>
-            <div className="product-category"> Lorem, ipsum dolor.</div>
+        <div className="product-info-header-2">
+          <div className="product-name-box-2">
+            <div className="product-material-2">
+              Lorem ipsum dolor sit amet.
+            </div>
+            <div className="product-name-2"> {product.name}</div>
+            <div className="product-category-2"> Lorem, ipsum dolor.</div>
           </div>
-          <div className="product-sku">Product sku: {product.sku}</div>
+          <div className="product-sku-2">Product sku: {product.sku}</div>
         </div>
         <div className="product-info-main">
           <div>
@@ -57,7 +67,7 @@ function ProductDetail() {
                 <div className="favorite-box">
                   <div>Favorite</div>
                   <div>
-                    <MdFavoriteBorder fontSize={24} />
+                    <MdFavoriteBorder fontSize={14} />
                   </div>
                 </div>
               </button>
