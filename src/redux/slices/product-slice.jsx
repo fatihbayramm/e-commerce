@@ -18,7 +18,7 @@ export const getAllProducts = createAsyncThunk("getAllProducts", async () => {
 
 export const filterProducts = createAsyncThunk(
   "filterProducts",
-  async ({ min = 0, max = 99999 }) => {
+  async ({ min, max }) => {
     try {
       const response = await axios.get(
         `/api/products/?price_min=${min}&price_max=${max}`

@@ -5,30 +5,48 @@ import Typography from "@mui/material/Typography";
 import "../css/product-list.css";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineFilterList } from "react-icons/md";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import { useDispatch, useSelector } from "react-redux";
 import { filterProducts } from "../redux/slices/product-slice";
+import Button from "@mui/material/Button";
+import { IoSearchOutline } from "react-icons/io5";
 
 function ProductList({ products }) {
-  // buradan da app.jsx e gonderilip goruntulenecek.
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [priceMin, setPriceMin] = useState(0);
+  const [priceMax, setPriceMax] = useState(0);
+  const [toggleFilter, setToggleFilter] = useState(false);
+  const { filteredProducts } = useSelector((store) => store.product);
 
   const handleCardClick = (product) => {
     navigate("/product-detail/" + product.id, { state: { product } });
   };
 
-  const [toggleFilter, setToggleFilter] = useState(false);
+  const getFilteredProducts = () => {
+    if (priceMin > 0 || priceMax > 0) {
+      dispatch(filterProducts({ min: priceMin, max: priceMax }));
+    }
+    console.log(filteredProducts);
+  };
 
-  const { filteredProducts } = useSelector((store) => store.product);
+  const handlePriceMinChange = (e) => {
+    const value = e.target.value;
+    if (value === "" || Number(value) >= 0) {
+      setPriceMin(value);
+    }
+  };
 
-  useEffect(() => {
-    dispatch(filterProducts({ min: 1, max: 100 }));
-  }, [dispatch]);
+  const handlePriceMaxChange = (e) => {
+    const value = e.target.value;
+    if (value === "" || Number(value) >= 0) {
+      setPriceMax(value);
+    }
+  };
 
-  console.log(filteredProducts);
+  const displayedProducts =
+    filteredProducts.length > 0 ? filteredProducts : products;
 
   return (
     <div className="product-list-container">
@@ -49,17 +67,28 @@ function ProductList({ products }) {
               <div className="filters">
                 <div className="filter-title">Browse by price</div>
                 <TextField
+                  value={priceMin}
+                  onChange={handlePriceMinChange}
                   id="outlined-number"
                   label="Min"
                   type="number"
                   size="small"
                 />
                 <TextField
+                  value={priceMax}
+                  onChange={handlePriceMaxChange}
                   id="outlined-number"
                   label="Max"
                   type="number"
                   size="small"
                 />
+                <Button
+                  color="black"
+                  variant="text"
+                  onClick={getFilteredProducts}
+                >
+                  <IoSearchOutline size={24} />
+                </Button>
               </div>
             ) : (
               ""
@@ -67,8 +96,8 @@ function ProductList({ products }) {
           </div>
         </nav>
         <section>
-          {products &&
-            products.map((product) => (
+          {displayedProducts &&
+            displayedProducts.map((product) => (
               <div
                 key={product.id}
                 className="product-card"
