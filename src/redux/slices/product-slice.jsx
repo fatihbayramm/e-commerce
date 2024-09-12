@@ -36,9 +36,6 @@ export const searchProducts = createAsyncThunk(
   async ({ query }) => {
     try {
       const response = await axios.get(`/api/products/?query=${query}`);
-      if (query === "") {
-        getAllProducts();
-      }
       return response.data;
     } catch (error) {
       console.log(error);
