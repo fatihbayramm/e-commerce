@@ -4,6 +4,7 @@ import axios from "axios";
 const initialState = {
   products: [],
   filteredProducts: [],
+  searchedProducts: [],
   loading: false,
 };
 
@@ -23,6 +24,21 @@ export const filterProducts = createAsyncThunk(
       const response = await axios.get(
         `/api/products/?price_min=${min}&price_max=${max}`
       );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const searchProducts = createAsyncThunk(
+  "searchProducts",
+  async ({ query }) => {
+    try {
+      const response = await axios.get(`/api/products/?query=${query}`);
+      if (query === "") {
+        getAllProducts();
+      }
       return response.data;
     } catch (error) {
       console.log(error);
@@ -51,6 +67,15 @@ export const productSlice = createSlice({
     builder.addCase(filterProducts.fulfilled, (state, action) => {
       state.loading = false;
       state.filteredProducts = action.payload;
+    });
+
+    builder.addCase(searchProducts.pending, (state) => {
+      state.loading = true;
+    });
+
+    builder.addCase(searchProducts.fulfilled, (state, action) => {
+      state.loading = false;
+      state.searchedProducts = action.payload;
     });
   },
 });

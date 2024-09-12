@@ -45,3 +45,7 @@
 .filter-title {
   margin-bottom: 15px;
 }
+
+.search-icon:hover {
+  background-color: #e9e9ea;
+}

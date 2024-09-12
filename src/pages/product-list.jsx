@@ -11,13 +11,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { filterProducts } from "../redux/slices/product-slice";
 import Button from "@mui/material/Button";
 import { IoSearchOutline } from "react-icons/io5";
+import { useLocation } from "react-router-dom";
 
 function ProductList({ products }) {
+  const location = useLocation();
+  const { searchedProducts } = location.state || {};
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [priceMin, setPriceMin] = useState(0);
   const [priceMax, setPriceMax] = useState(0);
   const [toggleFilter, setToggleFilter] = useState(false);
+
   const { filteredProducts } = useSelector((store) => store.product);
 
   const handleCardClick = (product) => {
@@ -46,7 +50,11 @@ function ProductList({ products }) {
   };
 
   const displayedProducts =
-    filteredProducts.length > 0 ? filteredProducts : products;
+    searchedProducts && searchedProducts.length > 0
+      ? searchedProducts
+      : filteredProducts && filteredProducts.length > 0
+      ? filteredProducts
+      : products;
 
   return (
     <div className="product-list-container">
@@ -64,6 +72,11 @@ function ProductList({ products }) {
             </button>
 
             {toggleFilter ? (
+              //TODO: burada filtreler bos gonderiliyorsa kullaniciya bu alani bos birakamazsiniz uyarisi gonderilebilir.
+              //TODO: max degeri min degerinden kucukse yine kullaniciya uyari gidebilir.
+              //TODO: filtreli urunler yuklenene kadar loading ekrani yapilabilir(opsiyonel).
+              //TODO: filtre tasarimi guzellestirilebilir.
+              //TODO: filtreler ayni degerde girilirse kullaniciya uyari versin.
               <div className="filters">
                 <div className="filter-title">Browse by price</div>
                 <TextField
@@ -86,6 +99,7 @@ function ProductList({ products }) {
                   color="black"
                   variant="text"
                   onClick={getFilteredProducts}
+                  className="search-icon"
                 >
                   <IoSearchOutline size={24} />
                 </Button>

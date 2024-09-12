@@ -15,6 +15,10 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { searchProducts } from "../redux/slices/product-slice";
+import { useNavigate } from "react-router-dom";
 
 // TODO: login ve register butonlari dropdown olacak. yaninda sepet iconu ve bildirim iconu olacak.
 // TODO: logo duzeltilecek.
@@ -59,6 +63,20 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+  const [query, setQuery] = useState("");
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { searchedProducts } = useSelector((store) => store.product);
+
+  useEffect(() => {
+    dispatch(searchProducts({ query }));
+    navigate("/", { state: { searchedProducts } });
+
+    console.log(searchedProducts);
+  }, [dispatch, query]);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -184,6 +202,8 @@ export default function PrimarySearchAppBar() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />

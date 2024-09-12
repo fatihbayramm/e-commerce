@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import ProductList from "../pages/product-list";
 import ProductDetail from "../pages/product-detail";
 import GetProducts from "../components/get-products";
+import GetSearchedProducts from "../components/get-searched-products";
 
 function RouterConfig() {
   return (
