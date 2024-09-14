@@ -8,7 +8,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchProducts } from "../redux/slices/product-slice";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import "../css/header.css";
 
 const Search = styled("div")(({ theme }) => ({
@@ -98,9 +98,9 @@ export default function Header() {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            <a href="/" className="header-logo">
+            <Link to="/" className="header-logo">
               E-Commerce
-            </a>
+            </Link>
           </Typography>
           <Search>
             <SearchIconWrapper>
