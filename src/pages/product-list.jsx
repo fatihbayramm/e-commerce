@@ -3,7 +3,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import "../css/product-list.css";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { MdOutlineFilterList } from "react-icons/md";
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
@@ -16,17 +16,12 @@ import { useLocation } from "react-router-dom";
 function ProductList({ products }) {
   const location = useLocation();
   const { searchedProducts } = location.state || {};
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [priceMin, setPriceMin] = useState(0);
   const [priceMax, setPriceMax] = useState(0);
   const [toggleFilter, setToggleFilter] = useState(false);
 
   const { filteredProducts } = useSelector((store) => store.product);
-
-  const handleCardClick = (product) => {
-    navigate("/product-detail/" + product.id, { state: { product } });
-  };
 
   const getFilteredProducts = () => {
     if (priceMin > 0 || priceMax > 0) {
@@ -72,9 +67,10 @@ function ProductList({ products }) {
             </button>
 
             {toggleFilter ? (
+              //TODO: arama yaptiktan sonra filtreleme calismiyor.
               //TODO: burada filtreler bos gonderiliyorsa kullaniciya bu alani bos birakamazsiniz uyarisi gonderilebilir.
               //TODO: max degeri min degerinden kucukse yine kullaniciya uyari gidebilir.
-              //TODO: filtreli urunler yuklenene kadar loading ekrani yapilabilir(opsiyonel).
+              //TODO: filtreli urunler yuklenene kadar loading ekrani yapilabilir. (opsiyonel).
               //TODO: filtre tasarimi guzellestirilebilir.
               //TODO: filtreler ayni degerde girilirse kullaniciya uyari versin.
               <div className="filters">
@@ -112,10 +108,11 @@ function ProductList({ products }) {
         <section>
           {displayedProducts &&
             displayedProducts.map((product) => (
-              <div
+              <Link
+                to={`/product-detail/${product.id}`}
                 key={product.id}
                 className="product-card"
-                onClick={() => handleCardClick(product)}
+                state={{ product }}
               >
                 <Card
                   sx={{
@@ -143,7 +140,7 @@ function ProductList({ products }) {
                     </Typography>
                   </CardContent>
                 </Card>
-              </div>
+              </Link>
             ))}
         </section>
       </main>

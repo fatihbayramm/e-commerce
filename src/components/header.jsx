@@ -48,7 +48,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
