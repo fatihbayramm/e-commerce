@@ -1,3 +1,24 @@
 footer {
+  margin-top: 150px;
+}
+
+.footer-container {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 200px;
+}
+
+.footer-ul {
+  list-style-type: none;
+}
+
+.footer-ul li {
+  margin-bottom: 20px;
+}
+
+.footer-ul li a {
+  text-decoration: none;
+  color: #707072;
+  font-size: 0.875rem;
 }
