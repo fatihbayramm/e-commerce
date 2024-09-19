@@ -1,17 +1,12 @@
 footer {
-  margin-top: 150px;
+  margin-top: 80px;
 }
 
 .footer-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 200px;
   margin-top: 50px;
 }
 
 .footer-title {
-  text-align: center;
   font-size: 1rem;
   color: #111111;
   margin-bottom: 40px;
@@ -36,4 +31,46 @@ footer {
   text-align: center;
   color: #707072;
   font-size: 0.875rem;
+}
+
+@media screen and (min-width: 1024px) {
+  footer {
+    margin-top: 150px;
+  }
+
+  .footer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 200px;
+    margin-top: 50px;
+  }
+
+  .footer-title {
+    text-align: center;
+    font-size: 1rem;
+    color: #111111;
+    margin-bottom: 40px;
+  }
+
+  .footer-ul {
+    list-style-type: none;
+  }
+
+  .footer-ul li {
+    margin-bottom: 20px;
+  }
+
+  .footer-ul li a {
+    text-decoration: none;
+    color: #707072;
+    font-size: 0.875rem;
+  }
+
+  .footer-bottom {
+    margin-top: 50px;
+    text-align: center;
+    color: #707072;
+    font-size: 0.875rem;
+  }
 }
