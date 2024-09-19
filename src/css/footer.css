@@ -7,6 +7,14 @@ footer {
   justify-content: center;
   align-items: center;
   gap: 200px;
+  margin-top: 50px;
+}
+
+.footer-title {
+  text-align: center;
+  font-size: 1rem;
+  color: #111111;
+  margin-bottom: 40px;
 }
 
 .footer-ul {
@@ -19,6 +27,13 @@ footer {
 
 .footer-ul li a {
   text-decoration: none;
+  color: #707072;
+  font-size: 0.875rem;
+}
+
+.footer-bottom {
+  margin-top: 50px;
+  text-align: center;
   color: #707072;
   font-size: 0.875rem;
 }

@@ -7,62 +7,68 @@ function Footer() {
       <hr />
       <div className="footer-container">
         <div>
+          <h4 className="footer-title">Sources</h4>
           <ul className="footer-ul">
             <li>
-              <a href="#">Mağaza Bul</a>
+              <a href="#">Find Store</a>
             </li>
             <li>
-              <a href="#">Üye Ol</a>
+              <a href="#">Register</a>
             </li>
             <li>
-              <a href="#">Geri Bildirim</a>
+              <a href="#">Feed Back</a>
             </li>
             <li>
-              <a href="#">Promosyon Kodları</a>
+              <a href="#">Promotion Codes</a>
             </li>
             <li>
-              <a href="#">Bize Ulaş</a>
+              <a href="#">Contact</a>
             </li>
           </ul>
         </div>
         <div>
+          <h4 className="footer-title">Help</h4>
           <ul className="footer-ul">
             <li>
-              <a href="#">Sipariş Durumu</a>
+              <a href="#">Order</a>
             </li>
             <li>
-              <a href="#">Kargo ve Teslimat</a>
+              <a href="#">Shipping and Delivery</a>
             </li>
             <li>
-              <a href="#">İadeler</a>
+              <a href="#">Returns</a>
             </li>
             <li>
-              <a href="#">Ödeme Seçenekleri</a>
+              <a href="#">Payment Options</a>
             </li>
             <li>
-              <a href="#">İncelemeler</a>
+              <a href="#">Reviews</a>
             </li>
           </ul>
         </div>
         <div>
+          <h4 className="footer-title">Company</h4>
           <ul className="footer-ul">
             <li>
-              <a href="#">E-Commerce Hakkında</a>
+              <a href="#">About E-Commerce</a>
             </li>
             <li>
-              <a href="#">Haberler</a>
+              <a href="#">News</a>
             </li>
             <li>
-              <a href="#">Kariyer</a>
+              <a href="#">Carrier</a>
             </li>
             <li>
-              <a href="#">Yatırımcılar</a>
+              <a href="#">Investors</a>
             </li>
             <li>
-              <a href="#">Sürdürülebilirlik</a>
+              <a href="#">Sustainability</a>
             </li>
           </ul>
         </div>
+      </div>
+      <div className="footer-bottom">
+        <p>© 2024 E-Commerce, Inc. All Rights Reserved</p>
       </div>
     </footer>
   );
