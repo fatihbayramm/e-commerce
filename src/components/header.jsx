@@ -19,6 +19,8 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 
+// TODO: header mobile modda duzgun gozukmuyor.
+
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -154,20 +156,16 @@ export default function Header() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
+        <IconButton size="large" color="inherit">
+          <Badge color="error">
             <MailIcon />
           </Badge>
         </IconButton>
         <p>Messages</p>
       </MenuItem>
       <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
+        <IconButton size="large" color="inherit">
+          <Badge color="error">
             <NotificationsIcon />
           </Badge>
         </IconButton>
@@ -213,21 +211,13 @@ export default function Header() {
               onChange={handleInputChange}
             />
           </Search>
-          <IconButton
-            size="large"
-            aria-label="show 4 new mails"
-            color="inherit"
-          >
-            <Badge badgeContent={4} color="error">
+          <IconButton size="large" color="inherit">
+            <Badge color="error">
               <MailIcon />
             </Badge>
           </IconButton>
-          <IconButton
-            size="large"
-            aria-label="show 17 new notifications"
-            color="inherit"
-          >
-            <Badge badgeContent={17} color="error">
+          <IconButton size="large" color="inherit">
+            <Badge color="error">
               <NotificationsIcon />
             </Badge>
           </IconButton>

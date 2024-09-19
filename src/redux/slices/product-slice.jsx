@@ -6,6 +6,7 @@ const initialState = {
   filteredProducts: [],
   searchedProducts: [],
   loading: false,
+  error: null,
 };
 
 export const getAllProducts = createAsyncThunk("getAllProducts", async () => {
@@ -13,7 +14,7 @@ export const getAllProducts = createAsyncThunk("getAllProducts", async () => {
     const response = await axios.get("/api/products/");
     return response.data;
   } catch (error) {
-    console.log(error);
+    throw new Error(error.response?.data.message || "An error occurred");
   }
 });
 
@@ -26,7 +27,7 @@ export const filterProducts = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.log(error);
+      throw new Error(error.response?.data.message || "An error occurred");
     }
   }
 );
@@ -38,7 +39,7 @@ export const searchProducts = createAsyncThunk(
       const response = await axios.get(`/api/products/?query=${query}`);
       return response.data;
     } catch (error) {
-      console.log(error);
+      throw new Error(error.response?.data.message || "An error occurred");
     }
   }
 );
@@ -57,6 +58,11 @@ export const productSlice = createSlice({
       state.products = action.payload;
     });
 
+    builder.addCase(getAllProducts.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+
     builder.addCase(filterProducts.pending, (state) => {
       state.loading = true;
     });
@@ -66,6 +72,11 @@ export const productSlice = createSlice({
       state.filteredProducts = action.payload;
     });
 
+    builder.addCase(filterProducts.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+
     builder.addCase(searchProducts.pending, (state) => {
       state.loading = true;
     });
@@ -73,6 +84,11 @@ export const productSlice = createSlice({
     builder.addCase(searchProducts.fulfilled, (state, action) => {
       state.loading = false;
       state.searchedProducts = action.payload;
+    });
+
+    builder.addCase(searchProducts.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
     });
   },
 });
