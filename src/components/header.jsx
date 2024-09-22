@@ -70,6 +70,10 @@ export default function Header() {
   const [query, setQuery] = useState(initialQuery);
   const { searchedProducts } = useSelector((store) => store.product);
 
+  const handleLogoClick = () => {
+    window.location.assign = "/";
+  };
+
   useEffect(() => {
     // İlk yüklendiğinde URL'deki query parametresine göre arama yap
     dispatch(searchProducts({ query: initialQuery }));
@@ -196,7 +200,7 @@ export default function Header() {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            <Link to="/" className="header-logo">
+            <Link to="/" className="header-logo" onClick={handleLogoClick}>
               E-Commerce
             </Link>
           </Typography>

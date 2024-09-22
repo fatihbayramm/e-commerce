@@ -5,30 +5,47 @@ import Typography from "@mui/material/Typography";
 import "../css/product-list.css";
 import { Link } from "react-router-dom";
 import { MdOutlineFilterList } from "react-icons/md";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import { useDispatch, useSelector } from "react-redux";
 import { filterProducts } from "../redux/slices/product-slice";
 import Button from "@mui/material/Button";
 import { IoSearchOutline } from "react-icons/io5";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 function ProductList({ products }) {
   const location = useLocation();
   const { searchedProducts } = location.state || {};
-  const dispatch = useDispatch();
-  const [priceMin, setPriceMin] = useState(0);
-  const [priceMax, setPriceMax] = useState(0);
-  const [toggleFilter, setToggleFilter] = useState(false);
 
+  const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const priceMinFromUrl = searchParams.get("priceMin") || 0;
+  const priceMaxFromUrl = searchParams.get("priceMax") || 0;
+
+  const [priceMin, setPriceMin] = useState(priceMinFromUrl);
+  const [priceMax, setPriceMax] = useState(priceMaxFromUrl);
+
+  const [toggleFilter, setToggleFilter] = useState(false);
   const { filteredProducts } = useSelector((store) => store.product);
+
+  // TODO: Filtreleri temizle butonu ekle.
+  // TODO: category filtresi ekle.
+  // TODO: Filtrelerde category yapabilirsin. 4 tane kategori var her birine bastiginda o kategoriye ait url e istek atar ve
+  // TODO: o kategoriye sahip ürünler liste sayfasında listelenir.
 
   const getFilteredProducts = () => {
     if (priceMin > 0 || priceMax > 0) {
+      setSearchParams({ priceMin, priceMax });
       dispatch(filterProducts({ min: priceMin, max: priceMax }));
     }
-    console.log(filteredProducts);
   };
+
+  useEffect(() => {
+    if (priceMinFromUrl > 0 || priceMaxFromUrl > 0) {
+      dispatch(filterProducts({ min: priceMinFromUrl, max: priceMaxFromUrl }));
+    }
+  }, [priceMinFromUrl, priceMaxFromUrl, dispatch]);
 
   const handlePriceMinChange = (e) => {
     const value = e.target.value;
@@ -70,7 +87,6 @@ function ProductList({ products }) {
               //TODO: arama yaptiktan sonra filtreleme calismiyor.
               //TODO: burada filtreler bos gonderiliyorsa kullaniciya bu alani bos birakamazsiniz uyarisi gonderilebilir.
               //TODO: max degeri min degerinden kucukse yine kullaniciya uyari gidebilir.
-              //TODO: filtreli urunler yuklenene kadar loading ekrani yapilabilir. (opsiyonel).
               //TODO: filtre tasarimi guzellestirilebilir.
               //TODO: filtreler ayni degerde girilirse kullaniciya uyari versin.
               <div className="filters">

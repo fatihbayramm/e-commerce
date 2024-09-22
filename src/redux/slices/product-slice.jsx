@@ -47,6 +47,7 @@ export const searchProducts = createAsyncThunk(
 export const productSlice = createSlice({
   name: "product",
   initialState,
+  // TODO: sepet islemlerini reducers kisminda yapabilirsin: addProduct, removeProduct...
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getAllProducts.pending, (state) => {
