@@ -12,6 +12,7 @@ import { filterProducts } from "../redux/slices/product-slice";
 import Button from "@mui/material/Button";
 import { IoSearchOutline } from "react-icons/io5";
 import { useLocation, useSearchParams } from "react-router-dom";
+import { IoClose } from "react-icons/io5";
 
 function ProductList({ products }) {
   const location = useLocation();
@@ -29,7 +30,6 @@ function ProductList({ products }) {
   const [toggleFilter, setToggleFilter] = useState(false);
   const { filteredProducts } = useSelector((store) => store.product);
 
-  // TODO: Filtreleri temizle butonu ekle.
   // TODO: category filtresi ekle.
   // TODO: Filtrelerde category yapabilirsin. 4 tane kategori var her birine bastiginda o kategoriye ait url e istek atar ve
   // TODO: o kategoriye sahip ürünler liste sayfasında listelenir.
@@ -39,6 +39,13 @@ function ProductList({ products }) {
       setSearchParams({ priceMin, priceMax });
       dispatch(filterProducts({ min: priceMin, max: priceMax }));
     }
+  };
+
+  const clearFilters = () => {
+    setPriceMin("");
+    setPriceMax("");
+    setSearchParams({});
+    dispatch(filterProducts({ min: "", max: "" }));
   };
 
   useEffect(() => {
@@ -115,6 +122,14 @@ function ProductList({ products }) {
                 >
                   <IoSearchOutline size={24} />
                 </Button>
+                <div className="clear-filters-btn">
+                  <button onClick={clearFilters}>
+                    <div>Filtreleri Temizle</div>
+                    <div className="clear-filter-icon">
+                      <IoClose size={22} />
+                    </div>
+                  </button>
+                </div>
               </div>
             ) : (
               ""
