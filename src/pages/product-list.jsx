@@ -122,14 +122,18 @@ function ProductList({ products }) {
                 >
                   <IoSearchOutline size={24} />
                 </Button>
-                <div className="clear-filters-btn">
-                  <button onClick={clearFilters}>
-                    <div>Filtreleri Temizle</div>
-                    <div className="clear-filter-icon">
-                      <IoClose size={22} />
-                    </div>
-                  </button>
-                </div>
+                {priceMinFromUrl !== 0 ? (
+                  <div className="clear-filters-btn">
+                    <button onClick={clearFilters}>
+                      <div>Filtreleri Temizle</div>
+                      <div className="clear-filter-icon">
+                        <IoClose size={22} />
+                      </div>
+                    </button>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
             ) : (
               ""
