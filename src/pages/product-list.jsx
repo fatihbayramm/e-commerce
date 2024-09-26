@@ -8,11 +8,18 @@ import { MdOutlineFilterList } from "react-icons/md";
 import { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import { useDispatch, useSelector } from "react-redux";
-import { filterProducts } from "../redux/slices/product-slice";
+import {
+  filterProducts,
+  categorizeProducts,
+} from "../redux/slices/product-slice";
 import Button from "@mui/material/Button";
 import { IoSearchOutline } from "react-icons/io5";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 function ProductList({ products }) {
   const location = useLocation();
@@ -28,7 +35,13 @@ function ProductList({ products }) {
   const [priceMax, setPriceMax] = useState(priceMaxFromUrl);
 
   const [toggleFilter, setToggleFilter] = useState(false);
+
   const { filteredProducts } = useSelector((store) => store.product);
+
+  const categoryFromUrl = searchParams.get("category") || "";
+  const [categoryId, setCategoryId] = useState(categoryFromUrl);
+
+  const { categorizedProducts } = useSelector((store) => store.product);
 
   // TODO: category filtresi ekle.
   // TODO: Filtrelerde category yapabilirsin. 4 tane kategori var her birine bastiginda o kategoriye ait url e istek atar ve
@@ -68,11 +81,24 @@ function ProductList({ products }) {
     }
   };
 
+  const handleCategory = (event) => {
+    setCategoryId(event.target.value);
+  };
+
+  useEffect(() => {
+    console.log(categoryId); // categoryId güncellendiğinde log basılır
+    // dispatch(categorizeProducts({ categoryId }));
+    setSearchParams({ categoryId });
+    dispatch(categorizeProducts({ categoryId }));
+  }, [categoryId]);
+
   const displayedProducts =
     searchedProducts && searchedProducts.length > 0
       ? searchedProducts
       : filteredProducts && filteredProducts.length > 0
       ? filteredProducts
+      : categorizedProducts && categorizedProducts.length > 0
+      ? categorizedProducts
       : products;
 
   return (
@@ -97,31 +123,60 @@ function ProductList({ products }) {
               //TODO: filtre tasarimi guzellestirilebilir.
               //TODO: filtreler ayni degerde girilirse kullaniciya uyari versin.
               <div className="filters">
-                <div className="filter-title">Browse by price</div>
-                <TextField
-                  value={priceMin}
-                  onChange={handlePriceMinChange}
-                  id="outlined-number"
-                  label="Min"
-                  type="number"
-                  size="small"
-                />
-                <TextField
-                  value={priceMax}
-                  onChange={handlePriceMaxChange}
-                  id="outlined-number"
-                  label="Max"
-                  type="number"
-                  size="small"
-                />
-                <Button
-                  color="black"
-                  variant="text"
-                  onClick={getFilteredProducts}
-                  className="search-icon"
-                >
-                  <IoSearchOutline size={24} />
-                </Button>
+                <div>
+                  <div className="filter-title">Browse by price</div>
+                  <TextField
+                    value={priceMin}
+                    onChange={handlePriceMinChange}
+                    id="outlined-number"
+                    label="Min"
+                    type="number"
+                    size="small"
+                  />
+                  <TextField
+                    value={priceMax}
+                    onChange={handlePriceMaxChange}
+                    id="outlined-number"
+                    label="Max"
+                    type="number"
+                    size="small"
+                  />
+                  <Button
+                    color="black"
+                    variant="text"
+                    onClick={getFilteredProducts}
+                    className="search-icon"
+                  >
+                    <IoSearchOutline size={24} />
+                  </Button>
+                </div>
+
+                <div>
+                  <div className="filter-title">Browse by category</div>
+                  <div>
+                    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                      <InputLabel id="demo-select-small-label">
+                        Category
+                      </InputLabel>
+                      <Select
+                        labelId="demo-select-small-label"
+                        id="demo-select-small"
+                        value={categoryId}
+                        label="Category"
+                        onChange={handleCategory}
+                      >
+                        <MenuItem value="">
+                          <em>Choose Category</em>
+                        </MenuItem>
+                        <MenuItem value={1}>Tech</MenuItem>
+                        <MenuItem value={2}>Clothes</MenuItem>
+                        <MenuItem value={3}>Kitchen</MenuItem>
+                        <MenuItem value={4}>School</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </div>
+                </div>
+
                 {priceMinFromUrl !== 0 ? (
                   <div className="clear-filters-btn">
                     <button onClick={clearFilters}>
