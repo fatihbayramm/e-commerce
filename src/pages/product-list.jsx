@@ -82,15 +82,11 @@ function ProductList({ products }) {
   };
 
   const handleCategory = (event) => {
-    setCategoryId(event.target.value);
+    const selectedCategoryId = event.target.value;
+    setCategoryId(selectedCategoryId);
+    setSearchParams({ categoryId: selectedCategoryId });
+    dispatch(categorizeProducts({ categoryId: selectedCategoryId }));
   };
-
-  useEffect(() => {
-    console.log(categoryId); // categoryId güncellendiğinde log basılır
-    // dispatch(categorizeProducts({ categoryId }));
-    setSearchParams({ categoryId });
-    dispatch(categorizeProducts({ categoryId }));
-  }, [categoryId]);
 
   const displayedProducts =
     searchedProducts && searchedProducts.length > 0
@@ -165,9 +161,6 @@ function ProductList({ products }) {
                         label="Category"
                         onChange={handleCategory}
                       >
-                        <MenuItem value="">
-                          <em>Choose Category</em>
-                        </MenuItem>
                         <MenuItem value={1}>Tech</MenuItem>
                         <MenuItem value={2}>Clothes</MenuItem>
                         <MenuItem value={3}>Kitchen</MenuItem>
