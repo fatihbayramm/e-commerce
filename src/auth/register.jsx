@@ -1,6 +1,6 @@
 import "../css/register.css";
 import { useFormik } from "formik";
-import { registerFormSchemas } from "./schemas/registerFormSchemas";
+import { registerFormSchemas } from "./schemas/register-form-schemas";
 import Container from "@mui/material/Container";
 import Header from "../components/header";
 import Footer from "../components/footer";
