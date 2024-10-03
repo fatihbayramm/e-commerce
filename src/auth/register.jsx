@@ -5,6 +5,7 @@ import Container from "@mui/material/Container";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 function Register() {
   const submit = (values, action) => {
@@ -24,6 +25,27 @@ function Register() {
     validationSchema: registerFormSchemas,
     onSubmit: submit,
   });
+
+  const [passwordCheckbox, setPasswordCheckbox] = useState(false);
+  const [confirmPasswordCheckbox, setConfirmPasswordCheckbox] = useState(false);
+
+  const handlePasswordCheckbox = () => {
+    setPasswordCheckbox(!passwordCheckbox);
+    if (passwordCheckbox) {
+      document.querySelector("#rgs-password").type = "password";
+    } else {
+      document.querySelector("#rgs-password").type = "text";
+    }
+  };
+
+  const handleConfirmPasswordCheckbox = () => {
+    setConfirmPasswordCheckbox(!confirmPasswordCheckbox);
+    if (confirmPasswordCheckbox) {
+      document.querySelector("#rgs-confirmPassword").type = "password";
+    } else {
+      document.querySelector("#rgs-confirmPassword").type = "text";
+    }
+  };
   return (
     <div>
       <Header />
@@ -34,6 +56,7 @@ function Register() {
             <input
               type="text"
               id="rgs-firstName"
+              className="rgs-input"
               name="firstName"
               placeholder="Enter Firstname"
               value={values.firstName}
@@ -42,13 +65,14 @@ function Register() {
             {errors.firstName ? (
               <div className="input-error show">{errors.firstName}</div>
             ) : (
-              <div className="input-error">{errors.firstName}</div>
+              <div className="input-error"></div>
             )}
           </div>
           <div className="rgs-input-box">
             <input
               type="text"
               id="rgs-lastName"
+              className="rgs-input"
               name="lastName"
               placeholder="Enter Lastname"
               value={values.lastName}
@@ -57,13 +81,14 @@ function Register() {
             {errors.lastName ? (
               <div className="input-error show">{errors.lastName}</div>
             ) : (
-              <div className="input-error">{errors.lastName}</div>
+              <div className="input-error"></div>
             )}
           </div>
           <div className="rgs-input-box">
             <input
               type="text"
               id="rgs-email"
+              className="rgs-input"
               name="email"
               placeholder="Enter E-mail"
               value={values.email}
@@ -72,37 +97,70 @@ function Register() {
             {errors.email ? (
               <div className="input-error show">{errors.email}</div>
             ) : (
-              <div className="input-error">{errors.email}</div>
+              <div className="input-error"></div>
             )}{" "}
           </div>
           <div className="rgs-input-box">
             <input
               type="password"
               id="rgs-password"
+              className="rgs-input"
               name="password"
               placeholder="Enter Password"
               value={values.password}
               onChange={handleChange}
             />
+            <div className="show-password-box">
+              <input
+                type="checkbox"
+                id="show-password-checkbox"
+                className="show-password"
+                onChange={handlePasswordCheckbox}
+              />
+
+              <label
+                htmlFor="show-password-checkbox"
+                className="password-label"
+              >
+                Show Password
+              </label>
+            </div>
             {errors.password ? (
               <div className="input-error show">{errors.password}</div>
             ) : (
-              <div className="input-error">{errors.password}</div>
+              <div className="input-error"></div>
             )}
           </div>
           <div className="rgs-input-box">
             <input
               type="password"
               id="rgs-confirmPassword"
+              className="rgs-input"
               name="confirmPassword"
               placeholder="Enter Password Confirmation"
               value={values.confirmPassword}
               onChange={handleChange}
             />
+
+            <div className="show-password-box">
+              <input
+                type="checkbox"
+                id="show-confirmPassword-checkbox"
+                className="show-password"
+                onChange={handleConfirmPasswordCheckbox}
+              />
+
+              <label
+                htmlFor="show-confirmPassword-checkbox"
+                className="password-label"
+              >
+                Show Password
+              </label>
+            </div>
             {errors.confirmPassword ? (
               <div className="input-error show">{errors.confirmPassword}</div>
             ) : (
-              <div className="input-error">{errors.confirmPassword}</div>
+              <div className="input-error"></div>
             )}
           </div>
           <button type="submit" className="rgs-btn">
