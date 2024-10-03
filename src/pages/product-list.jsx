@@ -8,10 +8,7 @@ import { MdOutlineFilterList } from "react-icons/md";
 import { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  filterProducts,
-  categorizeProducts,
-} from "../redux/slices/product-slice";
+import { filterProducts } from "../redux/slices/product-slice";
 import Button from "@mui/material/Button";
 import { IoSearchOutline } from "react-icons/io5";
 import { useLocation, useSearchParams } from "react-router-dom";
@@ -23,49 +20,75 @@ import Select from "@mui/material/Select";
 
 function ProductList({ products }) {
   const location = useLocation();
-  const { searchedProducts } = location.state || {};
-
-  const dispatch = useDispatch();
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const priceMinFromUrl = searchParams.get("priceMin") || 0;
-  const priceMaxFromUrl = searchParams.get("priceMax") || 0;
-
-  const [priceMin, setPriceMin] = useState(priceMinFromUrl);
-  const [priceMax, setPriceMax] = useState(priceMaxFromUrl);
 
   const [toggleFilter, setToggleFilter] = useState(false);
 
+  const { searchedProducts } = location.state || {};
   const { filteredProducts } = useSelector((store) => store.product);
 
+  const dispatch = useDispatch();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const priceMinFromUrl = searchParams.get("priceMin") || "";
+  const priceMaxFromUrl = searchParams.get("priceMax") || "";
   const categoryFromUrl = searchParams.get("category") || "";
+
+  const [priceMin, setPriceMin] = useState(priceMinFromUrl);
+  const [priceMax, setPriceMax] = useState(priceMaxFromUrl);
   const [categoryId, setCategoryId] = useState(categoryFromUrl);
 
-  const { categorizedProducts } = useSelector((store) => store.product);
+  const getFilteredProducts = (event) => {
+    setCategoryId(event.target.value);
 
-  // TODO: category filtresi ekle.
-  // TODO: Filtrelerde category yapabilirsin. 4 tane kategori var her birine bastiginda o kategoriye ait url e istek atar ve
-  // TODO: o kategoriye sahip ürünler liste sayfasında listelenir.
+    setSearchParams({ categoryId });
+    dispatch(filterProducts({ categoryId: categoryId }));
 
-  const getFilteredProducts = () => {
-    if (priceMin > 0 || priceMax > 0) {
-      setSearchParams({ priceMin, priceMax });
-      dispatch(filterProducts({ min: priceMin, max: priceMax }));
-    }
+    setSearchParams({
+      priceMin,
+      priceMax,
+    });
+    dispatch(filterProducts({ min: priceMin, max: priceMax }));
+
+    setSearchParams({
+      priceMin,
+      priceMax,
+      categoryId,
+    });
+    dispatch(
+      filterProducts({ min: priceMin, max: priceMax, categoryId: categoryId })
+    );
   };
+
+  // butun filterlari dict de topla string e cevir query olarak gonder.
+  // her birini ayri validate et. bagimliliklari kopar.
 
   const clearFilters = () => {
     setPriceMin("");
     setPriceMax("");
+    setCategoryId("");
     setSearchParams({});
     dispatch(filterProducts({ min: "", max: "" }));
   };
 
   useEffect(() => {
-    if (priceMinFromUrl > 0 || priceMaxFromUrl > 0) {
-      dispatch(filterProducts({ min: priceMinFromUrl, max: priceMaxFromUrl }));
+    if ((priceMinFromUrl > 0 || priceMaxFromUrl > 0) && categoryFromUrl) {
+      dispatch(
+        filterProducts({
+          min: priceMinFromUrl,
+          max: priceMaxFromUrl,
+          categoryId: categoryFromUrl,
+        })
+      );
     }
-  }, [priceMinFromUrl, priceMaxFromUrl, dispatch]);
+  }, [priceMinFromUrl, priceMaxFromUrl, categoryFromUrl, dispatch]);
+
+  const handleCategoryChange = (e) => {
+    const value = e.target.value;
+    if (value === "" || Number(value) >= 0) {
+      setCategoryId(value);
+    }
+  };
 
   const handlePriceMinChange = (e) => {
     const value = e.target.value;
@@ -81,20 +104,11 @@ function ProductList({ products }) {
     }
   };
 
-  const handleCategory = (event) => {
-    const selectedCategoryId = event.target.value;
-    setCategoryId(selectedCategoryId);
-    setSearchParams({ categoryId: selectedCategoryId });
-    dispatch(categorizeProducts({ categoryId: selectedCategoryId }));
-  };
-
   const displayedProducts =
     searchedProducts && searchedProducts.length > 0
       ? searchedProducts
       : filteredProducts && filteredProducts.length > 0
       ? filteredProducts
-      : categorizedProducts && categorizedProducts.length > 0
-      ? categorizedProducts
       : products;
 
   return (
@@ -137,6 +151,24 @@ function ProductList({ products }) {
                     type="number"
                     size="small"
                   />
+
+                  <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                    <InputLabel id="demo-select-small-label">
+                      Category
+                    </InputLabel>
+                    <Select
+                      labelId="demo-select-small-label"
+                      id="demo-select-small"
+                      value={categoryId}
+                      label="Category"
+                      onChange={handleCategoryChange}
+                    >
+                      <MenuItem value={1}>Tech</MenuItem>
+                      <MenuItem value={2}>Clothes</MenuItem>
+                      <MenuItem value={3}>Kitchen</MenuItem>
+                      <MenuItem value={4}>School</MenuItem>
+                    </Select>
+                  </FormControl>
                   <Button
                     color="black"
                     variant="text"
@@ -149,28 +181,10 @@ function ProductList({ products }) {
 
                 <div>
                   <div className="filter-title">Browse by category</div>
-                  <div>
-                    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-                      <InputLabel id="demo-select-small-label">
-                        Category
-                      </InputLabel>
-                      <Select
-                        labelId="demo-select-small-label"
-                        id="demo-select-small"
-                        value={categoryId}
-                        label="Category"
-                        onChange={handleCategory}
-                      >
-                        <MenuItem value={1}>Tech</MenuItem>
-                        <MenuItem value={2}>Clothes</MenuItem>
-                        <MenuItem value={3}>Kitchen</MenuItem>
-                        <MenuItem value={4}>School</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </div>
+                  <div></div>
                 </div>
 
-                {priceMinFromUrl !== 0 ? (
+                {priceMinFromUrl ? (
                   <div className="clear-filters-btn">
                     <button onClick={clearFilters}>
                       <div>Filtreleri Temizle</div>

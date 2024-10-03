@@ -4,7 +4,6 @@ import axios from "axios";
 const initialState = {
   products: [],
   filteredProducts: [],
-  categorizedProducts: [],
   searchedProducts: [],
   loading: false,
   error: null,
@@ -21,23 +20,11 @@ export const getAllProducts = createAsyncThunk("getAllProducts", async () => {
 
 export const filterProducts = createAsyncThunk(
   "filterProducts",
-  async ({ min, max }) => {
+  async ({ min = "", max = "", categoryId = "" }) => {
     try {
       const response = await axios.get(
-        `/api/products/?price_min=${min}&price_max=${max}`
+        `/api/products/?price_min=${min}&price_max=${max}&category=${categoryId}`
       );
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data.message || "An error occurred");
-    }
-  }
-);
-
-export const categorizeProducts = createAsyncThunk(
-  "categorizeProducts",
-  async ({ categoryId }) => {
-    try {
-      const response = await axios.get(`/api/products/?category=${categoryId}`);
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data.message || "An error occurred");
@@ -87,20 +74,6 @@ export const productSlice = createSlice({
     });
 
     builder.addCase(filterProducts.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
-    });
-
-    builder.addCase(categorizeProducts.pending, (state) => {
-      state.loading = true;
-    });
-
-    builder.addCase(categorizeProducts.fulfilled, (state, action) => {
-      state.loading = false;
-      state.categorizedProducts = action.payload;
-    });
-
-    builder.addCase(categorizeProducts.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
     });
