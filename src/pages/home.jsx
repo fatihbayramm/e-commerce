@@ -12,8 +12,8 @@ function Home() {
         <Header />
         <Loading />
         <GetProducts />
-        <Footer />
       </Container>
+      <Footer />
     </div>
   );
 }

@@ -7,10 +7,9 @@ export const registerFormSchemas = yup.object().shape({
   password: yup
     .string()
     .min(6, "Password must be at least 6 characters long.")
-    .required("Sifre tekrari alani zorunludur."),
+    .required("Password field is required."),
   confirmPassword: yup
     .string()
-    .min(6, "Password must be at least 6 characters long.")
-    .required("Lutfen kutucugu onaylayiniz.")
-    .oneOf([yup.ref("password", yup.password)], "Sifreler eslesmiyor"),
+    .required("Confirm Password field is required.")
+    .oneOf([yup.ref("password")], "Passwords do not match."),
 });
