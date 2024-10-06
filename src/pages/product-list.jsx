@@ -17,6 +17,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import $U from "../config/urls";
 
 function ProductList({ products }) {
   const location = useLocation();
@@ -206,7 +207,7 @@ function ProductList({ products }) {
           {displayedProducts &&
             displayedProducts.map((product) => (
               <Link
-                to={`/product-detail/${product.id}`}
+                to={`${$U.PRODUCT_DETAIL}${product.id}`}
                 key={product.id}
                 className="product-card"
                 state={{ product }}

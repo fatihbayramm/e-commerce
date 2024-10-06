@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import $U from "../../../config/urls";
 
 const initialState = {
   products: [],
@@ -11,7 +12,7 @@ const initialState = {
 
 export const getAllProducts = createAsyncThunk("getAllProducts", async () => {
   try {
-    const response = await axios.get("/api/products/");
+    const response = await axios.get($U.PRODUCTS);
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data.message || "An error occurred");
@@ -23,7 +24,7 @@ export const filterProducts = createAsyncThunk(
   async ({ min = "", max = "", categoryId = "" }) => {
     try {
       const response = await axios.get(
-        `/api/products/?price_min=${min}&price_max=${max}&category=${categoryId}`
+        `${$U.PRODUCTS}?price_min=${min}&price_max=${max}&category=${categoryId}`
       );
       return response.data;
     } catch (error) {
@@ -36,7 +37,7 @@ export const searchProducts = createAsyncThunk(
   "searchProducts",
   async ({ query }) => {
     try {
-      const response = await axios.get(`/api/products/?query=${query}`);
+      const response = await axios.get(`${$U.PRODUCTS}?query=${query}`);
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data.message || "An error occurred");

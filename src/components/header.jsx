@@ -18,6 +18,7 @@ import Menu from "@mui/material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import $U from "../config/urls";
 
 // TODO: header mobile modda duzgun gozukmuyor.
 
@@ -71,7 +72,7 @@ export default function Header() {
   const { searchedProducts } = useSelector((store) => store.product);
 
   const handleLogoClick = () => {
-    window.location.assign = "/";
+    window.location.assign = $U.HOME;
   };
 
   useEffect(() => {
@@ -87,7 +88,7 @@ export default function Header() {
           state: { searchedProducts },
         });
       } else {
-        navigate("/");
+        navigate($U.HOME);
       }
     }
   }, [query, initialQuery, navigate]);
