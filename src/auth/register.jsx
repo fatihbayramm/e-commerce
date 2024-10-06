@@ -63,7 +63,7 @@ function Register() {
     <div>
       <Header />
       {isAuthenticated ? (
-        <h1>You are already logged in.</h1>
+        <h1>You are already registered.</h1>
       ) : (
         <Container maxWidth="xl" className="rgs-container">
           <form onSubmit={handleSubmit} className="rgs-form">

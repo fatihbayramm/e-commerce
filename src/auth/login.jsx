@@ -6,8 +6,15 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../redux/slices/auth/auth-actions";
 
 function Login() {
+  const dispatch = useDispatch();
+  const { loading, error, isAuthenticated } = useSelector(
+    (store) => store.auth
+  );
+
   const submit = (values, action) => {
     setTimeout(() => {
       action.resetForm();
@@ -34,74 +41,83 @@ function Login() {
     }
   };
 
+  const handleLogin = () => {
+    dispatch(login({ ...values }));
+  };
+
   return (
     <div>
       <Header />
-      <Container maxWidth="xl" className="login-container">
-        <form onSubmit={handleSubmit} className="login-form">
-          <h1>Login</h1>
+      {isAuthenticated ? (
+        <h1>You are already logged in.</h1>
+      ) : (
+        <Container maxWidth="xl" className="login-container">
+          <form onSubmit={handleSubmit} className="login-form">
+            <h1>Login</h1>
 
-          <div className="login-input-box">
-            <input
-              type="text"
-              id="login-email"
-              className="login-input"
-              name="email"
-              placeholder="Enter E-mail"
-              value={values.email}
-              onChange={handleChange}
-            />
-            {errors.email ? (
-              <div className="input-error show">{errors.email}</div>
-            ) : (
-              <div className="input-error"></div>
-            )}{" "}
-          </div>
-          <div className="login-input-box">
-            <input
-              type="password"
-              id="login-password"
-              className="login-input"
-              name="password"
-              placeholder="Enter Password"
-              value={values.password}
-              onChange={handleChange}
-            />
-            <div className="show-password-box">
+            <div className="login-input-box">
               <input
-                type="checkbox"
-                id="show-password-checkbox"
-                className="show-password"
-                onChange={handlePasswordCheckbox}
+                type="text"
+                id="login-email"
+                className="login-input"
+                name="email"
+                placeholder="Enter E-mail"
+                value={values.email}
+                onChange={handleChange}
               />
-
-              <label
-                htmlFor="show-password-checkbox"
-                className="password-label"
-              >
-                Show Password
-              </label>
+              {errors.email ? (
+                <div className="input-error show">{errors.email}</div>
+              ) : (
+                <div className="input-error"></div>
+              )}{" "}
             </div>
-            {errors.password ? (
-              <div className="input-error show">{errors.password}</div>
-            ) : (
-              <div className="input-error"></div>
-            )}
-          </div>
+            <div className="login-input-box">
+              <input
+                type="password"
+                id="login-password"
+                className="login-input"
+                name="password"
+                placeholder="Enter Password"
+                value={values.password}
+                onChange={handleChange}
+              />
+              <div className="show-password-box">
+                <input
+                  type="checkbox"
+                  id="show-password-checkbox"
+                  className="show-password"
+                  onChange={handlePasswordCheckbox}
+                />
 
-          <button type="submit" className="login-btn">
-            Login
-          </button>
-          <p className="login-rgs-router">
-            Do not have an account yet?{" "}
-            <Link to="/register">
-              {" "}
-              <span>Register</span>
-            </Link>
-            .
-          </p>
-        </form>
-      </Container>
+                <label
+                  htmlFor="show-password-checkbox"
+                  className="password-label"
+                >
+                  Show Password
+                </label>
+              </div>
+              {errors.password ? (
+                <div className="input-error show">{errors.password}</div>
+              ) : (
+                <div className="input-error"></div>
+              )}
+            </div>
+
+            <button type="submit" className="login-btn" onClick={handleLogin}>
+              {loading ? "Logging in ..." : "Login"}
+            </button>
+            <p className="login-rgs-router">
+              Do not have an account yet?{" "}
+              <Link to="/register">
+                {" "}
+                <span>Register</span>
+              </Link>
+              .
+            </p>
+          </form>
+        </Container>
+      )}
+
       <Footer />
     </div>
   );

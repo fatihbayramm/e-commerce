@@ -31,6 +31,7 @@ export const login = (credentials) => async (dispatch) => {
     const response = await axios.post($U.LOGIN, credentials, {
       headers: { "Content-Type": "application/json" },
     });
+    console.log(response.data);
     dispatch(loginSuccess(response.data));
   } catch (error) {
     dispatch(loginFailure(error.message || "Registration failed."));
