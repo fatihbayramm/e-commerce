@@ -8,7 +8,7 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { searchProducts } from "../redux/slices/product-slice";
+import { searchProducts } from "../redux/slices/product/product-slice";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import "../css/header.css";
 import IconButton from "@mui/material/IconButton";
@@ -137,16 +137,12 @@ export default function Header() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>
-        <Link to="/register" className="auth-router">
-          Register
-        </Link>
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        <Link to="/login" className="auth-router">
-          Login
-        </Link>
-      </MenuItem>
+      <Link to="/register" className="auth-router">
+        <MenuItem onClick={handleMenuClose}>Register</MenuItem>
+      </Link>
+      <Link to="/login" className="auth-router">
+        <MenuItem onClick={handleMenuClose}>Login</MenuItem>
+      </Link>
     </Menu>
   );
 

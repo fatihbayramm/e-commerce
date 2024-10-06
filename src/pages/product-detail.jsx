@@ -8,7 +8,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getAllProducts } from "../redux/slices/product-slice";
+import { getAllProducts } from "../redux/slices/product/product-slice";
 import Container from "@mui/material/Container";
 import Header from "../components/header";
 import Footer from "../components/footer";

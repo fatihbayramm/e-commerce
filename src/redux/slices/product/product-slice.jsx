@@ -50,6 +50,7 @@ export const productSlice = createSlice({
   // TODO: sepet islemlerini reducers kisminda yapabilirsin: addProduct, removeProduct...
   reducers: {},
   extraReducers: (builder) => {
+    // getAllProducts()
     builder.addCase(getAllProducts.pending, (state) => {
       state.loading = true;
     });
@@ -64,6 +65,8 @@ export const productSlice = createSlice({
       state.error = action.error.message;
     });
 
+    // filterProducts()
+
     builder.addCase(filterProducts.pending, (state) => {
       state.loading = true;
     });
@@ -77,6 +80,8 @@ export const productSlice = createSlice({
       state.loading = false;
       state.error = action.error.message;
     });
+
+    // searchProducts()
 
     builder.addCase(searchProducts.pending, (state) => {
       state.loading = true;

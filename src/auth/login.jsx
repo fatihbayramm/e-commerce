@@ -93,10 +93,10 @@ function Login() {
             Login
           </button>
           <p className="login-rgs-router">
-            If you do not have an account, sign up{" "}
+            Do not have an account yet?{" "}
             <Link to="/register">
               {" "}
-              <span>register</span>
+              <span>Register</span>
             </Link>
             .
           </p>
