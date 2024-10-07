@@ -4,16 +4,18 @@ import { registerFormSchemas } from "./schemas/register-form-schemas";
 import Container from "@mui/material/Container";
 import Header from "../components/header";
 import Footer from "../components/footer";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../redux/slices/auth/auth-actions";
+import LoadingAuth from "../components/loading-auth";
 
 function Register() {
   const [passwordCheckbox, setPasswordCheckbox] = useState(false);
   const [confirmPasswordCheckbox, setConfirmPasswordCheckbox] = useState(false);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const { loading, error, isAuthenticated } = useSelector(
     (store) => store.auth
   );
@@ -59,11 +61,19 @@ function Register() {
     dispatch(register({ ...values }));
   };
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
+
   return (
     <div>
       <Header />
+      {loading ? <LoadingAuth /> : ""}
+
       {isAuthenticated ? (
-        <h1>You are already registered.</h1>
+        ""
       ) : (
         <Container maxWidth="xl" className="rgs-container">
           <form onSubmit={handleSubmit} className="rgs-form">

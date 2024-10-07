@@ -157,7 +157,7 @@ function ProductDetail() {
             </div>
           </div>
         ) : (
-          "loading"
+          ""
         )}
       </Container>
       <Footer />

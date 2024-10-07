@@ -121,6 +121,10 @@ export default function Header() {
     handleMobileMenuClose();
   };
 
+  const { loading, error, isAuthenticated } = useSelector(
+    (store) => store.auth
+  );
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -143,6 +147,31 @@ export default function Header() {
       </Link>
       <Link to="/login" className="auth-router">
         <MenuItem onClick={handleMenuClose}>Login</MenuItem>
+      </Link>
+    </Menu>
+  );
+
+  const logoutMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <Link to="#" className="auth-router">
+        <MenuItem onClick={handleMenuClose}>name</MenuItem>
+      </Link>
+      <Link to="/register" className="auth-router">
+        <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
       </Link>
     </Menu>
   );
@@ -181,13 +210,7 @@ export default function Header() {
         <p>Notifications</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
+        <IconButton size="large" color="inherit">
           <AccountCircle />
         </IconButton>
         <p>Profile</p>
@@ -215,7 +238,6 @@ export default function Header() {
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
               value={query}
               onChange={handleInputChange}
             />
@@ -233,9 +255,6 @@ export default function Header() {
           <IconButton
             size="large"
             edge="end"
-            aria-label="account of current user"
-            aria-controls={menuId}
-            aria-haspopup="true"
             onClick={handleProfileMenuOpen}
             color="inherit"
           >
@@ -243,7 +262,7 @@ export default function Header() {
           </IconButton>
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
+      {isAuthenticated ? logoutMenu : renderMobileMenu}
       {renderMenu}
     </Box>
   );

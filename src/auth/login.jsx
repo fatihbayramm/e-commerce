@@ -4,13 +4,17 @@ import { loginFormSchemas } from "./schemas/login-form-schemas";
 import Container from "@mui/material/Container";
 import Header from "../components/header";
 import Footer from "../components/footer";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/slices/auth/auth-actions";
+import LoadingAuth from "../components/loading-auth";
 
 function Login() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [passwordCheckbox, setPasswordCheckbox] = useState(false);
+
   const { loading, error, isAuthenticated } = useSelector(
     (store) => store.auth
   );
@@ -30,8 +34,6 @@ function Login() {
     onSubmit: submit,
   });
 
-  const [passwordCheckbox, setPasswordCheckbox] = useState(false);
-
   const handlePasswordCheckbox = () => {
     setPasswordCheckbox(!passwordCheckbox);
     if (passwordCheckbox) {
@@ -45,11 +47,18 @@ function Login() {
     dispatch(login({ ...values }));
   };
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
+
   return (
     <div>
       <Header />
+      {loading ? <LoadingAuth /> : ""}
       {isAuthenticated ? (
-        <h1>You are already logged in.</h1>
+        ""
       ) : (
         <Container maxWidth="xl" className="login-container">
           <form onSubmit={handleSubmit} className="login-form">
