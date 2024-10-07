@@ -38,7 +38,7 @@ export const login = (credentials) => async (dispatch) => {
 
     const token = response.data.token;
     Cookies.set("authToken", token, { expires: 7 });
-
+    console.log(response.data);
     dispatch(loginSuccess(response.data));
   } catch (error) {
     dispatch(loginFailure(error.message || "Registration failed."));

@@ -19,8 +19,10 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import $U from "../config/urls";
+import { logoutUser } from "../redux/slices/auth/auth-actions";
 
 // TODO: header mobile modda duzgun gozukmuyor.
+// TODO: filterlar activate oldugu durumda logoya basinca filterlarin gitmesi lazim ancak gitmiyor ama searchParams degisiyor coz.
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -72,7 +74,7 @@ export default function Header() {
   const { searchedProducts } = useSelector((store) => store.product);
 
   const handleLogoClick = () => {
-    window.location.assign = $U.HOME;
+    navigate($U.HOME);
   };
 
   useEffect(() => {
@@ -121,9 +123,14 @@ export default function Header() {
     handleMobileMenuClose();
   };
 
-  const { loading, error, isAuthenticated } = useSelector(
+  const { loading, error, isAuthenticated, user } = useSelector(
     (store) => store.auth
   );
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+  };
+  console.log(user);
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -168,10 +175,10 @@ export default function Header() {
       onClose={handleMenuClose}
     >
       <Link to="#" className="auth-router">
-        <MenuItem onClick={handleMenuClose}>name</MenuItem>
+        <MenuItem>username</MenuItem>
       </Link>
-      <Link to="/register" className="auth-router">
-        <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+      <Link to="/register" className="auth-router" onClick={handleLogout}>
+        <MenuItem>Logout</MenuItem>
       </Link>
     </Menu>
   );
@@ -262,8 +269,8 @@ export default function Header() {
           </IconButton>
         </Toolbar>
       </AppBar>
-      {isAuthenticated ? logoutMenu : renderMobileMenu}
-      {renderMenu}
+      {renderMobileMenu}
+      {isAuthenticated ? logoutMenu : renderMenu}
     </Box>
   );
 }
