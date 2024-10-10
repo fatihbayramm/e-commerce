@@ -15,11 +15,11 @@ import Footer from "../components/footer";
 
 function ProductDetail() {
   const { id } = useParams();
-  console.log(id);
+
   const dispatch = useDispatch();
 
   const { products } = useSelector((store) => store.product);
-  console.log(products);
+
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
@@ -30,7 +30,8 @@ function ProductDetail() {
   };
 
   const productDetail = products && products.find((p) => p.id === parseInt(id));
-  console.log(productDetail);
+
+  const handleBasket = () => {};
 
   return (
     <>
@@ -81,7 +82,10 @@ function ProductDetail() {
 
                 <div className="basket-fav-btn">
                   <div className="basket-btn">
-                    <button className="add-to-basket-btn pd-btn">
+                    <button
+                      className="add-to-basket-btn pd-btn"
+                      onClick={handleBasket}
+                    >
                       Add To Basket
                     </button>
                   </div>

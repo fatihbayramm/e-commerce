@@ -20,6 +20,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import $U from "../config/urls";
 import { logoutUser } from "../redux/slices/auth/auth-actions";
+import Cookies from "js-cookie";
 
 // TODO: header mobile modda duzgun gozukmuyor.
 // TODO: filterlar activate oldugu durumda logoya basinca filterlarin gitmesi lazim ancak gitmiyor ama searchParams degisiyor coz.
@@ -123,14 +124,17 @@ export default function Header() {
     handleMobileMenuClose();
   };
 
-  const { loading, error, isAuthenticated, user } = useSelector(
+  let { loading, error, isAuthenticated, user } = useSelector(
     (store) => store.auth
   );
+
+  if (Cookies.get("authToken")) {
+    isAuthenticated = true;
+  }
 
   const handleLogout = () => {
     dispatch(logoutUser());
   };
-  console.log(user);
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -175,7 +179,7 @@ export default function Header() {
       onClose={handleMenuClose}
     >
       <Link to="#" className="auth-router">
-        <MenuItem>username</MenuItem>
+        <MenuItem>My Orders</MenuItem>
       </Link>
       <Link to="/register" className="auth-router" onClick={handleLogout}>
         <MenuItem>Logout</MenuItem>

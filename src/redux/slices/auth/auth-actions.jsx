@@ -2,10 +2,12 @@ import {
   loginRequest,
   loginSuccess,
   loginFailure,
+  loginClear,
   logout,
   registerRequest,
   registerSuccess,
   registerFailure,
+  registerClear,
 } from "./auth-slice";
 import axios from "axios";
 import $U from "../../../config/urls";
@@ -25,6 +27,9 @@ export const register = (userData) => async (dispatch) => {
     dispatch(registerSuccess(response.data));
   } catch (error) {
     dispatch(registerFailure(error.message || "Registration failed."));
+    setTimeout(() => {
+      dispatch(registerClear());
+    }, 2000);
   }
 };
 
@@ -41,10 +46,14 @@ export const login = (credentials) => async (dispatch) => {
     console.log(response.data);
     dispatch(loginSuccess(response.data));
   } catch (error) {
-    dispatch(loginFailure(error.message || "Registration failed."));
+    dispatch(loginFailure(error.message || "Login failed."));
+    setTimeout(() => {
+      dispatch(loginClear());
+    }, 2000);
   }
 };
 
 export const logoutUser = (dispatch) => {
+  Cookies.remove("authToken");
   dispatch(logout());
 };

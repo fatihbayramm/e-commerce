@@ -49,6 +49,7 @@ export const productSlice = createSlice({
   name: "product",
   initialState,
   // TODO: sepet islemlerini reducers kisminda yapabilirsin: addProduct, removeProduct...
+  // TODO: eger herhangi bir istekte 401 alirsan logout et (cookiden token silmek.).
   reducers: {},
   extraReducers: (builder) => {
     // getAllProducts()

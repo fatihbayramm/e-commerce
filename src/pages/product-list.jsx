@@ -20,6 +20,11 @@ import Select from "@mui/material/Select";
 import $U from "../config/urls";
 
 function ProductList({ products }) {
+  //TODO: arama yaptiktan sonra filtreleme calismiyor.
+  //TODO: burada filtreler bos gonderiliyorsa kullaniciya bu alani bos birakamazsiniz uyarisi gonderilebilir.
+  //TODO: max degeri min degerinden kucukse yine kullaniciya uyari gidebilir.
+  //TODO: filtre tasarimi guzellestirilebilir.
+  //TODO: filtreler ayni degerde girilirse kullaniciya uyari versin.
   const location = useLocation();
 
   const [toggleFilter, setToggleFilter] = useState(false);
@@ -128,11 +133,6 @@ function ProductList({ products }) {
             </button>
 
             {toggleFilter ? (
-              //TODO: arama yaptiktan sonra filtreleme calismiyor.
-              //TODO: burada filtreler bos gonderiliyorsa kullaniciya bu alani bos birakamazsiniz uyarisi gonderilebilir.
-              //TODO: max degeri min degerinden kucukse yine kullaniciya uyari gidebilir.
-              //TODO: filtre tasarimi guzellestirilebilir.
-              //TODO: filtreler ayni degerde girilirse kullaniciya uyari versin.
               <div className="filters">
                 <div>
                   <div className="filter-title">Browse by price</div>
