@@ -21,6 +21,8 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import $U from "../config/urls";
 import { logoutUser } from "../redux/slices/auth/auth-actions";
 import Cookies from "js-cookie";
+import { FaShoppingBasket } from "react-icons/fa";
+import Drawer from "@mui/material/Drawer";
 
 // TODO: header mobile modda duzgun gozukmuyor.
 // TODO: filterlar activate oldugu durumda logoya basinca filterlarin gitmesi lazim ancak gitmiyor ama searchParams degisiyor coz.
@@ -66,6 +68,23 @@ export default function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [isBasketOpen, setIsBasketOpen] = useState(false);
+
+  const basket = (
+    <Drawer
+      open={isBasketOpen}
+      onClose={() => setIsBasketOpen(false)}
+      anchor="right"
+    >
+      <Box sx={{ width: "400px", textAlign: "center" }}>
+        <h1>Basket</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, error?
+        </p>
+      </Box>
+    </Drawer>
+  );
 
   // URL'den query parametresini oku ve başlangıç state'i olarak ayarla
   const params = new URLSearchParams(location.search);
@@ -258,9 +277,14 @@ export default function Header() {
               <MailIcon />
             </Badge>
           </IconButton>
-          <IconButton size="large" color="inherit">
+
+          <IconButton
+            size="large"
+            color="inherit"
+            onClick={() => setIsBasketOpen(true)}
+          >
             <Badge color="error">
-              <NotificationsIcon />
+              <FaShoppingBasket size={24} />
             </Badge>
           </IconButton>
           <IconButton
@@ -273,6 +297,7 @@ export default function Header() {
           </IconButton>
         </Toolbar>
       </AppBar>
+      {basket}
       {renderMobileMenu}
       {isAuthenticated ? logoutMenu : renderMenu}
     </Box>
