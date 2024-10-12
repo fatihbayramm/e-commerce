@@ -16,6 +16,7 @@ import { addProductToBasket } from "../redux/slices/basket/basket-slice";
 import Cookies from "js-cookie";
 
 function ProductDetail() {
+  const [quantity, setQuantity] = useState(0);
   const { id } = useParams();
 
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ function ProductDetail() {
 
   const productDetail = products && products.find((p) => p.id === parseInt(id));
 
+  // TODO: butona ilk kez basildiginda sepet bos geliyor 2.den itibaren sepet geliyor postmanda bir urun fazla ilerliyor.
   const handleBasket = (productData) => {
     const token = Cookies.get("authToken");
     console.log(token);
@@ -44,6 +46,18 @@ function ProductDetail() {
       console.log("Token not found. User might not be authenticated.");
     }
   };
+
+  const handleMinusQuantity = () => {
+    if (quantity === 0) return;
+    setQuantity(quantity - 1);
+  };
+
+  const handlePlusQuantity = () => {
+    if (quantity > productDetail.stock - 1) return;
+    setQuantity(quantity + 1);
+  };
+
+  console.log(quantity);
 
   return (
     <>
@@ -84,11 +98,39 @@ function ProductDetail() {
                 </div>
               </div>
               <div className="product-info-main">
-                <div>
+                <div className="product-info-inner">
                   {" "}
-                  <div className="product-price">${productDetail.price}</div>
-                  <div className="product-stock">
-                    Stock count: {productDetail.stock}
+                  <div>
+                    <div className="product-price">${productDetail.price}</div>
+                    <div className="product-stock">
+                      Stock count: {productDetail.stock}
+                    </div>
+                  </div>
+                  <div className="product-number-box">
+                    <div>
+                      <button
+                        className="product-number-btn"
+                        onClick={handleMinusQuantity}
+                      >
+                        -
+                      </button>
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        value={quantity}
+                        readOnly
+                        className="product-number"
+                      ></input>
+                    </div>
+                    <div>
+                      <button
+                        className="product-number-btn"
+                        onClick={handlePlusQuantity}
+                      >
+                        +
+                      </button>
+                    </div>
                   </div>
                 </div>
 
