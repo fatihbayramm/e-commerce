@@ -12,6 +12,8 @@ import { getAllProducts } from "../redux/slices/product/product-slice";
 import Container from "@mui/material/Container";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import { addProductToBasket } from "../redux/slices/basket/basket-slice";
+import Cookies from "js-cookie";
 
 function ProductDetail() {
   const { id } = useParams();
@@ -19,6 +21,7 @@ function ProductDetail() {
   const dispatch = useDispatch();
 
   const { products } = useSelector((store) => store.product);
+  const { basket } = useSelector((store) => store.basket);
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -31,7 +34,16 @@ function ProductDetail() {
 
   const productDetail = products && products.find((p) => p.id === parseInt(id));
 
-  const handleBasket = () => {};
+  const handleBasket = (productData) => {
+    const token = Cookies.get("authToken");
+    console.log(token);
+    if (token) {
+      dispatch(addProductToBasket({ productData, token }));
+      console.log(basket);
+    } else {
+      console.log("Token not found. User might not be authenticated.");
+    }
+  };
 
   return (
     <>
@@ -84,7 +96,9 @@ function ProductDetail() {
                   <div className="basket-btn">
                     <button
                       className="add-to-basket-btn pd-btn"
-                      onClick={handleBasket}
+                      onClick={() =>
+                        handleBasket({ product: productDetail.id, quantity: 1 })
+                      }
                     >
                       Add To Basket
                     </button>

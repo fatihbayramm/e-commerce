@@ -4,4 +4,5 @@ export default {
   LOGIN: "/api/auth/login/",
   PRODUCTS: "/api/products/",
   PRODUCT_DETAIL: "/product-detail/",
+  BASKET: "/api/basket/",
 };
