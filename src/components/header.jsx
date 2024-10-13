@@ -23,6 +23,7 @@ import { logoutUser } from "../redux/slices/auth/auth-actions";
 import Cookies from "js-cookie";
 import { FaShoppingBasket } from "react-icons/fa";
 import Drawer from "@mui/material/Drawer";
+import { getBasket } from "../redux/slices/basket/basket-slice";
 
 // TODO: header mobile modda duzgun gozukmuyor.
 // TODO: filterlar activate oldugu durumda logoya basinca filterlarin gitmesi lazim ancak gitmiyor ama searchParams degisiyor coz.
@@ -71,14 +72,32 @@ export default function Header() {
 
   const [isBasketOpen, setIsBasketOpen] = useState(false);
 
-  const basket = (
+  const { basket } = useSelector((store) => store.basket);
+
+  const token = Cookies.get("authToken");
+
+  const handleBasketDrawer = () => {
+    setIsBasketOpen(true);
+    dispatch(getBasket({ token }));
+  };
+
+  useEffect(() => {
+    if (basket.basket_items) {
+      console.log(basket.basket_items, "basket.basket_items");
+      basket.basket_items.forEach((sepet) => {
+        console.log(sepet.product.name);
+      });
+    }
+  }, [basket.basket_items]);
+
+  const basketDrawer = (
     <Drawer
       open={isBasketOpen}
       onClose={() => setIsBasketOpen(false)}
       anchor="right"
     >
       <Box sx={{ width: "400px", textAlign: "center" }}>
-        <h1>Basket</h1>
+        <h1>My Basket</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, error?
         </p>
@@ -278,11 +297,7 @@ export default function Header() {
             </Badge>
           </IconButton>
 
-          <IconButton
-            size="large"
-            color="inherit"
-            onClick={() => setIsBasketOpen(true)}
-          >
+          <IconButton size="large" color="inherit" onClick={handleBasketDrawer}>
             <Badge color="error">
               <FaShoppingBasket size={24} />
             </Badge>
@@ -297,7 +312,7 @@ export default function Header() {
           </IconButton>
         </Toolbar>
       </AppBar>
-      {basket}
+      {basketDrawer}
       {renderMobileMenu}
       {isAuthenticated ? logoutMenu : renderMenu}
     </Box>

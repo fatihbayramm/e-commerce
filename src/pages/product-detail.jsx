@@ -35,17 +35,16 @@ function ProductDetail() {
 
   const productDetail = products && products.find((p) => p.id === parseInt(id));
 
-  // TODO: butona ilk kez basildiginda sepet bos geliyor 2.den itibaren sepet geliyor postmanda bir urun fazla ilerliyor.
   const handleBasket = (productData) => {
     const token = Cookies.get("authToken");
     console.log(token);
     if (token) {
       dispatch(addProductToBasket({ productData, token }));
-      console.log(basket);
     } else {
       console.log("Token not found. User might not be authenticated.");
     }
   };
+  console.log(basket);
 
   const handleMinusQuantity = () => {
     if (quantity === 0) return;
@@ -56,8 +55,6 @@ function ProductDetail() {
     if (quantity > productDetail.stock - 1) return;
     setQuantity(quantity + 1);
   };
-
-  console.log(quantity);
 
   return (
     <>
@@ -139,7 +136,10 @@ function ProductDetail() {
                     <button
                       className="add-to-basket-btn pd-btn"
                       onClick={() =>
-                        handleBasket({ product: productDetail.id, quantity: 1 })
+                        handleBasket({
+                          product: productDetail.id,
+                          quantity: quantity,
+                        })
                       }
                     >
                       Add To Basket

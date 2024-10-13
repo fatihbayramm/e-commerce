@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import $U from "../../../config/urls";
+import { request } from "../../../components/axios";
 
 const initialState = {
   basket: [],
@@ -8,17 +9,19 @@ const initialState = {
   error: null,
 };
 
-export const displayBasket = createAsyncThunk(
-  "displayBasket",
-  async (userData) => {
-    try {
-      const response = await axios.get($U.BASKET, userData);
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data.message || "An error occurred");
-    }
+export const getBasket = createAsyncThunk("getBasket", async ({ token }) => {
+  try {
+    const response = await axios.get($U.BASKET, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data.message || "An error occurred");
   }
-);
+});
 
 export const addProductToBasket = createAsyncThunk(
   "addProductToBasket",
@@ -70,18 +73,18 @@ export const basketSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // displayBasket()
+    // getBasket()
 
-    builder.addCase(displayBasket.pending, (state) => {
+    builder.addCase(getBasket.pending, (state) => {
       state.loading = true;
     });
 
-    builder.addCase(displayBasket.fulfilled, (state, action) => {
+    builder.addCase(getBasket.fulfilled, (state, action) => {
       state.loading = false;
       state.basket = action.payload;
     });
 
-    builder.addCase(displayBasket.rejected, (state, action) => {
+    builder.addCase(getBasket.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
     });
