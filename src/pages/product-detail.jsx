@@ -71,7 +71,7 @@ function ProductDetail() {
                 <div className="product-category"> Lorem, ipsum dolor.</div>
               </div>
               <div className="product-sku">
-                Product sku: {productDetail.sku}
+                Product code: {productDetail.sku}
               </div>
             </div>
             <div className="product-image">
@@ -91,7 +91,7 @@ function ProductDetail() {
                   <div className="product-category-2"> Lorem, ipsum dolor.</div>
                 </div>
                 <div className="product-sku-2">
-                  Product sku: {productDetail.sku}
+                  Product code: {productDetail.sku}
                 </div>
               </div>
               <div className="product-info-main">

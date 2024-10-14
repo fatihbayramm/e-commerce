@@ -24,6 +24,7 @@ import Cookies from "js-cookie";
 import { FaShoppingBasket } from "react-icons/fa";
 import Drawer from "@mui/material/Drawer";
 import { getBasket } from "../redux/slices/basket/basket-slice";
+import { BsBasket } from "react-icons/bs";
 
 // TODO: header mobile modda duzgun gozukmuyor.
 // TODO: filterlar activate oldugu durumda logoya basinca filterlarin gitmesi lazim ancak gitmiyor ama searchParams degisiyor coz.
@@ -81,15 +82,6 @@ export default function Header() {
     dispatch(getBasket({ token }));
   };
 
-  useEffect(() => {
-    if (basket.basket_items) {
-      console.log(basket.basket_items, "basket.basket_items");
-      basket.basket_items.forEach((sepet) => {
-        console.log(sepet.product.name);
-      });
-    }
-  }, [basket.basket_items]);
-
   const basketDrawer = (
     <Drawer
       open={isBasketOpen}
@@ -97,10 +89,35 @@ export default function Header() {
       anchor="right"
     >
       <Box sx={{ width: "400px", textAlign: "center" }}>
-        <h1>My Basket</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, error?
-        </p>
+        <h1 className="basket-title">My Basket</h1>
+        <div>
+          {basket && basket.basket_items && basket.basket_items.length > 0 ? (
+            basket.basket_items.map((item) => (
+              <div key={item.product.id} className="basket-product-box">
+                <div>
+                  <img
+                    src={`http://localhost:9000${item.product.image}`}
+                    alt="Product image"
+                    className="basket-product-image"
+                  />
+                  {console.log(item.product.image)}
+                </div>
+                <div className="basket-product-info">
+                  <p className="basket-product-name">{item.product.name}</p>
+
+                  <p>{item.product.price}$</p>
+                  <p>Quantity: {item.quantity}</p>
+                  <p>
+                    Price: {item.quantity} x {item.product.price}$ ={" "}
+                    {item.amount}$
+                  </p>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>Your basket is empty.</p>
+          )}
+        </div>
       </Box>
     </Drawer>
   );
