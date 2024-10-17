@@ -2,15 +2,12 @@ import axios from "axios";
 import $U from "../config/urls";
 import Cookies from "js-cookie";
 
-export const request = (requestObject = {}) => {
-  axios.defaults.baseURL = $U.BASE_URL;
-  const token = Cookies.get("authToken");
+const token = Cookies.get("authToken");
 
-  requestObject.headers = {
-    "Content-Type": "application/json",
+export const api = axios.create({
+  baseURL: $U.BASE_URL,
+  headers: {
     Authorization: `Token ${token}`,
-    ...requestObject.headers,
-  };
-
-  return axios(requestObject);
-};
+    "Content-Type": "application/json",
+  },
+});

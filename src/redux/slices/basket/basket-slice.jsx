@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import $U from "../../../config/urls";
-import { request } from "../../../components/axios";
+import { api } from "../../../components/axios";
 
 const initialState = {
   basket: [],
@@ -9,16 +9,13 @@ const initialState = {
   error: null,
 };
 
-export const getBasket = createAsyncThunk("getBasket", async ({ token }) => {
+export const getBasket = createAsyncThunk("getBasket", async () => {
   try {
-    const response = await axios.get($U.BASKET, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${token}`,
-      },
-    });
+    const response = await api.get($U.BASKET);
+    console.log(response.data);
     return response.data;
   } catch (error) {
+    console.log(error);
     throw new Error(error.response?.data.message || "An error occurred");
   }
 });
@@ -27,12 +24,7 @@ export const addProductToBasket = createAsyncThunk(
   "addProductToBasket",
   async ({ productData, token }) => {
     try {
-      const response = await axios.post($U.BASKET, productData, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${token}`,
-        },
-      });
+      const response = await api.post($U.BASKET, productData);
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data.message || "An error occurred");
@@ -42,10 +34,13 @@ export const addProductToBasket = createAsyncThunk(
 
 export const updateProductInBasket = createAsyncThunk(
   "updateProductInBasket",
-  async (productData) => {
+  async ({ productData, token }) => {
     try {
       const response = await axios.put($U.BASKET, productData, {
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+        },
       });
       return response.data;
     } catch (error) {

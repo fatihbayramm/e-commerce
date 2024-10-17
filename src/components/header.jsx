@@ -24,7 +24,8 @@ import Cookies from "js-cookie";
 import { FaShoppingBasket } from "react-icons/fa";
 import Drawer from "@mui/material/Drawer";
 import { getBasket } from "../redux/slices/basket/basket-slice";
-import { BsBasket } from "react-icons/bs";
+import { updateProductInBasket } from "../redux/slices/basket/basket-slice";
+import { IoMdClose } from "react-icons/io";
 
 // TODO: header mobile modda duzgun gozukmuyor.
 // TODO: filterlar activate oldugu durumda logoya basinca filterlarin gitmesi lazim ancak gitmiyor ama searchParams degisiyor coz.
@@ -82,6 +83,19 @@ export default function Header() {
     dispatch(getBasket({ token }));
   };
 
+  const [basketQuantity, setBasketQuantity] = useState(0);
+
+  const handleBasketQuantityMinusBtn = (id, quantity) => {
+    setBasketQuantity(quantity - 1);
+    let productData = { product: id, quantity: basketQuantity };
+
+    dispatch(updateProductInBasket({ productData, token }));
+  };
+
+  const handleBasketQuantityPlusBtn = () => {};
+
+  const deleteProductFromBasket = () => {};
+
   const basketDrawer = (
     <Drawer
       open={isBasketOpen}
@@ -96,20 +110,57 @@ export default function Header() {
               <div key={item.product.id} className="basket-product-box">
                 <div>
                   <img
-                    src={`http://localhost:9000${item.product.image}`}
+                    src={`/media${item.product.image}`}
                     alt="Product image"
                     className="basket-product-image"
                   />
                   {console.log(item.product.image)}
                 </div>
                 <div className="basket-product-info">
-                  <p className="basket-product-name">{item.product.name}</p>
+                  <div className="basket-product-info-header">
+                    <div>
+                      <p className="basket-product-name">{item.product.name}</p>
+                    </div>
+                    <IoMdClose
+                      className="delete-product"
+                      onClick={deleteProductFromBasket}
+                    />
+                  </div>
 
-                  <p>{item.product.price}$</p>
-                  <p>Quantity: {item.quantity}</p>
+                  <p className="basket-product-price">{item.product.price}$</p>
+                  <p>
+                    Quantity:{" "}
+                    <button
+                      className="basket-quantity-btn"
+                      onClick={() =>
+                        handleBasketQuantityMinusBtn(
+                          item.product.id,
+                          item.quantity
+                        )
+                      }
+                    >
+                      -
+                    </button>
+                    <span
+                      readOnly
+                      className="basket-quantity"
+                      value={basketQuantity}
+                    >
+                      {item.quantity}
+                    </span>
+                    <button
+                      className="basket-quantity-btn"
+                      onClick={handleBasketQuantityPlusBtn}
+                    >
+                      +
+                    </button>
+                  </p>
                   <p>
                     Price: {item.quantity} x {item.product.price}$ ={" "}
-                    {item.amount}$
+                    <span className="basket-product-price">
+                      {" "}
+                      {item.amount}$
+                    </span>
                   </p>
                 </div>
               </div>
@@ -117,6 +168,8 @@ export default function Header() {
           ) : (
             <p>Your basket is empty.</p>
           )}
+          <div className="total-price">Total Price: {basket.total_amount}$</div>
+          <button className="basket-buy-btn">Buy</button>
         </div>
       </Box>
     </Drawer>
