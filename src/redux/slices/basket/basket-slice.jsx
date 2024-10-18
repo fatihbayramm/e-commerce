@@ -22,7 +22,7 @@ export const getBasket = createAsyncThunk("getBasket", async () => {
 
 export const addProductToBasket = createAsyncThunk(
   "addProductToBasket",
-  async ({ productData, token }) => {
+  async ({ productData }) => {
     try {
       const response = await api.post($U.BASKET, productData);
       return response.data;
@@ -51,10 +51,11 @@ export const updateProductInBasket = createAsyncThunk(
 
 export const removeProductFromBasket = createAsyncThunk(
   "removeProductFromBasket",
-  async (productId) => {
+  async ({ productId }) => {
     try {
-      const response = await axios.delete($U.BASKET, productId, {
-        headers: { "Content-Type": "application/json" },
+      console.log(productId);
+      const response = await api.delete($U.BASKET, {
+        data: productId,
       });
       return response.data;
     } catch (error) {

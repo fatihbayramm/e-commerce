@@ -60,12 +60,29 @@
   font-weight: bolder;
 }
 
-.delete-product {
+.basket-delete-product {
   cursor: pointer;
+}
+
+.basket-price-box {
+  margin-top: 5px;
 }
 
 .basket-product-price {
   color: #d33918;
+}
+
+.basket-quantity-container {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.basket-quantity-box {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .basket-quantity-btn {
@@ -73,7 +90,7 @@
   border: none;
   cursor: pointer;
   outline: none;
-  font-size: 20px;
+  font-size: 24px;
 }
 
 .basket-buy-btn {

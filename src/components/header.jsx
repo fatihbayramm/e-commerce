@@ -24,11 +24,13 @@ import Cookies from "js-cookie";
 import { FaShoppingBasket } from "react-icons/fa";
 import Drawer from "@mui/material/Drawer";
 import { getBasket } from "../redux/slices/basket/basket-slice";
+import { removeProductFromBasket } from "../redux/slices/basket/basket-slice";
 import { updateProductInBasket } from "../redux/slices/basket/basket-slice";
 import { IoMdClose } from "react-icons/io";
 
 // TODO: header mobile modda duzgun gozukmuyor.
 // TODO: filterlar activate oldugu durumda logoya basinca filterlarin gitmesi lazim ancak gitmiyor ama searchParams degisiyor coz.
+// TODO: Safari de detay sayfasi kaymis ona da bi bak.
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -85,16 +87,13 @@ export default function Header() {
 
   const [basketQuantity, setBasketQuantity] = useState(0);
 
-  const handleBasketQuantityMinusBtn = (id, quantity) => {
-    setBasketQuantity(quantity - 1);
-    let productData = { product: id, quantity: basketQuantity };
-
-    dispatch(updateProductInBasket({ productData, token }));
-  };
+  const handleBasketQuantityMinusBtn = (id, quantity) => {};
 
   const handleBasketQuantityPlusBtn = () => {};
 
-  const deleteProductFromBasket = () => {};
+  const deleteProductFromBasket = (productId) => {
+    dispatch(removeProductFromBasket({ productId }));
+  };
 
   const basketDrawer = (
     <Drawer
@@ -114,7 +113,6 @@ export default function Header() {
                     alt="Product image"
                     className="basket-product-image"
                   />
-                  {console.log(item.product.image)}
                 </div>
                 <div className="basket-product-info">
                   <div className="basket-product-info-header">
@@ -122,40 +120,44 @@ export default function Header() {
                       <p className="basket-product-name">{item.product.name}</p>
                     </div>
                     <IoMdClose
-                      className="delete-product"
-                      onClick={deleteProductFromBasket}
+                      className="basket-delete-product"
+                      onClick={() =>
+                        deleteProductFromBasket({ product: item.product.id })
+                      }
                     />
                   </div>
 
                   <p className="basket-product-price">{item.product.price}$</p>
-                  <p>
-                    Quantity:{" "}
-                    <button
-                      className="basket-quantity-btn"
-                      onClick={() =>
-                        handleBasketQuantityMinusBtn(
-                          item.product.id,
-                          item.quantity
-                        )
-                      }
-                    >
-                      -
-                    </button>
-                    <span
-                      readOnly
-                      className="basket-quantity"
-                      value={basketQuantity}
-                    >
-                      {item.quantity}
-                    </span>
-                    <button
-                      className="basket-quantity-btn"
-                      onClick={handleBasketQuantityPlusBtn}
-                    >
-                      +
-                    </button>
-                  </p>
-                  <p>
+                  <div className="basket-quantity-container">
+                    <div> Quantity: </div>
+                    <div className="basket-quantity-box">
+                      <button
+                        className="basket-quantity-btn"
+                        onClick={() =>
+                          handleBasketQuantityMinusBtn(
+                            item.product.id,
+                            item.quantity
+                          )
+                        }
+                      >
+                        -
+                      </button>
+                      <div
+                        readOnly
+                        className="basket-quantity"
+                        value={basketQuantity}
+                      >
+                        {item.quantity}
+                      </div>
+                      <button
+                        className="basket-quantity-btn"
+                        onClick={handleBasketQuantityPlusBtn}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                  <p className="basket-price-box">
                     Price: {item.quantity} x {item.product.price}$ ={" "}
                     <span className="basket-product-price">
                       {" "}

@@ -39,7 +39,7 @@ function ProductDetail() {
     const token = Cookies.get("authToken");
     console.log(token);
     if (token) {
-      dispatch(addProductToBasket({ productData, token }));
+      dispatch(addProductToBasket({ productData }));
     } else {
       console.log("Token not found. User might not be authenticated.");
     }
