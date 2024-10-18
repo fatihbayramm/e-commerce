@@ -16,13 +16,13 @@
 }
 
 .basket-title {
-  margin-top: 20px;
+  margin-top: 1.25rem;
 }
 
 .basket-product-box {
   display: flex;
-  margin: 30px 5px;
-  padding: 10px;
+  margin: 1.875rem 0.313rem;
+  padding: 0.625rem;
   width: 100%;
 }
 
@@ -35,28 +35,28 @@
 }
 
 .basket-product-image {
-  width: 120px;
-  height: 120px;
+  width: 7.5rem;
+  height: 7.5rem;
 }
 
 .basket-product-info {
   text-align: left;
-  margin-left: 5px;
+  margin-left: 0.313rem;
   width: 100%;
 }
 
 .basket-product-info-header {
   display: flex;
   justify-content: space-between;
-  margin-right: 15px;
+  margin-right: 0.938rem;
 }
 
 .basket-product-info p {
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 .basket-product-name {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: bolder;
 }
 
@@ -65,7 +65,7 @@
 }
 
 .basket-price-box {
-  margin-top: 5px;
+  margin-top: 0.313rem;
 }
 
 .basket-product-price {
@@ -75,7 +75,7 @@
 .basket-quantity-container {
   display: flex;
   align-items: center;
-  gap: 50px;
+  gap: 3.125rem;
 }
 
 .basket-quantity-box {
@@ -90,22 +90,22 @@
   border: none;
   cursor: pointer;
   outline: none;
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 
 .basket-buy-btn {
-  margin-top: 20px;
+  margin-top: 1.25rem;
   background: none;
   outline: none;
   color: #fff;
   background-color: #000;
   font-weight: bolder;
-  font-size: 20px;
+  font-size: 1.25rem;
   cursor: pointer;
-  border-radius: 20px;
-  width: 300px;
-  padding: 10px;
-  border: 1px solid #e7e9ea;
+  border-radius: 1.25rem;
+  width: 18.75rem;
+  padding: 0.625rem;
+  border: 0.063rem solid #e7e9ea;
 }
 
 .basket-buy-btn:hover {

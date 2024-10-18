@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import $U from "../../../config/urls";
 import { api } from "../../../components/axios";
 
@@ -34,14 +33,9 @@ export const addProductToBasket = createAsyncThunk(
 
 export const updateProductInBasket = createAsyncThunk(
   "updateProductInBasket",
-  async ({ productData, token }) => {
+  async ({ productData }) => {
     try {
-      const response = await axios.put($U.BASKET, productData, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${token}`,
-        },
-      });
+      const response = await api.put($U.BASKET, productData);
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data.message || "An error occurred");
@@ -51,11 +45,11 @@ export const updateProductInBasket = createAsyncThunk(
 
 export const removeProductFromBasket = createAsyncThunk(
   "removeProductFromBasket",
-  async ({ productId }) => {
+  async ({ product }) => {
     try {
-      console.log(productId);
+      console.log(product);
       const response = await api.delete($U.BASKET, {
-        data: productId,
+        data: product,
       });
       return response.data;
     } catch (error) {

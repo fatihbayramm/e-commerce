@@ -16,6 +16,7 @@ import { addProductToBasket } from "../redux/slices/basket/basket-slice";
 import Cookies from "js-cookie";
 
 function ProductDetail() {
+  // TODO: mobil modda +, - butonlari bozuluyor. duzelt.
   const [quantity, setQuantity] = useState(0);
   const { id } = useParams();
 

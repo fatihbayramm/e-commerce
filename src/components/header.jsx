@@ -85,14 +85,20 @@ export default function Header() {
     dispatch(getBasket({ token }));
   };
 
-  const [basketQuantity, setBasketQuantity] = useState(0);
+  const handleBasketQuantityMinusBtn = (productData) => {
+    if (productData.quantity === 0) {
+      dispatch(removeProductFromBasket({ product: productData }));
+    } else {
+      dispatch(updateProductInBasket({ productData }));
+    }
+  };
 
-  const handleBasketQuantityMinusBtn = (id, quantity) => {};
+  const handleBasketQuantityPlusBtn = (productData) => {
+    dispatch(updateProductInBasket({ productData }));
+  };
 
-  const handleBasketQuantityPlusBtn = () => {};
-
-  const deleteProductFromBasket = (productId) => {
-    dispatch(removeProductFromBasket({ productId }));
+  const deleteProductFromBasket = (product) => {
+    dispatch(removeProductFromBasket({ product }));
   };
 
   const basketDrawer = (
@@ -106,64 +112,71 @@ export default function Header() {
         <div>
           {basket && basket.basket_items && basket.basket_items.length > 0 ? (
             basket.basket_items.map((item) => (
-              <div key={item.product.id} className="basket-product-box">
-                <div>
-                  <img
-                    src={`/media${item.product.image}`}
-                    alt="Product image"
-                    className="basket-product-image"
-                  />
-                </div>
-                <div className="basket-product-info">
-                  <div className="basket-product-info-header">
-                    <div>
-                      <p className="basket-product-name">{item.product.name}</p>
-                    </div>
-                    <IoMdClose
-                      className="basket-delete-product"
-                      onClick={() =>
-                        deleteProductFromBasket({ product: item.product.id })
-                      }
+              <div key={item.product.id}>
+                <div className="basket-product-box">
+                  <div>
+                    <img
+                      src={`/media${item.product.image}`}
+                      alt="Product image"
+                      className="basket-product-image"
                     />
                   </div>
-
-                  <p className="basket-product-price">{item.product.price}$</p>
-                  <div className="basket-quantity-container">
-                    <div> Quantity: </div>
-                    <div className="basket-quantity-box">
-                      <button
-                        className="basket-quantity-btn"
-                        onClick={() =>
-                          handleBasketQuantityMinusBtn(
-                            item.product.id,
-                            item.quantity
-                          )
-                        }
-                      >
-                        -
-                      </button>
-                      <div
-                        readOnly
-                        className="basket-quantity"
-                        value={basketQuantity}
-                      >
-                        {item.quantity}
+                  <div className="basket-product-info">
+                    <div className="basket-product-info-header">
+                      <div>
+                        <p className="basket-product-name">
+                          {item.product.name}
+                        </p>
                       </div>
-                      <button
-                        className="basket-quantity-btn"
-                        onClick={handleBasketQuantityPlusBtn}
-                      >
-                        +
-                      </button>
+                      <IoMdClose
+                        className="basket-delete-product"
+                        onClick={() =>
+                          deleteProductFromBasket({ product: item.product.id })
+                        }
+                      />
                     </div>
+
+                    <p className="basket-product-price">
+                      {item.product.price}$
+                    </p>
+                    <div className="basket-quantity-container">
+                      <div> Quantity: </div>
+                      <div className="basket-quantity-box">
+                        <button
+                          className="basket-quantity-btn"
+                          onClick={() =>
+                            handleBasketQuantityMinusBtn({
+                              product: item.product.id,
+                              quantity: item.quantity - 1,
+                            })
+                          }
+                        >
+                          -
+                        </button>
+                        <div readOnly className="basket-quantity">
+                          {item.quantity}
+                        </div>
+                        <button
+                          className="basket-quantity-btn"
+                          onClick={() =>
+                            handleBasketQuantityPlusBtn({
+                              product: item.product.id,
+                              quantity: item.quantity + 1,
+                            })
+                          }
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                    <p className="basket-price-box">
+                      Price: {item.quantity} x {item.product.price}$ ={" "}
+                      <span className="basket-product-price">
+                        {" "}
+                        {item.amount}$
+                      </span>
+                    </p>
                   </div>
-                  <p className="basket-price-box">
-                    Price: {item.quantity} x {item.product.price}$ ={" "}
-                    <span className="basket-product-price">
-                      {" "}
-                      {item.amount}$
-                    </span>
-                  </p>
                 </div>
               </div>
             ))
