@@ -5,7 +5,7 @@ import "../css/home.css";
 import GetProducts from "../components/get-products";
 import Loading from "../components/loading";
 import LoadingAuth from "../components/loading-auth";
-import LoadingBasket from "../components/loading-basket";
+import LoadingBasket from "../components/basket/loading-basket";
 
 function Home() {
   return (

@@ -6,6 +6,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
+import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchProducts } from "../redux/slices/product/product-slice";
@@ -20,13 +21,8 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import $U from "../config/urls";
 import { logoutUser } from "../redux/slices/auth/auth-actions";
-import Cookies from "js-cookie";
 import { FaShoppingBasket } from "react-icons/fa";
-import Drawer from "@mui/material/Drawer";
-import { getBasket } from "../redux/slices/basket/basket-slice";
-import { removeProductFromBasket } from "../redux/slices/basket/basket-slice";
-import { updateProductInBasket } from "../redux/slices/basket/basket-slice";
-import { IoMdClose } from "react-icons/io";
+import BasketDrawer from "./basket/basket-drawer";
 
 // TODO: header mobile modda duzgun gozukmuyor.
 // TODO: filterlar activate oldugu durumda logoya basinca filterlarin gitmesi lazim ancak gitmiyor ama searchParams degisiyor coz.
@@ -71,125 +67,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
+  const [toggleDrawer, setToggleDrawer] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-
-  const [isBasketOpen, setIsBasketOpen] = useState(false);
-
-  const { basket } = useSelector((store) => store.basket);
-
-  const token = Cookies.get("authToken");
-
-  const handleBasketDrawer = () => {
-    setIsBasketOpen(true);
-    dispatch(getBasket({ token }));
-  };
-
-  const handleBasketQuantityMinusBtn = (productData) => {
-    if (productData.quantity === 0) {
-      dispatch(removeProductFromBasket({ product: productData }));
-    } else {
-      dispatch(updateProductInBasket({ productData }));
-    }
-  };
-
-  const handleBasketQuantityPlusBtn = (productData) => {
-    dispatch(updateProductInBasket({ productData }));
-  };
-
-  const deleteProductFromBasket = (product) => {
-    dispatch(removeProductFromBasket({ product }));
-  };
-
-  const basketDrawer = (
-    <Drawer
-      open={isBasketOpen}
-      onClose={() => setIsBasketOpen(false)}
-      anchor="right"
-    >
-      <Box sx={{ width: "400px", textAlign: "center" }}>
-        <h1 className="basket-title">My Basket</h1>
-        <div>
-          {basket && basket.basket_items && basket.basket_items.length > 0 ? (
-            basket.basket_items.map((item) => (
-              <div key={item.product.id}>
-                <div className="basket-product-box">
-                  <div>
-                    <img
-                      src={`/media${item.product.image}`}
-                      alt="Product image"
-                      className="basket-product-image"
-                    />
-                  </div>
-                  <div className="basket-product-info">
-                    <div className="basket-product-info-header">
-                      <div>
-                        <p className="basket-product-name">
-                          {item.product.name}
-                        </p>
-                      </div>
-                      <IoMdClose
-                        className="basket-delete-product"
-                        onClick={() =>
-                          deleteProductFromBasket({ product: item.product.id })
-                        }
-                      />
-                    </div>
-
-                    <p className="basket-product-price">
-                      {item.product.price}$
-                    </p>
-                    <div className="basket-quantity-container">
-                      <div> Quantity: </div>
-                      <div className="basket-quantity-box">
-                        <button
-                          className="basket-quantity-btn"
-                          onClick={() =>
-                            handleBasketQuantityMinusBtn({
-                              product: item.product.id,
-                              quantity: item.quantity - 1,
-                            })
-                          }
-                        >
-                          -
-                        </button>
-                        <div readOnly className="basket-quantity">
-                          {item.quantity}
-                        </div>
-                        <button
-                          className="basket-quantity-btn"
-                          onClick={() =>
-                            handleBasketQuantityPlusBtn({
-                              product: item.product.id,
-                              quantity: item.quantity + 1,
-                            })
-                          }
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                    <p className="basket-price-box">
-                      Price: {item.quantity} x {item.product.price}$ ={" "}
-                      <span className="basket-product-price">
-                        {" "}
-                        {item.amount}$
-                      </span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p>Your basket is empty.</p>
-          )}
-          <div className="total-price">Total Price: {basket.total_amount}$</div>
-          <button className="basket-buy-btn">Buy</button>
-        </div>
-      </Box>
-    </Drawer>
-  );
 
   // URL'den query parametresini oku ve başlangıç state'i olarak ayarla
   const params = new URLSearchParams(location.search);
@@ -381,7 +263,11 @@ export default function Header() {
             </Badge>
           </IconButton>
 
-          <IconButton size="large" color="inherit" onClick={handleBasketDrawer}>
+          <IconButton
+            size="large"
+            color="inherit"
+            onClick={() => setToggleDrawer(true)}
+          >
             <Badge color="error">
               <FaShoppingBasket size={24} />
             </Badge>
@@ -396,7 +282,10 @@ export default function Header() {
           </IconButton>
         </Toolbar>
       </AppBar>
-      {basketDrawer}
+      <BasketDrawer
+        toggleDrawer={toggleDrawer}
+        setToggleDrawer={setToggleDrawer}
+      />
       {renderMobileMenu}
       {isAuthenticated ? logoutMenu : renderMenu}
     </Box>
