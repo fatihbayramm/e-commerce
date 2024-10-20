@@ -8,11 +8,11 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getAllProducts } from "../redux/slices/product/product-slice";
+import { getAllProducts } from "../redux/slices/product/product-actions";
 import Container from "@mui/material/Container";
 import Header from "../components/header";
 import Footer from "../components/footer";
-import { addProductToBasket } from "../redux/slices/basket/basket-slice";
+import { addProductToBasket } from "../redux/slices/basket/basket-actions";
 import Cookies from "js-cookie";
 
 function ProductDetail() {
@@ -23,7 +23,6 @@ function ProductDetail() {
   const dispatch = useDispatch();
 
   const { products } = useSelector((store) => store.product);
-  const { basket } = useSelector((store) => store.basket);
 
   useEffect(() => {
     dispatch(getAllProducts());

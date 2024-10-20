@@ -8,7 +8,7 @@ import { MdOutlineFilterList } from "react-icons/md";
 import { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import { useDispatch, useSelector } from "react-redux";
-import { filterProducts } from "../redux/slices/product/product-slice";
+import { filterProducts } from "../redux/slices/product/product-actions";
 import Button from "@mui/material/Button";
 import { IoSearchOutline } from "react-icons/io5";
 import { useLocation, useSearchParams } from "react-router-dom";

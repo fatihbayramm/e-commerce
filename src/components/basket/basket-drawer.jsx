@@ -4,9 +4,9 @@ import Box from "@mui/material/Box";
 import LoadingBasket from "./loading-basket";
 import { IoMdClose } from "react-icons/io";
 import { useSelector, useDispatch } from "react-redux";
-import { getBasket } from "../../redux/slices/basket/basket-slice";
-import { updateProductInBasket } from "../../redux/slices/basket/basket-slice";
-import { removeProductFromBasket } from "../../redux/slices/basket/basket-slice";
+import { getBasket } from "../../redux/slices/basket/basket-actions";
+import { updateProductInBasket } from "../../redux/slices/basket/basket-actions";
+import { removeProductFromBasket } from "../../redux/slices/basket/basket-actions";
 import { useEffect } from "react";
 import BasketError from "../../errors/basket-error";
 
@@ -128,7 +128,7 @@ function BasketDrawer({ toggleDrawer, setToggleDrawer }) {
           <button className="basket-buy-btn">Buy</button>
         </div>
       </Box>
-      {error && <BasketError error={error} basket={basket} />}
+      {error && <BasketError error={error} basket={basket.basket_items} />}
     </Drawer>
   );
 }

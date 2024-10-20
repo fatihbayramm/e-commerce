@@ -9,7 +9,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { searchProducts } from "../redux/slices/product/product-slice";
+import { searchProducts } from "../redux/slices/product/product-actions";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import "../css/header.css";
 import IconButton from "@mui/material/IconButton";
@@ -185,7 +185,7 @@ export default function Header() {
       <Link to="#" className="auth-router">
         <MenuItem>My Orders</MenuItem>
       </Link>
-      <Link to="/register" className="auth-router" onClick={handleLogout}>
+      <Link to="/login" className="auth-router" onClick={handleLogout}>
         <MenuItem>Logout</MenuItem>
       </Link>
     </Menu>
