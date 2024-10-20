@@ -1,15 +1,15 @@
-import "../css/register.css";
+import "../../css/register.css";
 import { useFormik } from "formik";
 import { registerFormSchemas } from "./schemas/register-form-schemas";
 import Container from "@mui/material/Container";
-import Header from "../components/header";
-import Footer from "../components/footer";
+import Header from "../../components/header";
+import Footer from "../../components/footer";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { register } from "../redux/slices/auth/auth-actions";
-import LoadingAuth from "../components/loading-auth";
-import RegisterError from "../errors/register-error";
+import { register } from "../../redux/slices/auth/auth-actions";
+import LoadingAuth from "../../components/loading-auth";
+import RegisterError from "../../errors/register-error";
 
 function Register() {
   const [passwordCheckbox, setPasswordCheckbox] = useState(false);
@@ -58,7 +58,6 @@ function Register() {
   };
 
   const handleRegister = () => {
-    console.log(values);
     dispatch(register({ ...values }));
   };
 

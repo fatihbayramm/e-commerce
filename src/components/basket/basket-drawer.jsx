@@ -128,7 +128,7 @@ function BasketDrawer({ toggleDrawer, setToggleDrawer }) {
           <button className="basket-buy-btn">Buy</button>
         </div>
       </Box>
-      {error && <BasketError error={error} />}
+      {error && <BasketError error={error} basket={basket} />}
     </Drawer>
   );
 }
