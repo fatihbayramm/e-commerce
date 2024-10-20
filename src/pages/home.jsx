@@ -5,14 +5,12 @@ import "../css/home.css";
 import GetProducts from "../components/get-products";
 import Loading from "../components/loading";
 import LoadingAuth from "../components/loading-auth";
-import LoadingBasket from "../components/basket/loading-basket";
 
 function Home() {
   return (
     <div className="home">
       <Container maxWidth="xl" style={{ fontFamily: "Arial" }}>
         <LoadingAuth />
-        <LoadingBasket />
         <Header />
         <Loading />
         <GetProducts />

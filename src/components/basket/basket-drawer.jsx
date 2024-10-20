@@ -1,25 +1,25 @@
 import Drawer from "@mui/material/Drawer";
 import Cookies from "js-cookie";
 import Box from "@mui/material/Box";
+import LoadingBasket from "./loading-basket";
 import { IoMdClose } from "react-icons/io";
-import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getBasket } from "../../redux/slices/basket/basket-slice";
 import { updateProductInBasket } from "../../redux/slices/basket/basket-slice";
 import { removeProductFromBasket } from "../../redux/slices/basket/basket-slice";
+import { useEffect } from "react";
+import BasketError from "../../errors/basket-error";
 
 function BasketDrawer({ toggleDrawer, setToggleDrawer }) {
-  const { basket } = useSelector((store) => store.basket);
+  const { basket, loading, error } = useSelector((store) => store.basket);
   const dispatch = useDispatch();
   const token = Cookies.get("authToken");
 
-  const handleBasketDrawer = (toggleDrawer) => {
+  useEffect(() => {
     if (toggleDrawer) {
       dispatch(getBasket({ token }));
     }
-  };
-
-  handleBasketDrawer();
+  }, [toggleDrawer, dispatch, token]);
 
   const handleBasketQuantityMinusBtn = (productData) => {
     if (productData.quantity === 0) {
@@ -46,6 +46,9 @@ function BasketDrawer({ toggleDrawer, setToggleDrawer }) {
       <Box sx={{ width: "400px", textAlign: "center" }}>
         <h1 className="basket-title">My Basket</h1>
         <div>
+          {basket && basket.basket_items && loading && (
+            <LoadingBasket loading={loading} />
+          )}
           {basket && basket.basket_items && basket.basket_items.length > 0 ? (
             basket.basket_items.map((item) => (
               <div key={item.product.id}>
@@ -125,6 +128,7 @@ function BasketDrawer({ toggleDrawer, setToggleDrawer }) {
           <button className="basket-buy-btn">Buy</button>
         </div>
       </Box>
+      {error && <BasketError error={error} />}
     </Drawer>
   );
 }

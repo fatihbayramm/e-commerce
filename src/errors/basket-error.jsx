@@ -2,10 +2,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 
-function NotificationLogin({ error }) {
+function BasketError({ error }) {
   useEffect(() => {
     if (error) {
-      toast.error("Login failed. Email or password is incorrect.");
+      toast.error(error);
     }
   }, [error]);
 
@@ -16,4 +16,4 @@ function NotificationLogin({ error }) {
   );
 }
 
-export default NotificationLogin;
+export default BasketError;

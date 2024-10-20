@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/slices/auth/auth-actions";
 import LoadingAuth from "../components/loading-auth";
-import NotificationLogin from "./notification-login";
+import LoginError from "../errors/login-error";
 
 function Login() {
   const dispatch = useDispatch();
@@ -125,7 +125,7 @@ function Login() {
               </Link>
               .
             </p>
-            <NotificationLogin error={error} />
+            <LoginError error={error} />
           </form>
         </Container>
       )}
