@@ -3,7 +3,7 @@ export default {
   BASE_URL: "/api/",
   REGISTER: "/api/auth/register/",
   LOGIN: "/api/auth/login/",
-  PRODUCTS: "/api/products/",
+  PRODUCTS: "/products/",
   PRODUCT_DETAIL: "/product-detail/",
   BASKET: "/basket/",
 };

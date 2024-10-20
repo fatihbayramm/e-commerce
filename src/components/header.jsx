@@ -31,6 +31,7 @@ import { IoMdClose } from "react-icons/io";
 // TODO: header mobile modda duzgun gozukmuyor.
 // TODO: filterlar activate oldugu durumda logoya basinca filterlarin gitmesi lazim ancak gitmiyor ama searchParams degisiyor coz.
 // TODO: Safari de detay sayfasi kaymis ona da bi bak.
+// TODO: Loading basket e abinle bir bak yanlis olan bisi yok mantiken.
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -247,9 +248,7 @@ export default function Header() {
     handleMobileMenuClose();
   };
 
-  let { loading, error, isAuthenticated, user } = useSelector(
-    (store) => store.auth
-  );
+  let { isAuthenticated } = useSelector((store) => store.auth);
 
   if (Cookies.get("authToken")) {
     isAuthenticated = true;

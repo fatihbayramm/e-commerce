@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import $U from "../../../config/urls";
+import { api } from "../../../config/axios";
 
 const initialState = {
   products: [],
@@ -12,7 +12,7 @@ const initialState = {
 
 export const getAllProducts = createAsyncThunk("getAllProducts", async () => {
   try {
-    const response = await axios.get($U.PRODUCTS);
+    const response = await api.get($U.PRODUCTS);
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data.message || "An error occurred");
@@ -23,7 +23,7 @@ export const filterProducts = createAsyncThunk(
   "filterProducts",
   async ({ min = "", max = "", categoryId = "" }) => {
     try {
-      const response = await axios.get(
+      const response = await api.get(
         `${$U.PRODUCTS}?price_min=${min}&price_max=${max}&category=${categoryId}`
       );
       return response.data;
@@ -37,7 +37,7 @@ export const searchProducts = createAsyncThunk(
   "searchProducts",
   async ({ query }) => {
     try {
-      const response = await axios.get(`${$U.PRODUCTS}?query=${query}`);
+      const response = await api.get(`${$U.PRODUCTS}?query=${query}`);
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data.message || "An error occurred");
@@ -48,7 +48,6 @@ export const searchProducts = createAsyncThunk(
 export const productSlice = createSlice({
   name: "product",
   initialState,
-  // TODO: sepet islemlerini reducers kisminda yapabilirsin: addProduct, removeProduct...
   // TODO: eger herhangi bir istekte 401 alirsan logout et (cookiden token silmek.).
   reducers: {},
   extraReducers: (builder) => {

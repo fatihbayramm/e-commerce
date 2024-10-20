@@ -45,6 +45,7 @@ export const login = (credentials) => async (dispatch) => {
     Cookies.set("authToken", token, { expires: 7 });
     console.log(response.data);
     dispatch(loginSuccess(response.data));
+    window.location.href = "/";
   } catch (error) {
     dispatch(loginFailure(error.message || "Login failed."));
     setTimeout(() => {

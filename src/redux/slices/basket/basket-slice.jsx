@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import $U from "../../../config/urls";
-import { api } from "../../../components/axios";
+import { api } from "../../../config/axios";
 
 const initialState = {
   basket: [],

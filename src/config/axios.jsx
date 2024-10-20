@@ -1,5 +1,5 @@
 import axios from "axios";
-import $U from "../config/urls";
+import $U from "./urls";
 import Cookies from "js-cookie";
 
 const token = Cookies.get("authToken");
