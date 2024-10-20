@@ -4,6 +4,7 @@ import Home from "../pages/home";
 import Register from "../pages/auth/register";
 import Login from "../pages/auth/login";
 import $U from "../config/urls";
+import Address from "../pages/address";
 
 const routes = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const routes = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/address",
+    element: <Address />,
   },
 ]);
 

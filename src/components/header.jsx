@@ -1,5 +1,11 @@
 import * as React from "react";
-import { styled, alpha } from "@mui/material/styles";
+import "../css/header.css";
+import IconButton from "@mui/material/IconButton";
+import Badge from "@mui/material/Badge";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import $U from "../config/urls";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -7,22 +13,15 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import Cookies from "js-cookie";
+import BasketDrawer from "./basket/basket-drawer";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchProducts } from "../redux/slices/product/product-actions";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import "../css/header.css";
-import IconButton from "@mui/material/IconButton";
-import Badge from "@mui/material/Badge";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import $U from "../config/urls";
+import { styled, alpha } from "@mui/material/styles";
 import { logoutUser } from "../redux/slices/auth/auth-actions";
 import { FaShoppingBasket } from "react-icons/fa";
-import BasketDrawer from "./basket/basket-drawer";
+import { FaLocationDot } from "react-icons/fa6";
 
 // TODO: header mobile modda duzgun gozukmuyor.
 // TODO: filterlar activate oldugu durumda logoya basinca filterlarin gitmesi lazim ancak gitmiyor ama searchParams degisiyor coz.
@@ -209,20 +208,24 @@ export default function Header() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size="large" color="inherit">
-          <Badge color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
+        <Link to="/address">
+          <IconButton size="large" color="inherit">
+            <Badge color="error">
+              <FaLocationDot size={24} />
+            </Badge>
+          </IconButton>
+        </Link>
       </MenuItem>
       <MenuItem>
-        <IconButton size="large" color="inherit">
+        <IconButton
+          size="large"
+          color="inherit"
+          onClick={() => setToggleDrawer(true)}
+        >
           <Badge color="error">
-            <NotificationsIcon />
+            <FaShoppingBasket size={24} />
           </Badge>
         </IconButton>
-        <p>Notifications</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton size="large" color="inherit">
@@ -257,11 +260,13 @@ export default function Header() {
               onChange={handleInputChange}
             />
           </Search>
-          <IconButton size="large" color="inherit">
-            <Badge color="error">
-              <MailIcon />
-            </Badge>
-          </IconButton>
+          <Link to="/address">
+            <IconButton size="large" color="inherit">
+              <Badge color="error">
+                <FaLocationDot size={24} />
+              </Badge>
+            </IconButton>
+          </Link>
 
           <IconButton
             size="large"
