@@ -6,4 +6,8 @@ export default {
   PRODUCTS: "/products/",
   PRODUCT_DETAIL: "/product-detail/",
   BASKET: "/basket/",
+  ADDRESSES: "/addresses/",
+  COUNTRIES: "/countries/",
+  CITIES: "/cities/",
+  TOWNSHIPS: "/townships/",
 };

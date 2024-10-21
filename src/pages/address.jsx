@@ -1,11 +1,19 @@
+import "../css/address.css";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import Container from "@mui/material/Container";
-import "../css/address.css";
 import { useFormik } from "formik";
 import { addressFormSchemas } from "./auth/schemas/address-form-schemas";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import {
+  getCountries,
+  getCities,
+  getTownships,
+} from "../redux/slices/address/address-actions";
 
 function Address() {
+  const dispatch = useDispatch();
   const submit = (values, action) => {
     setTimeout(() => {
       action.resetForm();
@@ -24,6 +32,14 @@ function Address() {
     onSubmit: submit,
   });
 
+  useEffect(() => {
+    dispatch(getCountries());
+    dispatch(getCities());
+    dispatch(getTownships());
+  }, [dispatch]);
+
+  const { address } = useSelector((store) => store.address);
+
   return (
     <div>
       <Header />
@@ -41,31 +57,38 @@ function Address() {
             />
           </div>
           <div className="address-box">
-            <input
-              type="select"
+            <select
               name="country"
               value={values.country}
               onChange={handleChange}
-              placeholder="Enter which country you live in"
-            />
+            >
+              <option>Choose</option>
+
+              {address.countries.map((country) => (
+                <option key={country.id}>{country.name}</option>
+              ))}
+              {console.log(values.country)}
+            </select>
           </div>
           <div className="address-box">
-            <input
-              type="select"
-              name="city"
-              value={values.city}
-              onChange={handleChange}
-              placeholder="Enter which city you live in"
-            />
+            <select name="city" value={values.city} onChange={handleChange}>
+              <option>Choose</option>
+
+              {address.cities.map((city) => (
+                <option key={city.id}>{city.name}</option>
+              ))}
+              {console.log(values.city)}
+            </select>
           </div>
           <div className="address-box">
-            <input
-              type="select"
-              name="township"
-              value={values.township}
-              onChange={handleChange}
-              placeholder="Enter township you live i n"
-            />
+            <select name="township" value={values.city} onChange={handleChange}>
+              <option>Choose</option>
+
+              {address.townships.map((township) => (
+                <option key={township.id}>{township.name}</option>
+              ))}
+              {console.log(values.township)}
+            </select>
           </div>
           <div className="address-box">
             <input

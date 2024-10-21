@@ -25,6 +25,7 @@ export const register = (userData) => async (dispatch) => {
     Cookies.set("authToken", token, { expires: 7 });
 
     dispatch(registerSuccess(response.data));
+    window.location.href = "/";
   } catch (error) {
     dispatch(registerFailure(error.message || "Registration failed."));
     setTimeout(() => {
