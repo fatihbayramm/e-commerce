@@ -5,11 +5,12 @@ import Container from "@mui/material/Container";
 import { useFormik } from "formik";
 import { addressFormSchemas } from "./auth/schemas/address-form-schemas";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   getCountries,
   getCities,
   getTownships,
+  createAddress,
 } from "../redux/slices/address/address-actions";
 
 function Address() {
@@ -22,23 +23,30 @@ function Address() {
 
   const { values, errors, handleChange, handleSubmit } = useFormik({
     initialValues: {
-      name: "",
-      country: "",
       city: "",
-      township: "",
+      country: "",
       text: "",
+      name: "",
+      township: "",
     },
     validationSchema: addressFormSchemas,
     onSubmit: submit,
   });
 
+  const { address, createdAddress, loading } = useSelector(
+    (store) => store.address
+  );
+
+  const handleCreate = (values) => {
+    console.log(values);
+    dispatch(createAddress({ ...values }));
+  };
+
   useEffect(() => {
     dispatch(getCountries());
-    dispatch(getCities());
-    dispatch(getTownships());
-  }, [dispatch]);
-
-  const { address, loading } = useSelector((store) => store.address);
+    dispatch(getCities(values.country));
+    dispatch(getTownships(values.city));
+  }, [dispatch, values]);
 
   return (
     <div>
@@ -56,6 +64,7 @@ function Address() {
               onChange={handleChange}
               placeholder="Enter your address title"
             />
+
             {errors.name ? (
               <div className="input-error show">{errors.name}</div>
             ) : (
@@ -69,12 +78,13 @@ function Address() {
               value={values.country}
               onChange={handleChange}
             >
-              <option className="address-choose">Choose</option>
+              <option className="address-choose">Choose your country</option>
 
               {address.countries.map((country) => (
-                <option key={country.id}>{country.name}</option>
+                <option key={country.id} value={country.id}>
+                  {country.name}
+                </option>
               ))}
-              {console.log(values.country)}
             </select>
             {errors.country ? (
               <div className="input-error show">{errors.country}</div>
@@ -89,12 +99,12 @@ function Address() {
               value={values.city}
               onChange={handleChange}
             >
-              <option className="address-choose">Choose</option>
-
+              <option className="address-choose">Choose your city</option>
               {address.cities.map((city) => (
-                <option key={city.id}>{city.name}</option>
+                <option key={city.id} value={city.id}>
+                  {city.name}
+                </option>
               ))}
-              {console.log(values.city)}
             </select>
             {errors.city ? (
               <div className="input-error show">{errors.city}</div>
@@ -109,12 +119,13 @@ function Address() {
               value={values.township}
               onChange={handleChange}
             >
-              <option className="address-choose">Choose</option>
+              <option className="address-choose">Choose your township</option>
 
               {address.townships.map((township) => (
-                <option key={township.id}>{township.name}</option>
+                <option key={township.id} value={township.id}>
+                  {township.name}
+                </option>
               ))}
-              {console.log(values.township)}
             </select>
             {errors.township ? (
               <div className="input-error show">{errors.township}</div>
@@ -138,7 +149,11 @@ function Address() {
             )}
           </div>
 
-          <button className="address-save-btn">
+          <button
+            type="submit"
+            className="address-save-btn"
+            onClick={() => handleCreate(values)}
+          >
             {loading ? "Saving ..." : "Save Address"}
           </button>
         </form>

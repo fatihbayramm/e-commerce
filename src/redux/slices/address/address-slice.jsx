@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getCities, getCountries, getTownships } from "./address-actions";
+import {
+  createAddress,
+  getCities,
+  getCountries,
+  getTownships,
+} from "./address-actions";
 
 const initialState = {
   address: {
@@ -7,6 +12,7 @@ const initialState = {
     cities: [],
     townships: [],
   },
+  createdAddress: [],
   loading: false,
   error: null,
 };
@@ -60,6 +66,22 @@ export const addressSlice = createSlice({
     });
 
     builder.addCase(getTownships.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+
+    // createAddress()
+
+    builder.addCase(createAddress.pending, (state) => {
+      state.loading = true;
+    });
+
+    builder.addCase(createAddress.fulfilled, (state, action) => {
+      state.loading = false;
+      state.createdAddress = action.payload;
+    });
+
+    builder.addCase(createAddress.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
     });
