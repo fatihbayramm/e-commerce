@@ -37,8 +37,7 @@ function Address() {
     (store) => store.address
   );
 
-  const handleCreate = (values) => {
-    console.log(values);
+  const handleCreateAddress = (values) => {
     dispatch(createAddress({ ...values }));
   };
 
@@ -46,7 +45,7 @@ function Address() {
     dispatch(getCountries());
     dispatch(getCities(values.country));
     dispatch(getTownships(values.city));
-  }, [dispatch, values]);
+  }, [dispatch, values.country, values.city]);
 
   return (
     <div>
@@ -152,7 +151,7 @@ function Address() {
           <button
             type="submit"
             className="address-save-btn"
-            onClick={() => handleCreate(values)}
+            onClick={() => handleCreateAddress(values)}
           >
             {loading ? "Saving ..." : "Save Address"}
           </button>
