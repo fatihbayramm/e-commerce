@@ -5,7 +5,7 @@ import Container from "@mui/material/Container";
 import { useFormik } from "formik";
 import { addressFormSchemas } from "./auth/schemas/address-form-schemas";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   getCountries,
   getCities,
@@ -34,9 +34,7 @@ function Address() {
     onSubmit: submit,
   });
 
-  const { address, createdAddress, loading, error } = useSelector(
-    (store) => store.address
-  );
+  const { address, loading, error } = useSelector((store) => store.address);
 
   const handleCreateAddress = (values) => {
     dispatch(createAddress({ ...values }));
