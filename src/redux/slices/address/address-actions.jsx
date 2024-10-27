@@ -43,12 +43,13 @@ export const createAddress = createAsyncThunk(
   "createAddress",
   async (addressData) => {
     try {
-      console.log("addressData --> ", addressData);
-
       const response = await api.post($U.ADDRESSES + $U.ADDRESSES, addressData);
       return response.data;
     } catch (error) {
-      throw new Error(error.response?.data || "An error occurred");
+      console.log(error.response.data);
+      throw new Error(
+        error.response?.data.name || "Fields cannot be left blank."
+      );
     }
   }
 );

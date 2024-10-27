@@ -12,6 +12,7 @@ import {
   getTownships,
   createAddress,
 } from "../redux/slices/address/address-actions";
+import AddressError from "../errors/address-error";
 
 function Address() {
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ function Address() {
     onSubmit: submit,
   });
 
-  const { address, createdAddress, loading } = useSelector(
+  const { address, createdAddress, loading, error } = useSelector(
     (store) => store.address
   );
 
@@ -77,7 +78,9 @@ function Address() {
               value={values.country}
               onChange={handleChange}
             >
-              <option className="address-choose">Choose your country</option>
+              <option className="address-choose" value="" disabled>
+                Choose your country
+              </option>
 
               {address.countries.map((country) => (
                 <option key={country.id} value={country.id}>
@@ -98,7 +101,9 @@ function Address() {
               value={values.city}
               onChange={handleChange}
             >
-              <option className="address-choose">Choose your city</option>
+              <option className="address-choose" value="" disabled>
+                Choose your city
+              </option>
               {address.cities.map((city) => (
                 <option key={city.id} value={city.id}>
                   {city.name}
@@ -118,7 +123,9 @@ function Address() {
               value={values.township}
               onChange={handleChange}
             >
-              <option className="address-choose">Choose your township</option>
+              <option className="address-choose" value="" disabled>
+                Choose your township
+              </option>
 
               {address.townships.map((township) => (
                 <option key={township.id} value={township.id}>
@@ -157,6 +164,8 @@ function Address() {
           </button>
         </form>
       </Container>
+
+      {error && <AddressError error={error} />}
 
       <Footer />
     </div>
