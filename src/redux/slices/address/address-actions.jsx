@@ -39,14 +39,14 @@ export const getTownships = createAsyncThunk(
   }
 );
 
-// export const getAddresses = createAsyncThunk("getAddresses", async () => {
-//   try {
-//     const response = await api.get($U.ADDRESSES + $U.ADDRESSES);
-//     return response.data;
-//   } catch (error) {
-//     throw new Error(error.response?.data || "An error occurred");
-//   }
-// });
+export const getAddresses = createAsyncThunk("getAddresses", async () => {
+  try {
+    const response = await api.get($U.ADDRESSES + $U.ADDRESSES);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data || "An error occurred");
+  }
+});
 
 export const createAddress = createAsyncThunk(
   "createAddress",
