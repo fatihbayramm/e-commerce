@@ -53,6 +53,7 @@ export const createAddress = createAsyncThunk(
   async (addressData) => {
     try {
       const response = await api.post($U.ADDRESSES + $U.ADDRESSES, addressData);
+      window.location.href = "/";
       return response.data;
     } catch (error) {
       throw new Error(

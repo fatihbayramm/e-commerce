@@ -1,7 +1,7 @@
 import "../css/address.css";
 import Header from "../components/header";
-import Footer from "../components/footer";
 import Container from "@mui/material/Container";
+import Footer from "../components/footer";
 import { useFormik } from "formik";
 import { addressFormSchemas } from "./auth/schemas/address-form-schemas";
 import { useDispatch, useSelector } from "react-redux";
@@ -47,7 +47,7 @@ function Address() {
   }, [dispatch, values.country, values.city]);
 
   return (
-    <div>
+    <>
       <Header />
       <Container maxWidth="xl" className="address-container">
         <form onSubmit={handleSubmit} className="address-form">
@@ -166,7 +166,7 @@ function Address() {
       {error && <AddressError error={error} />}
 
       <Footer />
-    </div>
+    </>
   );
 }
 

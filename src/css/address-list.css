@@ -1,0 +1,27 @@
+.address-list-container {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.address-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  padding: 20px;
+  border: 1px solid #e2e2e2;
+  border-radius: 10px;
+}
+
+.add-new-address-btn {
+  border: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
