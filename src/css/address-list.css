@@ -16,6 +16,10 @@
   border-radius: 10px;
 }
 
+.add-new-address-router {
+  text-decoration: none;
+}
+
 .add-new-address-btn {
   border: none;
   background: none;
@@ -54,5 +58,16 @@
 .ad {
   color: #333333;
   font-size: 16px;
-  margin-top: 5px;
+  margin: 5px 0px 20px 0px;
+}
+
+.address-delete-box {
+  display: inline-flex;
+  align-items: flex-end;
+  align-items: center;
+  cursor: pointer;
+}
+
+.address-delete {
+  font-size: 14px;
 }

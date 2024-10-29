@@ -62,3 +62,21 @@ export const createAddress = createAsyncThunk(
     }
   }
 );
+
+export const deleteAddress = createAsyncThunk(
+  "deleteAddress",
+  async (addressId) => {
+    try {
+      console.log(addressId);
+      const response = await api.delete(
+        $U.ADDRESSES + $U.ADDRESSES + `/${addressId}`
+      );
+      window.location.href = "/address-list";
+      return response.data;
+    } catch (error) {
+      throw new Error(
+        error.response?.data.name || "Fields cannot be left blank."
+      );
+    }
+  }
+);
