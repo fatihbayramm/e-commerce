@@ -6,16 +6,16 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAddresses,
-  updateAddress,
   deleteAddress,
 } from "../redux/slices/address/address-actions";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 import { MdEditSquare } from "react-icons/md";
 
 function AddressList() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getAddresses());
@@ -29,7 +29,12 @@ function AddressList() {
   };
 
   const handleUpdateAddress = (addressId, addressData) => {
-    dispatch(updateAddress({ addressId, addressData }));
+    navigate("/address", {
+      state: {
+        id: addressId,
+        data: addressData,
+      },
+    });
   };
 
   return (
@@ -71,6 +76,7 @@ function AddressList() {
                   </div>
                   <div className="address-delete">Delete</div>
                 </div>
+
                 <div
                   className="address-edit-box"
                   onClick={() =>

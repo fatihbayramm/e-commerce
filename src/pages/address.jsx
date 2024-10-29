@@ -11,10 +11,17 @@ import {
   getCities,
   getTownships,
   createAddress,
+  updateAddress,
 } from "../redux/slices/address/address-actions";
 import AddressError from "../errors/address-error";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Address() {
+  const location = useLocation();
+  const { id, data } = location.state || {};
+
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const submit = (values, action) => {
     setTimeout(() => {
@@ -24,11 +31,11 @@ function Address() {
 
   const { values, errors, handleChange, handleSubmit } = useFormik({
     initialValues: {
-      city: "",
-      country: "",
-      text: "",
-      name: "",
-      township: "",
+      city: data ? data.city : "",
+      country: data ? data.country : "",
+      text: data ? data.text : "",
+      name: data ? data.name : "",
+      township: data ? data.township : "",
     },
     validationSchema: addressFormSchemas,
     onSubmit: submit,
@@ -36,8 +43,13 @@ function Address() {
 
   const { address, loading, error } = useSelector((store) => store.address);
 
-  const handleCreateAddress = (values) => {
-    dispatch(createAddress({ ...values }));
+  const handleCreateAddress = async (values) => {
+    await dispatch(createAddress({ ...values }));
+    navigate("/address-list");
+  };
+
+  const handleUpdateAddress = () => {
+    dispatch(updateAddress({ id, data }));
   };
 
   useEffect(() => {
@@ -156,7 +168,9 @@ function Address() {
           <button
             type="submit"
             className="address-save-btn"
-            onClick={() => handleCreateAddress(values)}
+            onClick={() =>
+              id ? handleUpdateAddress() : handleCreateAddress(values)
+            }
           >
             {loading ? "Saving ..." : "Save Address"}
           </button>
