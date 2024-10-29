@@ -21,8 +21,9 @@ function AddressList() {
 
   const { userAddresses } = useSelector((store) => store.address);
 
-  const handleDeleteAddress = (addressId) => {
-    dispatch(deleteAddress(addressId));
+  const handleDeleteAddress = async (addressId) => {
+    await dispatch(deleteAddress(addressId));
+    dispatch(getAddresses());
   };
 
   return (

@@ -4,7 +4,7 @@ import $U from "../../../config/urls";
 
 export const getCountries = createAsyncThunk("getCountries", async () => {
   try {
-    const response = await api.get($U.ADDRESSES + $U.COUNTRIES);
+    const response = await api.get($U.COUNTRIES);
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data || "An error occurred");
@@ -15,9 +15,7 @@ export const getCities = createAsyncThunk(
   "getCities",
   async (country = "1") => {
     try {
-      const response = await api.get(
-        $U.ADDRESSES + $U.CITIES + `?country=${country}`
-      );
+      const response = await api.get($U.CITIES + `?country=${country}`);
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data || "An error occurred");
@@ -29,9 +27,7 @@ export const getTownships = createAsyncThunk(
   "getTownships",
   async (city = "1") => {
     try {
-      const response = await api.get(
-        $U.ADDRESSES + $U.TOWNSHIPS + `?city=${city}`
-      );
+      const response = await api.get($U.TOWNSHIPS + `?city=${city}`);
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data || "An error occurred");
@@ -41,7 +37,7 @@ export const getTownships = createAsyncThunk(
 
 export const getAddresses = createAsyncThunk("getAddresses", async () => {
   try {
-    const response = await api.get($U.ADDRESSES + $U.ADDRESSES);
+    const response = await api.get($U.ADDRESSES);
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data || "An error occurred");
@@ -52,7 +48,7 @@ export const createAddress = createAsyncThunk(
   "createAddress",
   async (addressData) => {
     try {
-      const response = await api.post($U.ADDRESSES + $U.ADDRESSES, addressData);
+      const response = await api.post($U.ADDRESSES, addressData);
       window.location.href = "/";
       return response.data;
     } catch (error) {
@@ -68,10 +64,8 @@ export const deleteAddress = createAsyncThunk(
   async (addressId) => {
     try {
       console.log(addressId);
-      const response = await api.delete(
-        $U.ADDRESSES + $U.ADDRESSES + `/${addressId}`
-      );
-      window.location.href = "/address-list";
+      const response = await api.delete($U.ADDRESSES + `/${addressId}`);
+
       return response.data;
     } catch (error) {
       throw new Error(
