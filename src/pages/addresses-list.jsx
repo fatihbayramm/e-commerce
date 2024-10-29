@@ -2,15 +2,17 @@ import "../css/address-list.css";
 import Header from "../components/header";
 import Container from "@mui/material/Container";
 import Footer from "../components/footer";
-import { FaPlus } from "react-icons/fa6";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAddresses,
+  updateAddress,
   deleteAddress,
 } from "../redux/slices/address/address-actions";
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { FaPlus } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
+import { MdEditSquare } from "react-icons/md";
 
 function AddressList() {
   const dispatch = useDispatch();
@@ -24,6 +26,10 @@ function AddressList() {
   const handleDeleteAddress = async (addressId) => {
     await dispatch(deleteAddress(addressId));
     dispatch(getAddresses());
+  };
+
+  const handleUpdateAddress = (addressId, addressData) => {
+    dispatch(updateAddress({ addressId, addressData }));
   };
 
   return (
@@ -55,14 +61,33 @@ function AddressList() {
               </div>
               <div className="ad">{address.city} (No data from backend)</div>
               <div className="ad">{address.country} (No data from backend)</div>
-              <div
-                className="address-delete-box"
-                onClick={() => handleDeleteAddress(address.id)}
-              >
-                <div>
-                  <MdDelete size={20} />
+              <div className="address-delete-edit-box">
+                <div
+                  className="address-delete-box"
+                  onClick={() => handleDeleteAddress(address.id)}
+                >
+                  <div>
+                    <MdDelete size={20} />
+                  </div>
+                  <div className="address-delete">Delete</div>
                 </div>
-                <div className="address-delete">Delete</div>
+                <div
+                  className="address-edit-box"
+                  onClick={() =>
+                    handleUpdateAddress(address.id, {
+                      name: address.name,
+                      country: address.country,
+                      city: address.city,
+                      township: address.township,
+                      text: address.text,
+                    })
+                  }
+                >
+                  <div>
+                    <MdEditSquare size={20} />
+                  </div>
+                  <div className="address-edit">Edit</div>
+                </div>
               </div>
             </div>
           ))}

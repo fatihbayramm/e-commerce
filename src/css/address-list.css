@@ -61,13 +61,25 @@
   margin: 5px 0px 20px 0px;
 }
 
+.address-delete-edit-box {
+  display: flex;
+  justify-content: space-between;
+}
+
 .address-delete-box {
   display: inline-flex;
-  align-items: flex-end;
   align-items: center;
   cursor: pointer;
 }
 
-.address-delete {
+.address-delete,
+.address-edit {
   font-size: 14px;
+}
+
+.address-edit-box {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 3px;
 }

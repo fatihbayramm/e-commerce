@@ -5,6 +5,7 @@ import {
   getCountries,
   getTownships,
   getAddresses,
+  updateAddress,
 } from "./address-actions";
 
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
   },
   createdAddress: [],
   userAddresses: [],
+  updatedAddress: [],
   loading: false,
   error: null,
 };
@@ -100,6 +102,22 @@ export const addressSlice = createSlice({
     });
 
     builder.addCase(getAddresses.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+
+    // updatedAddress()
+
+    builder.addCase(updateAddress.pending, (state) => {
+      state.loading = true;
+    });
+
+    builder.addCase(updateAddress.fulfilled, (state, action) => {
+      state.loading = false;
+      state.updatedAddress = action.payload;
+    });
+
+    builder.addCase(updateAddress.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
     });

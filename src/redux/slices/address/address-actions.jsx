@@ -1,6 +1,6 @@
+import $U from "../../../config/urls";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { api } from "../../../config/axios";
-import $U from "../../../config/urls";
 
 export const getCountries = createAsyncThunk("getCountries", async () => {
   try {
@@ -52,9 +52,25 @@ export const createAddress = createAsyncThunk(
       window.location.href = "/";
       return response.data;
     } catch (error) {
-      throw new Error(
-        error.response?.data.name || "Fields cannot be left blank."
+      throw new Error(error.response?.data || "Fields cannot be left blank.");
+    }
+  }
+);
+
+export const updateAddress = createAsyncThunk(
+  "updateAddress",
+  async ({ addressId, addressData }) => {
+    console.log(addressData);
+    try {
+      const response = await api.put(
+        $U.ADDRESSES + `${addressId}/`,
+        addressData
       );
+
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data || "Fields cannot be left blank.");
     }
   }
 );
@@ -63,14 +79,10 @@ export const deleteAddress = createAsyncThunk(
   "deleteAddress",
   async (addressId) => {
     try {
-      console.log(addressId);
       const response = await api.delete($U.ADDRESSES + `/${addressId}`);
-
       return response.data;
     } catch (error) {
-      throw new Error(
-        error.response?.data.name || "Fields cannot be left blank."
-      );
+      throw new Error(error.response?.data || "Fields cannot be left blank.");
     }
   }
 );
