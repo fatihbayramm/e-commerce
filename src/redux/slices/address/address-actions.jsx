@@ -58,10 +58,10 @@ export const createAddress = createAsyncThunk(
 
 export const updateAddress = createAsyncThunk(
   "updateAddress",
-  async ({ id, data }) => {
-    console.log(data);
+  async ({ id, values }) => {
+    console.log(values);
     try {
-      const response = await api.put($U.ADDRESSES + `${id}/`, data);
+      const response = await api.put($U.ADDRESSES + `${id}/`, values);
 
       console.log(response.data);
       return response.data;

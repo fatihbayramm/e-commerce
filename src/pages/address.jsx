@@ -20,6 +20,8 @@ function Address() {
   const location = useLocation();
   const { id, data } = location.state || {};
 
+  console.log(data);
+
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -39,7 +41,10 @@ function Address() {
     },
     validationSchema: addressFormSchemas,
     onSubmit: submit,
+    enableReinitialize: true,
   });
+
+  console.log(values.country);
 
   const { address, loading, error } = useSelector((store) => store.address);
 
@@ -49,7 +54,7 @@ function Address() {
   };
 
   const handleUpdateAddress = () => {
-    dispatch(updateAddress({ id, data }));
+    dispatch(updateAddress({ id, values }));
   };
 
   useEffect(() => {
@@ -114,11 +119,13 @@ function Address() {
               <option className="address-choose" value="" disabled>
                 Choose your city
               </option>
-              {address.cities.map((city) => (
-                <option key={city.id} value={city.id}>
-                  {city.name}
-                </option>
-              ))}
+              {values.country
+                ? address.cities.map((city) => (
+                    <option key={city.id} value={city.id}>
+                      {city.name}
+                    </option>
+                  ))
+                : ""}
             </select>
             {errors.city ? (
               <div className="input-error show">{errors.city}</div>
@@ -137,11 +144,13 @@ function Address() {
                 Choose your township
               </option>
 
-              {address.townships.map((township) => (
-                <option key={township.id} value={township.id}>
-                  {township.name}
-                </option>
-              ))}
+              {values.city
+                ? address.townships.map((township) => (
+                    <option key={township.id} value={township.id}>
+                      {township.name}
+                    </option>
+                  ))
+                : ""}
             </select>
             {errors.township ? (
               <div className="input-error show">{errors.township}</div>
