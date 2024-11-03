@@ -2,6 +2,7 @@ import "../css/address.css";
 import Header from "../components/header";
 import Container from "@mui/material/Container";
 import Footer from "../components/footer";
+import AddressError from "../errors/address-error";
 import { useFormik } from "formik";
 import { addressFormSchemas } from "./auth/schemas/address-form-schemas";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,7 +14,6 @@ import {
   createAddress,
   updateAddress,
 } from "../redux/slices/address/address-actions";
-import AddressError from "../errors/address-error";
 import { useLocation, useNavigate } from "react-router-dom";
 
 function Address() {
@@ -31,20 +31,21 @@ function Address() {
     }, 2000);
   };
 
+  const initialValues = {
+    city: "",
+    country: "",
+    text: "",
+    name: "",
+    township: "",
+    ...data,
+  };
+
   const { values, errors, handleChange, handleSubmit } = useFormik({
-    initialValues: {
-      city: data ? data.city : "",
-      country: data ? data.country : "",
-      text: data ? data.text : "",
-      name: data ? data.name : "",
-      township: data ? data.township : "",
-    },
+    initialValues,
     validationSchema: addressFormSchemas,
     onSubmit: submit,
     enableReinitialize: true,
   });
-
-  console.log(values.country);
 
   const { address, loading, error } = useSelector((store) => store.address);
 

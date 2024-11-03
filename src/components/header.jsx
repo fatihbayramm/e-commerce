@@ -140,7 +140,7 @@ export default function Header() {
   };
 
   const menuId = "primary-search-account-menu";
-  const renderMenu = (
+  const logoutMenu = (
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{
@@ -165,7 +165,7 @@ export default function Header() {
     </Menu>
   );
 
-  const logoutMenu = (
+  const menu = (
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{
@@ -187,6 +187,12 @@ export default function Header() {
       <Link to="/login" className="auth-router" onClick={handleLogout}>
         <MenuItem>Logout</MenuItem>
       </Link>
+      <Link to="/address" className="auth-router">
+        <MenuItem>Add address</MenuItem>
+      </Link>
+      <Link to="/address-list" className="auth-router">
+        <MenuItem>My addresses</MenuItem>
+      </Link>
     </Menu>
   );
 
@@ -207,15 +213,6 @@ export default function Header() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <Link to="/address">
-          <IconButton size="large" color="inherit">
-            <Badge color="error">
-              <FaLocationDot size={24} />
-            </Badge>
-          </IconButton>
-        </Link>
-      </MenuItem>
       <MenuItem>
         <IconButton
           size="large"
@@ -260,13 +257,6 @@ export default function Header() {
               onChange={handleInputChange}
             />
           </Search>
-          <Link to="/address">
-            <IconButton size="large" color="inherit">
-              <Badge color="error">
-                <FaLocationDot size={24} />
-              </Badge>
-            </IconButton>
-          </Link>
 
           <IconButton
             size="large"
@@ -292,7 +282,7 @@ export default function Header() {
         setToggleDrawer={setToggleDrawer}
       />
       {renderMobileMenu}
-      {isAuthenticated ? logoutMenu : renderMenu}
+      {isAuthenticated ? menu : logoutMenu}
     </Box>
   );
 }
