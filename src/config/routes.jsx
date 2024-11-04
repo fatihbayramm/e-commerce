@@ -29,6 +29,10 @@ const routes = createBrowserRouter([
     element: <Address />,
   },
   {
+    path: "/address/:id",
+    element: <Address />,
+  },
+  {
     path: "/address-list",
     element: <AddressList />,
   },

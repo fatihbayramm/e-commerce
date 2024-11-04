@@ -29,7 +29,7 @@ function AddressList() {
   };
 
   const handleUpdateAddress = (addressId, addressData) => {
-    navigate("/address", {
+    navigate(`/address/${addressId}`, {
       state: {
         id: addressId,
         data: addressData,
