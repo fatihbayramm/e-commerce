@@ -7,6 +7,8 @@ export default {
   PRODUCT_DETAIL: "/product-detail/",
   BASKET: "/basket/",
   ADDRESSES: "/addresses/addresses/",
+  ADDRESS: "/address",
+  ADDRESS_LIST: "/address-list",
   COUNTRIES: "/addresses/countries/",
   CITIES: "/addresses/cities/",
   TOWNSHIPS: "/addresses/townships/",

@@ -1,3 +1,6 @@
+import axios from "axios";
+import $U from "../../../config/urls";
+import Cookies from "js-cookie";
 import {
   loginRequest,
   loginSuccess,
@@ -9,9 +12,6 @@ import {
   registerFailure,
   registerClear,
 } from "./auth-slice";
-import axios from "axios";
-import $U from "../../../config/urls";
-import Cookies from "js-cookie";
 
 export const register = (userData) => async (dispatch) => {
   try {

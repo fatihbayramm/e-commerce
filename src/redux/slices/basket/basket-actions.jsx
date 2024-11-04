@@ -1,6 +1,6 @@
+import $U from "../../../config/urls";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { api } from "../../../config/axios";
-import $U from "../../../config/urls";
 
 export const getBasket = createAsyncThunk("getBasket", async () => {
   try {

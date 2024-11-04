@@ -1,19 +1,19 @@
-import { useParams } from "react-router-dom";
 import "../css/product-detail.css";
-import { MdFavoriteBorder } from "react-icons/md";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Container from "@mui/material/Container";
+import Header from "../components/header";
+import Footer from "../components/footer";
+import Cookies from "js-cookie";
+import { useParams } from "react-router-dom";
+import { MdFavoriteBorder } from "react-icons/md";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAllProducts } from "../redux/slices/product/product-actions";
-import Container from "@mui/material/Container";
-import Header from "../components/header";
-import Footer from "../components/footer";
 import { addProductToBasket } from "../redux/slices/basket/basket-actions";
-import Cookies from "js-cookie";
 
 function ProductDetail() {
   // TODO: mobil modda +, - butonlari bozuluyor. duzelt.

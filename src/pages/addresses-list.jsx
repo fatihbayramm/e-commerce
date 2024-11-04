@@ -2,6 +2,7 @@ import "../css/address-list.css";
 import Header from "../components/header";
 import Container from "@mui/material/Container";
 import Footer from "../components/footer";
+import $R from "../config/urls";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -29,7 +30,7 @@ function AddressList() {
   };
 
   const handleUpdateAddress = (addressId, addressData) => {
-    navigate(`/address/${addressId}`, {
+    navigate(`${$R.ADDRESS}/${addressId}`, {
       state: {
         id: addressId,
         data: addressData,

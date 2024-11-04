@@ -5,7 +5,7 @@ import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import $U from "../config/urls";
+import $R from "../config/urls";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -79,7 +79,7 @@ export default function Header() {
   const { searchedProducts } = useSelector((store) => store.product);
 
   const handleLogoClick = () => {
-    navigate($U.HOME);
+    navigate($R.HOME);
   };
 
   useEffect(() => {
@@ -95,7 +95,7 @@ export default function Header() {
           state: { searchedProducts },
         });
       } else {
-        navigate($U.HOME);
+        navigate($R.HOME);
       }
     }
   }, [query, initialQuery, navigate]);
@@ -183,10 +183,10 @@ export default function Header() {
       <Link to="#" className="auth-router">
         <MenuItem>My orders</MenuItem>
       </Link>
-      <Link to="/address" className="auth-router">
+      <Link to={`${$R.ADDRESS}`} className="auth-router">
         <MenuItem>Add new address</MenuItem>
       </Link>
-      <Link to="/address-list" className="auth-router">
+      <Link to={`${$R.ADDRESS_LIST}`} className="auth-router">
         <MenuItem>My addresses</MenuItem>
       </Link>
       <Link to="/login" className="auth-router" onClick={handleLogout}>
@@ -242,7 +242,11 @@ export default function Header() {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            <Link to="/" className="header-logo" onClick={handleLogoClick}>
+            <Link
+              to={`${$R.HOME}`}
+              className="header-logo"
+              onClick={handleLogoClick}
+            >
               E-Commerce
             </Link>
           </Typography>

@@ -3,6 +3,7 @@ import Header from "../components/header";
 import Container from "@mui/material/Container";
 import Footer from "../components/footer";
 import AddressError from "../errors/address-error";
+import $R from "../config/urls";
 import { useFormik } from "formik";
 import { addressFormSchemas } from "./auth/schemas/address-form-schemas";
 import { useDispatch, useSelector } from "react-redux";
@@ -50,12 +51,12 @@ function Address() {
 
   const handleCreateAddress = async (values) => {
     await dispatch(createAddress({ ...values }));
-    navigate("/address-list");
+    navigate(`${$R.ADDRESS_LIST}`);
   };
 
   const handleUpdateAddress = async () => {
     await dispatch(updateAddress({ id, values }));
-    navigate("/address-list");
+    navigate(`${$R.ADDRESS_LIST}`);
   };
 
   useEffect(() => {

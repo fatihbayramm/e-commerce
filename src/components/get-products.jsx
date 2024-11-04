@@ -1,6 +1,6 @@
+import ProductList from "../pages/product-list";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ProductList from "../pages/product-list";
 import { getAllProducts } from "../redux/slices/product/product-actions";
 
 function GetProducts() {

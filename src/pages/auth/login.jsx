@@ -1,15 +1,16 @@
 import "../../css/login.css";
-import { useFormik } from "formik";
-import { loginFormSchemas } from "./schemas/login-form-schemas";
 import Container from "@mui/material/Container";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
+import LoadingAuth from "../../components/loading-auth";
+import LoginError from "../../errors/login-error";
+import $R from "../../config/urls";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/slices/auth/auth-actions";
-import LoadingAuth from "../../components/loading-auth";
-import LoginError from "../../errors/login-error";
+import { useFormik } from "formik";
+import { loginFormSchemas } from "./schemas/login-form-schemas";
 
 function Login() {
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ function Login() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/");
+      navigate(`${$R.HOME}`);
     }
   }, [isAuthenticated, navigate]);
 

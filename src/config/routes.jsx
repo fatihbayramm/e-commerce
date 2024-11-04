@@ -25,15 +25,15 @@ const routes = createBrowserRouter([
     element: <Register />,
   },
   {
-    path: "/address",
+    path: $U.ADDRESS,
     element: <Address />,
   },
   {
-    path: "/address/:id",
+    path: `${$U.ADDRESS}/:id`,
     element: <Address />,
   },
   {
-    path: "/address-list",
+    path: $U.ADDRESS_LIST,
     element: <AddressList />,
   },
 ]);

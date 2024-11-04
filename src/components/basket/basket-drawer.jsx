@@ -2,13 +2,13 @@ import Drawer from "@mui/material/Drawer";
 import Cookies from "js-cookie";
 import Box from "@mui/material/Box";
 import LoadingBasket from "./loading-basket";
+import BasketError from "../../errors/basket-error";
 import { IoMdClose } from "react-icons/io";
 import { useSelector, useDispatch } from "react-redux";
 import { getBasket } from "../../redux/slices/basket/basket-actions";
 import { updateProductInBasket } from "../../redux/slices/basket/basket-actions";
 import { removeProductFromBasket } from "../../redux/slices/basket/basket-actions";
 import { useEffect } from "react";
-import BasketError from "../../errors/basket-error";
 
 function BasketDrawer({ toggleDrawer, setToggleDrawer }) {
   const { basket, loading, error } = useSelector((store) => store.basket);

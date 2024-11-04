@@ -1,23 +1,23 @@
+import "../css/product-list.css";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import "../css/product-list.css";
-import { Link } from "react-router-dom";
-import { MdOutlineFilterList } from "react-icons/md";
-import { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
-import { useDispatch, useSelector } from "react-redux";
-import { filterProducts } from "../redux/slices/product/product-actions";
 import Button from "@mui/material/Button";
-import { IoSearchOutline } from "react-icons/io5";
-import { useLocation, useSearchParams } from "react-router-dom";
-import { IoClose } from "react-icons/io5";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import $U from "../config/urls";
+import $R from "../config/urls";
+import { Link } from "react-router-dom";
+import { MdOutlineFilterList } from "react-icons/md";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { filterProducts } from "../redux/slices/product/product-actions";
+import { IoSearchOutline } from "react-icons/io5";
+import { useLocation, useSearchParams } from "react-router-dom";
+import { IoClose } from "react-icons/io5";
 
 function ProductList({ products }) {
   //TODO: arama yaptiktan sonra filtreleme calismiyor.
@@ -207,7 +207,7 @@ function ProductList({ products }) {
           {displayedProducts &&
             displayedProducts.map((product) => (
               <Link
-                to={`${$U.PRODUCT_DETAIL}${product.id}`}
+                to={`${$R.PRODUCT_DETAIL}${product.id}`}
                 key={product.id}
                 className="product-card"
                 state={{ product }}

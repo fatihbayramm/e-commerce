@@ -59,11 +59,8 @@ export const createAddress = createAsyncThunk(
 export const updateAddress = createAsyncThunk(
   "updateAddress",
   async ({ id, values }) => {
-    console.log(values);
     try {
       const response = await api.put($U.ADDRESSES + `${id}/`, values);
-
-      console.log(response.data);
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data || "Fields cannot be left blank.");
