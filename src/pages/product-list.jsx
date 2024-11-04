@@ -26,13 +26,12 @@ function ProductList({ products }) {
   //TODO: filtre tasarimi guzellestirilebilir.
   //TODO: filtreler ayni degerde girilirse kullaniciya uyari versin.
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const [toggleFilter, setToggleFilter] = useState(false);
 
   const { searchedProducts } = location.state || {};
   const { filteredProducts } = useSelector((store) => store.product);
-
-  const dispatch = useDispatch();
 
   const [searchParams, setSearchParams] = useSearchParams();
 

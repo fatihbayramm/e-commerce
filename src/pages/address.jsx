@@ -20,9 +20,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 function Address() {
   // TODO: adres editlendiginde post gitmiyor select inputlarinda sorun var.
   const location = useLocation();
+  const navigate = useNavigate();
+
   const { id, data } = location.state || {};
 
-  const navigate = useNavigate();
+  const { address, loading, error } = useSelector((store) => store.address);
 
   const dispatch = useDispatch();
   const submit = (values, action) => {
@@ -46,8 +48,6 @@ function Address() {
     onSubmit: submit,
     enableReinitialize: true,
   });
-
-  const { address, loading, error } = useSelector((store) => store.address);
 
   const handleCreateAddress = async (values) => {
     await dispatch(createAddress({ ...values }));

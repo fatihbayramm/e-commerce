@@ -18,11 +18,11 @@ import { addProductToBasket } from "../redux/slices/basket/basket-actions";
 function ProductDetail() {
   // TODO: mobil modda +, - butonlari bozuluyor. duzelt.
   const [quantity, setQuantity] = useState(0);
+
   const { id } = useParams();
+  const { products } = useSelector((store) => store.product);
 
   const dispatch = useDispatch();
-
-  const { products } = useSelector((store) => store.product);
 
   useEffect(() => {
     dispatch(getAllProducts());

@@ -11,9 +11,10 @@ import { removeProductFromBasket } from "../../redux/slices/basket/basket-action
 import { useEffect } from "react";
 
 function BasketDrawer({ toggleDrawer, setToggleDrawer }) {
-  const { basket, loading, error } = useSelector((store) => store.basket);
   const dispatch = useDispatch();
   const token = Cookies.get("authToken");
+
+  const { basket, loading, error } = useSelector((store) => store.basket);
 
   useEffect(() => {
     if (toggleDrawer) {
