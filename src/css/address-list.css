@@ -44,6 +44,7 @@
   padding: 1.25rem;
   gap: 1.25rem;
   margin-top: 1.875rem;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .address-list-address {
@@ -137,6 +138,7 @@
     padding: 1.25rem;
     gap: 1.25rem;
     margin-top: 1.875rem;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   }
 
   .address-list-address {

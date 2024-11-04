@@ -21,8 +21,6 @@ function Address() {
   const location = useLocation();
   const { id, data } = location.state || {};
 
-  console.log(data);
-
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -55,8 +53,9 @@ function Address() {
     navigate("/address-list");
   };
 
-  const handleUpdateAddress = () => {
-    dispatch(updateAddress({ id, values }));
+  const handleUpdateAddress = async () => {
+    await dispatch(updateAddress({ id, values }));
+    navigate("/address-list");
   };
 
   useEffect(() => {

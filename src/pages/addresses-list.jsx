@@ -57,46 +57,52 @@ function AddressList() {
           </div>
         </div>
         <div className="address-list-main">
-          {userAddresses.map((address) => (
-            <div className="address-list-address" key={address.id}>
-              <div className="address-name">{address.name}</div> <hr />
-              <div className="ad">{address.text}</div>
-              <div className="ad">
-                {address.township} (No data from backend)
-              </div>
-              <div className="ad">{address.city} (No data from backend)</div>
-              <div className="ad">{address.country} (No data from backend)</div>
-              <div className="address-delete-edit-box">
-                <div
-                  className="address-delete-box"
-                  onClick={() => handleDeleteAddress(address.id)}
-                >
-                  <div>
-                    <MdDelete size={20} />
-                  </div>
-                  <div className="address-delete">Delete</div>
+          {userAddresses && userAddresses.length > 0 ? (
+            userAddresses.map((address) => (
+              <div className="address-list-address" key={address.id}>
+                <div className="address-name">{address.name}</div> <hr />
+                <div className="ad">{address.text}</div>
+                <div className="ad">
+                  {address.township} (No data from backend)
                 </div>
+                <div className="ad">{address.city} (No data from backend)</div>
+                <div className="ad">
+                  {address.country} (No data from backend)
+                </div>
+                <div className="address-delete-edit-box">
+                  <div
+                    className="address-delete-box"
+                    onClick={() => handleDeleteAddress(address.id)}
+                  >
+                    <div>
+                      <MdDelete size={20} />
+                    </div>
+                    <div className="address-delete">Delete</div>
+                  </div>
 
-                <div
-                  className="address-edit-box"
-                  onClick={() =>
-                    handleUpdateAddress(address.id, {
-                      name: address.name,
-                      country: address.country,
-                      city: address.city,
-                      township: address.township,
-                      text: address.text,
-                    })
-                  }
-                >
-                  <div>
-                    <MdEditSquare size={20} />
+                  <div
+                    className="address-edit-box"
+                    onClick={() =>
+                      handleUpdateAddress(address.id, {
+                        name: address.name,
+                        country: address.country,
+                        city: address.city,
+                        township: address.township,
+                        text: address.text,
+                      })
+                    }
+                  >
+                    <div>
+                      <MdEditSquare size={20} />
+                    </div>
+                    <div className="address-edit">Edit</div>
                   </div>
-                  <div className="address-edit">Edit</div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <div>You do not have a registered address yet</div>
+          )}
         </div>
       </Container>
       <Footer />
