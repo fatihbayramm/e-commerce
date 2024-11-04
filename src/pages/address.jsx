@@ -17,6 +17,7 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 
 function Address() {
+  // TODO: adres editlendiginde post gitmiyor select inputlarinda sorun var.
   const location = useLocation();
   const { id, data } = location.state || {};
 

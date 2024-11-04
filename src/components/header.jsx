@@ -21,7 +21,6 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 import { logoutUser } from "../redux/slices/auth/auth-actions";
 import { FaShoppingBasket } from "react-icons/fa";
-import { FaLocationDot } from "react-icons/fa6";
 
 // TODO: header mobile modda duzgun gozukmuyor.
 // TODO: filterlar activate oldugu durumda logoya basinca filterlarin gitmesi lazim ancak gitmiyor ama searchParams degisiyor coz.
@@ -182,16 +181,16 @@ export default function Header() {
       onClose={handleMenuClose}
     >
       <Link to="#" className="auth-router">
-        <MenuItem>My Orders</MenuItem>
-      </Link>
-      <Link to="/login" className="auth-router" onClick={handleLogout}>
-        <MenuItem>Logout</MenuItem>
+        <MenuItem>My orders</MenuItem>
       </Link>
       <Link to="/address" className="auth-router">
-        <MenuItem>Add address</MenuItem>
+        <MenuItem>Add new address</MenuItem>
       </Link>
       <Link to="/address-list" className="auth-router">
         <MenuItem>My addresses</MenuItem>
+      </Link>
+      <Link to="/login" className="auth-router" onClick={handleLogout}>
+        <MenuItem>Logout</MenuItem>
       </Link>
     </Menu>
   );

@@ -1,8 +1,8 @@
 .address-list-container {
+  margin-top: 3.125rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 50px;
   font-family: "Arial";
 }
 
@@ -10,14 +10,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 80%;
-  padding: 20px;
+  width: 100%;
+  padding: 0.938rem;
   border: 1px solid #e2e2e2;
-  border-radius: 10px;
+  border-radius: 0.625rem;
 }
 
 .add-new-address-router {
   text-decoration: none;
+}
+
+.address-list-header div h2 {
+  font-size: 1rem;
 }
 
 .add-new-address-btn {
@@ -25,39 +29,42 @@
   background: none;
   outline: none;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 0.875rem;
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 0.313rem;
 }
 
 .address-list-main {
+  width: 100%;
   display: flex;
+  flex-direction: column;
   border: 1px solid #e2e2e2;
-  border-radius: 10px;
-  padding: 20px;
-  gap: 20px;
-  margin-top: 30px;
-  width: 990px;
-  height: 460px;
+  border-radius: 0.625rem;
+  padding: 1.25rem;
+  gap: 1.25rem;
+  margin-top: 1.875rem;
 }
 
 .address-list-address {
   border: 1px solid #e2e2e2;
-  border-radius: 10px;
-  padding: 20px;
-  height: 250px;
+  border-radius: 0.625rem;
+  padding: 1.25rem;
+}
+
+.address-list-address div {
+  overflow: auto;
 }
 
 .address-name {
   font-weight: bolder;
-  border-radius: 10px;
-  padding: 5px;
+  border-radius: 0.625rem;
+  padding: 0.313rem;
 }
 
 .ad {
   color: #333333;
-  font-size: 16px;
+  font-size: 1rem;
   margin: 5px 0px 20px 0px;
 }
 
@@ -74,12 +81,106 @@
 
 .address-delete,
 .address-edit {
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .address-edit-box {
   display: inline-flex;
   align-items: center;
   cursor: pointer;
-  gap: 3px;
+  gap: 0.188rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .address-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3.125rem;
+    font-family: "Arial";
+  }
+
+  .address-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    padding: 1.25rem;
+    border: 1px solid #e2e2e2;
+    border-radius: 0.625rem;
+  }
+
+  .add-new-address-router {
+    text-decoration: none;
+  }
+
+  .address-list-header div h2 {
+    font-size: 1.5rem;
+  }
+
+  .add-new-address-btn {
+    border: none;
+    background: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.438rem;
+  }
+
+  .address-list-main {
+    width: 80%;
+    display: flex;
+    border: 1px solid #e2e2e2;
+    border-radius: 0.625rem;
+    padding: 1.25rem;
+    gap: 1.25rem;
+    margin-top: 1.875rem;
+  }
+
+  .address-list-address {
+    border: 1px solid #e2e2e2;
+    border-radius: 0.625rem;
+    padding: 1.25rem;
+  }
+
+  .address-list-address div {
+    overflow: auto;
+  }
+
+  .address-name {
+    font-weight: bolder;
+    border-radius: 0.625rem;
+    padding: 0.313rem;
+  }
+
+  .ad {
+    color: #333333;
+    font-size: 1rem;
+    margin: 5px 0px 20px 0px;
+  }
+
+  .address-delete-edit-box {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .address-delete-box {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .address-delete,
+  .address-edit {
+    font-size: 0.875rem;
+  }
+
+  .address-edit-box {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 0.188rem;
+  }
 }
