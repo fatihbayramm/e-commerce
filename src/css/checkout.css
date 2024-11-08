@@ -1,0 +1,27 @@
+.checkout-container {
+  font-family: "Arial";
+}
+
+.set-address-container {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e2e2e2;
+  border-radius: 10px;
+  width: 100%;
+  padding: 20px;
+}
+
+.set-address {
+  margin-top: 50px;
+}
+
+.set-address-box {
+  border: 1px solid #e2e2e2;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.set {
+  margin: 10px 0px;
+}

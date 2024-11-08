@@ -9,6 +9,7 @@ import { getBasket } from "../../redux/slices/basket/basket-actions";
 import { updateProductInBasket } from "../../redux/slices/basket/basket-actions";
 import { removeProductFromBasket } from "../../redux/slices/basket/basket-actions";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function BasketDrawer({ toggleDrawer, setToggleDrawer }) {
   const dispatch = useDispatch();
@@ -126,7 +127,9 @@ function BasketDrawer({ toggleDrawer, setToggleDrawer }) {
             <p>Your basket is empty.</p>
           )}
           <div className="total-price">Total Price: {basket.total_amount}$</div>
-          <button className="basket-buy-btn">Buy</button>
+          <Link to="/checkout">
+            <button className="basket-buy-btn">Buy</button>
+          </Link>
         </div>
       </Box>
       {error && <BasketError error={error} basket={basket.basket_items} />}

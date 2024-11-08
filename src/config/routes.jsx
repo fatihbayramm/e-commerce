@@ -6,6 +6,7 @@ import $U from "../config/urls";
 import Address from "../pages/address";
 import AddressList from "../pages/addresses-list";
 import { createBrowserRouter } from "react-router-dom";
+import Checkout from "../pages/checkout";
 
 const routes = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const routes = createBrowserRouter([
   {
     path: $U.ADDRESS_LIST,
     element: <AddressList />,
+  },
+  {
+    path: $U.CHECKOUT,
+    element: <Checkout />,
   },
 ]);
 

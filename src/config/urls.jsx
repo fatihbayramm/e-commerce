@@ -12,4 +12,6 @@ export default {
   COUNTRIES: "/addresses/countries/",
   CITIES: "/addresses/cities/",
   TOWNSHIPS: "/addresses/townships/",
+  CHECKOUT: "/checkout",
+  SET_ADDRESS: "/checkout/set_address/",
 };
