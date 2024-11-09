@@ -31,3 +31,15 @@ export const setShippingOption = createAsyncThunk(
     }
   }
 );
+
+export const setPaymentOption = createAsyncThunk(
+  "setPaymentOption",
+  async (paymentOption) => {
+    try {
+      const response = await api.post($U.SET_PAYMENT, paymentOption);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data || "An error occurred");
+    }
+  }
+);

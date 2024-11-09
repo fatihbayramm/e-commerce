@@ -3,12 +3,21 @@
 }
 
 .set-address-container {
-  margin-top: 100px;
+  margin-top: 60px;
+}
+
+.checkout-title {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.set-address-container-child {
+  margin-top: 30px;
+  display: flex;
+  gap: 10px;
   border: 1px solid #e2e2e2;
   border-radius: 10px;
-  width: 100%;
   padding: 20px;
 }
 
@@ -20,8 +29,35 @@
   border: 1px solid #e2e2e2;
   border-radius: 10px;
   padding: 20px;
+  cursor: pointer;
+  background-color: #fafafa;
+}
+
+.set-address-box:hover {
+  background-color: #fff;
+  transition: 0.5s all;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .set {
   margin: 10px 0px;
+}
+
+.checkout {
+  margin-top: 30px;
+}
+
+.shipping-box {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24px;
+}
+
+.shipping-input {
+  display: flex;
+  gap: 15px;
+}
+
+.shipping-radio {
+  transform: scale(1.5);
 }
