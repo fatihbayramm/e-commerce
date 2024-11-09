@@ -3,20 +3,33 @@ import Header from "../components/header";
 import Container from "@mui/material/Container";
 import Footer from "../components/footer";
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import { getAddresses } from "../redux/slices/address/address-actions";
 import { useEffect } from "react";
-import { setAddress } from "../redux/slices/checkout/checkout-actions";
+import {
+  getCheckout,
+  setAddress,
+  setShippingOption,
+} from "../redux/slices/checkout/checkout-actions";
 
 function Checkout() {
   const dispatch = useDispatch();
   const { userAddresses } = useSelector((store) => store.address);
+  const { checkout } = useSelector((store) => store.checkout);
 
   useEffect(() => {
     dispatch(getAddresses());
+    dispatch(getCheckout());
   }, [dispatch]);
+
+  console.log(checkout);
 
   const handleSelectAddress = (address) => {
     dispatch(setAddress(address));
+  };
+
+  const handleChange = async (event) => {
+    await dispatch(setShippingOption({ shipping_option: event.target.value }));
   };
 
   return (
@@ -43,7 +56,7 @@ function Checkout() {
                   </div>
 
                   <div className="set-address-box set">
-                    <div className="set-address-name set">{address.name}</div>{" "}
+                    <div className="set-address-name set">{address.name}</div>
                     <hr />
                     <div className="set">{address.text}</div>
                     <div className="set">
@@ -60,8 +73,21 @@ function Checkout() {
               ))
             : "You do not have a registered address, create an address."}
         </div>
-        <div className="choose-payment"></div>
-        <div className="choose-shipping"></div>
+        <div className="set-payment-container">
+          <h1>Payment</h1>
+        </div>
+        <div className="choose-shipping">
+          <h1>Choose Shipping</h1>
+          <select name="shipping" id="shipping" onChange={handleChange}>
+            <option value="">Choose Shipping</option>
+
+            {checkout?.context?.shipping_options?.map((shipping) => (
+              <option value={shipping.id} key={shipping.id}>
+                {shipping.name}
+              </option>
+            ))}
+          </select>
+        </div>
         <div className="discount-code"></div>
       </Container>
       <Footer />

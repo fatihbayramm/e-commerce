@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { setAddress } from "./checkout-actions";
+import { getCheckout, setAddress, setShippingOption } from "./checkout-actions";
 
 const initialState = {
+  checkout: [],
   address: [],
   shipping: [],
   payment: [],
@@ -15,6 +16,22 @@ export const checkoutSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    // getCheckout()
+
+    builder.addCase(getCheckout.pending, (state) => {
+      state.loading = true;
+    });
+
+    builder.addCase(getCheckout.fulfilled, (state, action) => {
+      state.loading = false;
+      state.checkout = action.payload;
+    });
+
+    builder.addCase(getCheckout.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+
     // setAddress()
 
     builder.addCase(setAddress.pending, (state) => {
@@ -27,6 +44,22 @@ export const checkoutSlice = createSlice({
     });
 
     builder.addCase(setAddress.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+
+    // setShippingOption()
+
+    builder.addCase(setShippingOption.pending, (state) => {
+      state.loading = true;
+    });
+
+    builder.addCase(setShippingOption.fulfilled, (state, action) => {
+      state.loading = false;
+      state.shipping = action.payload;
+    });
+
+    builder.addCase(setShippingOption.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
     });

@@ -14,4 +14,8 @@ export default {
   TOWNSHIPS: "/addresses/townships/",
   CHECKOUT: "/checkout",
   SET_ADDRESS: "/checkout/set_address/",
+  SET_PAYMENT: "/checkout/set_payment_option/",
+  SET_SHIPPING: "/checkout/set_shipping_option/",
+  SET_DISCOUNT: "/checkout/set_discount_code/",
+  COMPLETE_ORDER: "/checkout/complete_order/",
 };
