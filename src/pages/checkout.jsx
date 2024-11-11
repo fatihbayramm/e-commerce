@@ -266,12 +266,15 @@ function Checkout() {
             </button>
           </div>
         </div>
-
-        <div className="chk-basket-total-amount">
-          <span className="chk-total-amount">
-            Total Amount: {displayAmount}$
-          </span>{" "}
-        </div>
+        {payment?.pre_order?.net_amount ? (
+          <div className="chk-basket-total-amount">
+            <span className="chk-total-amount">
+              Total Amount: {displayAmount}$
+            </span>{" "}
+          </div>
+        ) : (
+          ""
+        )}
 
         <div className="chk-pay">
           <button className="chk-pay-btn" type="submit">
