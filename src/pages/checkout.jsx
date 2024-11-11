@@ -13,11 +13,14 @@ import {
 } from "../redux/slices/checkout/checkout-actions";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaShippingFast } from "react-icons/fa";
+import { MdOutlinePayment } from "react-icons/md";
 
 function Checkout() {
   const dispatch = useDispatch();
   const { userAddresses } = useSelector((store) => store.address);
-  const { checkout } = useSelector((store) => store.checkout);
+  const { address, checkout, payment, shipping } = useSelector(
+    (store) => store.checkout
+  );
 
   useEffect(() => {
     dispatch(getAddresses());
@@ -30,26 +33,29 @@ function Checkout() {
     dispatch(setAddress(address));
   };
 
-  const handleSetShippingOption = async (shippingOption) => {
-    await dispatch(setShippingOption(shippingOption));
+  const handleSetShippingOption = (shippingOption) => {
+    dispatch(setShippingOption(shippingOption));
   };
 
   const handleSetPaymentOption = (paymentOption) => {
     dispatch(setPaymentOption(paymentOption));
   };
+  console.log("address -->", address);
+  console.log("shipping -->", shipping);
+  console.log("payment -->", payment);
 
   return (
     <>
       <Header />
       <Container maxWidth="md" className="checkout-container">
-        <div className="set-address-container">
+        <div className="choose-address checkout">
           <h1 className="checkout-title">
             <div>
               <FaLocationDot />
             </div>
             <div> Shipping Address</div>
           </h1>
-          <div className="set-address-container-child">
+          <div className="address-box">
             {userAddresses && userAddresses.length > 0
               ? userAddresses.map((address) => (
                   <div className="set-address" key={address.id}>
@@ -89,58 +95,79 @@ function Checkout() {
               : "You do not have a registered address, create an address."}
           </div>
         </div>
-
-        <div className="choose-shipping checkout">
-          <h1 className="checkout-title">
-            <div>
-              <FaShippingFast />
+        {address && address ? (
+          <div className="choose-shipping checkout">
+            <h1 className="checkout-title">
+              <div>
+                <FaShippingFast />
+              </div>
+              <div>Choose Shipping</div>
+            </h1>
+            <div className="shipping-box checkout">
+              {address?.context?.shipping_options?.map((shipping) => (
+                <div key={shipping.id}>
+                  <label htmlFor={`shipping-${shipping.id}`}>
+                    <div className="shipping-input">
+                      <input
+                        type="radio"
+                        name="shipping"
+                        id={`shipping-${shipping.id}`}
+                        className="shipping-radio"
+                        onChange={() =>
+                          handleSetShippingOption({
+                            shipping_option: shipping.id,
+                          })
+                        }
+                      />
+                      <span>
+                        {" "}
+                        {shipping.name} {shipping.cost}$
+                      </span>
+                    </div>
+                  </label>
+                </div>
+              ))}
             </div>
-            <div>Choose Shipping</div>
-          </h1>
-          <div className="shipping-box checkout">
-            {checkout?.context?.shipping_options?.map((shipping) => (
-              <div key={shipping.id}>
-                <label htmlFor={`shipping-${shipping.id}`}>
-                  <div className="shipping-input">
-                    <input
-                      type="radio"
-                      name="shipping"
-                      id={`shipping-${shipping.id}`}
-                      className="shipping-radio"
-                      onChange={() =>
-                        handleSetShippingOption({
-                          shipping_option: shipping.id,
-                        })
-                      }
-                    />
+          </div>
+        ) : (
+          ""
+        )}
 
-                    <span> {shipping.name}</span>
-                  </div>
-                </label>
+        {shipping && shipping ? (
+          <div className="choose-payment checkout">
+            <h1 className="checkout-title">
+              <div>
+                <MdOutlinePayment />
               </div>
-            ))}
+              <div>Choose Payment</div>
+            </h1>
+            <div className="payment-box checkout">
+              {shipping?.context?.payment_options?.map((payment) => (
+                <div key={payment.id}>
+                  <label htmlFor={`payment-${payment.id}`}>
+                    <div className="payment-input">
+                      <input
+                        type="radio"
+                        name="payment"
+                        id={`payment-${payment.id}`}
+                        className="payment-radio"
+                        onChange={() =>
+                          handleSetPaymentOption({
+                            payment_option: payment.id,
+                          })
+                        }
+                      />
+                      <span> {payment.name}</span>
+                    </div>
+                  </label>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-        <div className="set-payment-container checkout">
-          <h1>Payment</h1>
-          <div className="set-payment-box">
-            {checkout?.context?.payment_options?.map((payment) => (
-              <div key={payment.id}>
-                <label htmlFor={`payment-${payment.id}`}>
-                  <input
-                    type="radio"
-                    name="payment"
-                    id={`payment-${payment.id}`}
-                    onChange={() =>
-                      handleSetPaymentOption({ payment_option: payment.id })
-                    }
-                  />
-                  {payment.name}
-                </label>
-              </div>
-            ))}
-          </div>
-        </div>
+        ) : (
+          ""
+        )}
+
         <div className="discount-code checkout"></div>
       </Container>
       <Footer />

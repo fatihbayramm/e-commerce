@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   checkout: [],
-  address: [],
+  address: {},
   shipping: [],
   payment: [],
   discount: [],

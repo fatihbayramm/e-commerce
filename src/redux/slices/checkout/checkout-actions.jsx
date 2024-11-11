@@ -22,9 +22,9 @@ export const setAddress = createAsyncThunk("setAddress", async (address) => {
 
 export const setShippingOption = createAsyncThunk(
   "setShippingOption",
-  async (data) => {
+  async (shippingOption) => {
     try {
-      const response = await api.post($U.SET_SHIPPING, data);
+      const response = await api.post($U.SET_SHIPPING, shippingOption);
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data || "An error occurred");
