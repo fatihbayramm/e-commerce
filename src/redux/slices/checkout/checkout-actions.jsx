@@ -43,3 +43,15 @@ export const setPaymentOption = createAsyncThunk(
     }
   }
 );
+
+export const setDiscountCode = createAsyncThunk(
+  "setDiscountCode",
+  async (discountCode) => {
+    try {
+      const response = await api.post($U.SET_DISCOUNT, discountCode);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data.message || "Invalid discount code");
+    }
+  }
+);

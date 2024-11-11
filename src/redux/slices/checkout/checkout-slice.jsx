@@ -4,6 +4,7 @@ import {
   setAddress,
   setShippingOption,
   setPaymentOption,
+  setDiscountCode,
 } from "./checkout-actions";
 
 const initialState = {
@@ -11,9 +12,10 @@ const initialState = {
   address: {},
   shipping: [],
   payment: [],
-  discount: [],
+  discount_code: {},
   order: [],
   loading: false,
+  error: null,
 };
 
 export const checkoutSlice = createSlice({
@@ -81,6 +83,22 @@ export const checkoutSlice = createSlice({
     });
 
     builder.addCase(setPaymentOption.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+
+    // setDiscountCode()
+
+    builder.addCase(setDiscountCode.pending, (state) => {
+      state.loading = true;
+    });
+
+    builder.addCase(setDiscountCode.fulfilled, (state, action) => {
+      state.loading = false;
+      state.discount_code = action.payload;
+    });
+
+    builder.addCase(setDiscountCode.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
     });

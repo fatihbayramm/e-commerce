@@ -4,32 +4,50 @@ import Container from "@mui/material/Container";
 import Footer from "../components/footer";
 import { useDispatch, useSelector } from "react-redux";
 import { getAddresses } from "../redux/slices/address/address-actions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   getCheckout,
   setAddress,
   setShippingOption,
   setPaymentOption,
+  setDiscountCode,
 } from "../redux/slices/checkout/checkout-actions";
 import { getBasket } from "../redux/slices/basket/basket-actions";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaShippingFast } from "react-icons/fa";
 import { MdOutlinePayment } from "react-icons/md";
 import { FaShoppingBasket } from "react-icons/fa";
+import { MdOutlineDiscount } from "react-icons/md";
 import { Link } from "react-router-dom";
+import DiscountError from "../errors/discount-error";
 
 function Checkout() {
   const dispatch = useDispatch();
   const { userAddresses } = useSelector((store) => store.address);
-  const { address, payment, shipping } = useSelector((store) => store.checkout);
+  const { address, shipping, payment, discount_code, error } = useSelector(
+    (store) => store.checkout
+  );
   const { basket } = useSelector((store) => store.basket);
-  console.log(basket);
+
+  const [discount, setDiscount] = useState("");
+
+  const [displayAmount, setDisplayAmount] = useState(
+    payment?.pre_order?.net_amount
+  );
 
   useEffect(() => {
     dispatch(getAddresses());
     dispatch(getCheckout());
     dispatch(getBasket());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (discount_code?.pre_order?.net_amount) {
+      setDisplayAmount(discount_code.pre_order.net_amount);
+    } else {
+      setDisplayAmount(payment?.pre_order?.net_amount);
+    }
+  }, [discount_code, payment]);
 
   const handleSelectAddress = (address) => {
     dispatch(setAddress(address));
@@ -42,9 +60,13 @@ function Checkout() {
   const handleSetPaymentOption = (paymentOption) => {
     dispatch(setPaymentOption(paymentOption));
   };
-  console.log("address -->", address);
-  console.log("shipping -->", shipping);
-  console.log("payment -->", payment);
+
+  const handleDiscountCode = () => {
+    dispatch(setDiscountCode({ discount_code: discount }));
+  };
+
+  console.log("payment-->", payment);
+  console.log("discount-->", discount_code);
 
   return (
     <>
@@ -97,11 +119,6 @@ function Checkout() {
                 </Link>
               ))
             : ""}
-          <div className="chk-basket-total-amount">
-            <span className="chk-total-amount">
-              Total Amount: {basket && basket.total_amount}${" "}
-            </span>{" "}
-          </div>
         </div>
         <div className="choose-address checkout">
           <h1 className="checkout-title">
@@ -225,11 +242,41 @@ function Checkout() {
           ""
         )}
 
-        <div className="discount-code checkout"></div>
+        <div className="discount-code checkout">
+          <h1 className="checkout-title">
+            <div>
+              <MdOutlineDiscount />
+            </div>
+            <div>Discount Code</div>
+          </h1>
+          <div className="chk-discount">
+            <input
+              type="text"
+              className="discount-code-input"
+              value={discount}
+              onChange={(e) => setDiscount(e.target.value)}
+            />
+            <DiscountError error={error} />
+            <button
+              className="discount-code-btn"
+              type="submit"
+              onClick={handleDiscountCode}
+            >
+              Enter code
+            </button>
+          </div>
+        </div>
+
+        <div className="chk-basket-total-amount">
+          <span className="chk-total-amount">
+            Total Amount: {displayAmount}$
+          </span>{" "}
+        </div>
 
         <div className="chk-pay">
-          {" "}
-          <button className="chk-pay-btn">Pay</button>
+          <button className="chk-pay-btn" type="submit">
+            Pay
+          </button>
         </div>
       </Container>
       <Footer />
