@@ -16,6 +16,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaShippingFast } from "react-icons/fa";
 import { MdOutlinePayment } from "react-icons/md";
 import { FaShoppingBasket } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function Checkout() {
   const dispatch = useDispatch();
@@ -58,38 +59,48 @@ function Checkout() {
         <div className="chk-basket">
           {basket && basket.basket_items && basket.basket_items.length > 0
             ? basket?.basket_items?.map((item) => (
-                <div className="chk-basket-item" key={item.id}>
-                  <div className="chk-product-image">
-                    <img
-                      src={`/media${item.product.image}`}
-                      alt="Product image"
-                    />
-                  </div>
-                  <div className="chk-product-info-box">
-                    <div className="chk-product-name">
-                      <div>{item.product.name}</div>
-                      <div className="chk-product-sku">{item.product.sku}</div>
+                <Link
+                  key={item.id}
+                  to={`/product-detail/${item.product.id}`}
+                  className="chk-product-router"
+                >
+                  <div className="chk-basket-item">
+                    <div className="chk-product-image">
+                      <img
+                        src={`/media${item.product.image}`}
+                        alt="Product image"
+                      />
                     </div>
-                    <div className="chk-product-price">
-                      {item.product.price}$
-                    </div>
-                    <div className="chk-product-quantity">
-                      Quantity: {item.quantity}
-                    </div>
-
-                    <div className="chk-product-total-price">
-                      {item.quantity} x{" "}
-                      <span className="chk-product-price">
+                    <div className="chk-product-info-box">
+                      <div className="chk-product-name">
+                        <div>{item.product.name}</div>
+                        <div className="chk-product-sku">
+                          {item.product.sku}
+                        </div>
+                      </div>
+                      <div className="chk-product-price">
                         {item.product.price}$
-                      </span>{" "}
-                      = {item.amount}$
+                      </div>
+                      <div className="chk-product-quantity">
+                        Quantity: {item.quantity}
+                      </div>
+
+                      <div className="chk-product-total-price">
+                        {item.quantity} x{" "}
+                        <span className="chk-product-price">
+                          {item.product.price}$
+                        </span>{" "}
+                        = {item.amount}$
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))
             : ""}
           <div className="chk-basket-total-amount">
-            {basket && basket.total_amount}$
+            <span className="chk-total-amount">
+              Total Amount: {basket && basket.total_amount}${" "}
+            </span>{" "}
           </div>
         </div>
         <div className="choose-address checkout">
@@ -215,6 +226,11 @@ function Checkout() {
         )}
 
         <div className="discount-code checkout"></div>
+
+        <div className="chk-pay">
+          {" "}
+          <button className="chk-pay-btn">Pay</button>
+        </div>
       </Container>
       <Footer />
     </>
