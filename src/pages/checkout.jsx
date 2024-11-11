@@ -11,23 +11,24 @@ import {
   setShippingOption,
   setPaymentOption,
 } from "../redux/slices/checkout/checkout-actions";
+import { getBasket } from "../redux/slices/basket/basket-actions";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaShippingFast } from "react-icons/fa";
 import { MdOutlinePayment } from "react-icons/md";
+import { FaShoppingBasket } from "react-icons/fa";
 
 function Checkout() {
   const dispatch = useDispatch();
   const { userAddresses } = useSelector((store) => store.address);
-  const { address, checkout, payment, shipping } = useSelector(
-    (store) => store.checkout
-  );
+  const { address, payment, shipping } = useSelector((store) => store.checkout);
+  const { basket } = useSelector((store) => store.basket);
+  console.log(basket);
 
   useEffect(() => {
     dispatch(getAddresses());
     dispatch(getCheckout());
+    dispatch(getBasket());
   }, [dispatch]);
-
-  console.log(checkout);
 
   const handleSelectAddress = (address) => {
     dispatch(setAddress(address));
@@ -48,6 +49,49 @@ function Checkout() {
     <>
       <Header />
       <Container maxWidth="md" className="checkout-container">
+        <h1 className="checkout-title">
+          <div>
+            <FaShoppingBasket />
+          </div>
+          <div> My Basket</div>
+        </h1>
+        <div className="chk-basket">
+          {basket && basket.basket_items && basket.basket_items.length > 0
+            ? basket?.basket_items?.map((item) => (
+                <div className="chk-basket-item" key={item.id}>
+                  <div className="chk-product-image">
+                    <img
+                      src={`/media${item.product.image}`}
+                      alt="Product image"
+                    />
+                  </div>
+                  <div className="chk-product-info-box">
+                    <div className="chk-product-name">
+                      <div>{item.product.name}</div>
+                      <div className="chk-product-sku">{item.product.sku}</div>
+                    </div>
+                    <div className="chk-product-price">
+                      {item.product.price}$
+                    </div>
+                    <div className="chk-product-quantity">
+                      Quantity: {item.quantity}
+                    </div>
+
+                    <div className="chk-product-total-price">
+                      {item.quantity} x{" "}
+                      <span className="chk-product-price">
+                        {item.product.price}$
+                      </span>{" "}
+                      = {item.amount}$
+                    </div>
+                  </div>
+                </div>
+              ))
+            : ""}
+          <div className="chk-basket-total-amount">
+            {basket && basket.total_amount}$
+          </div>
+        </div>
         <div className="choose-address checkout">
           <h1 className="checkout-title">
             <div>
@@ -95,7 +139,8 @@ function Checkout() {
               : "You do not have a registered address, create an address."}
           </div>
         </div>
-        {address && address ? (
+        {address?.context?.shipping_options &&
+        address?.context?.shipping_options ? (
           <div className="choose-shipping checkout">
             <h1 className="checkout-title">
               <div>
@@ -133,7 +178,8 @@ function Checkout() {
           ""
         )}
 
-        {shipping && shipping ? (
+        {shipping?.context?.payment_options &&
+        shipping?.context?.payment_options ? (
           <div className="choose-payment checkout">
             <h1 className="checkout-title">
               <div>

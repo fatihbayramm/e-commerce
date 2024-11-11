@@ -1,9 +1,57 @@
+.chk-basket {
+  border: 1px solid #e2e2e2;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.chk-basket-item {
+  display: flex;
+  border: 1px solid #e2e2e2;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.chk-product-image img {
+  width: 9rem;
+  height: 9rem;
+}
+
+.chk-product-info-box {
+  width: 100%;
+}
+
+.chk-product-info-box div {
+  margin-bottom: 10px;
+}
+
+.chk-product-name {
+  font-size: 20px;
+  font-weight: bolder;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chk-product-sku {
+  color: #cccccc;
+  font-size: 1rem;
+}
+
+.chk-product-price {
+  color: #d33918;
+}
+
 .checkout-container {
   font-family: "Arial";
 }
 
 .choose-address {
   margin-top: 60px;
+}
+
+.checkout-title:first-child {
+  margin-top: 50px;
 }
 
 .checkout-title {
