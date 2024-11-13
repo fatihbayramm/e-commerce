@@ -55,3 +55,22 @@ export const setDiscountCode = createAsyncThunk(
     }
   }
 );
+
+export const completeOrder = createAsyncThunk("completeOrder", async () => {
+  try {
+    const response = await api.post($U.COMPLETE_ORDER);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data.message || "Invalid discount code");
+  }
+});
+
+export const getOrders = createAsyncThunk("getOrders", async () => {
+  try {
+    const response = await api.get($U.ORDERS);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data.message || "Invalid discount code");
+  }
+});

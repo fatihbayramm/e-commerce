@@ -7,6 +7,7 @@ import Address from "../pages/address";
 import AddressList from "../pages/addresses-list";
 import { createBrowserRouter } from "react-router-dom";
 import Checkout from "../pages/checkout";
+import Orders from "../pages/orders";
 
 const routes = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const routes = createBrowserRouter([
   {
     path: $U.CHECKOUT,
     element: <Checkout />,
+  },
+  {
+    path: $U.ORDERS,
+    element: <Orders />,
   },
 ]);
 

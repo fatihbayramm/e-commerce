@@ -11,6 +11,7 @@ import {
   setShippingOption,
   setPaymentOption,
   setDiscountCode,
+  completeOrder,
 } from "../redux/slices/checkout/checkout-actions";
 import { getBasket } from "../redux/slices/basket/basket-actions";
 import { FaLocationDot } from "react-icons/fa6";
@@ -24,9 +25,8 @@ import DiscountError from "../errors/discount-error";
 function Checkout() {
   const dispatch = useDispatch();
   const { userAddresses } = useSelector((store) => store.address);
-  const { address, shipping, payment, discount_code, error } = useSelector(
-    (store) => store.checkout
-  );
+  const { address, shipping, payment, discount_code, order_number, error } =
+    useSelector((store) => store.checkout);
   const { basket } = useSelector((store) => store.basket);
 
   const [discount, setDiscount] = useState("");
@@ -63,6 +63,10 @@ function Checkout() {
 
   const handleDiscountCode = () => {
     dispatch(setDiscountCode({ discount_code: discount }));
+  };
+
+  const handleCompleteOrder = () => {
+    dispatch(completeOrder());
   };
 
   console.log("payment-->", payment);
@@ -277,7 +281,11 @@ function Checkout() {
         )}
 
         <div className="chk-pay">
-          <button className="chk-pay-btn" type="submit">
+          <button
+            className="chk-pay-btn"
+            type="submit"
+            onClick={handleCompleteOrder}
+          >
             Pay
           </button>
         </div>
