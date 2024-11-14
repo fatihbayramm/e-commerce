@@ -15,7 +15,7 @@ const initialState = {
   shipping: [],
   payment: [],
   discount_code: {},
-  order_number: {},
+  order_number: null,
   orders: [],
   loading: false,
   error: null,

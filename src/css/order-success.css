@@ -1,0 +1,29 @@
+.os-box {
+  text-align: center;
+  font-size: 24px;
+  padding: 50px;
+  border: 1px solid #e2e2e2;
+  border-radius: 20px;
+  margin-top: 50px;
+}
+
+.os-check-icon {
+  color: green;
+}
+
+.os-order-number {
+  margin-top: 20px;
+}
+
+.os-router-box {
+  margin-top: 20px;
+}
+
+.os-router {
+  text-decoration: none;
+  color: #000;
+}
+
+.os-router:hover {
+  text-decoration: underline;
+}
