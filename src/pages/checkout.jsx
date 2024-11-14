@@ -2,6 +2,8 @@ import "../css/checkout.css";
 import Header from "../components/header";
 import Container from "@mui/material/Container";
 import Footer from "../components/footer";
+import DiscountError from "../errors/discount-error";
+import OrderSuccess from "../components/order-success";
 import { useDispatch, useSelector } from "react-redux";
 import { getAddresses } from "../redux/slices/address/address-actions";
 import { useEffect, useState } from "react";
@@ -20,8 +22,6 @@ import { MdOutlinePayment } from "react-icons/md";
 import { FaShoppingBasket } from "react-icons/fa";
 import { MdOutlineDiscount } from "react-icons/md";
 import { Link } from "react-router-dom";
-import DiscountError from "../errors/discount-error";
-import OrderSuccess from "../components/order-success";
 
 function Checkout() {
   const dispatch = useDispatch();

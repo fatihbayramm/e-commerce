@@ -1,22 +1,19 @@
 .os-box {
   text-align: center;
-  font-size: 24px;
-  padding: 50px;
+  font-size: 1.5rem;
+  padding: 3.125rem;
   border: 1px solid #e2e2e2;
-  border-radius: 20px;
-  margin-top: 50px;
+  border-radius: 1.25rem;
+  margin-top: 3.125rem;
 }
 
 .os-check-icon {
   color: green;
 }
 
-.os-order-number {
-  margin-top: 20px;
-}
-
+.os-order-number,
 .os-router-box {
-  margin-top: 20px;
+  margin-top: 1.25rem;
 }
 
 .os-router {

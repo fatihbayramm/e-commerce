@@ -4,9 +4,9 @@
 
 .chk-basket {
   border: 1px solid #e2e2e2;
-  border-radius: 20px;
-  padding: 20px;
-  margin-top: 30px;
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  margin-top: 1.875rem;
 }
 
 .chk-product-router {
@@ -17,9 +17,9 @@
 .chk-basket-item {
   display: flex;
   border: 1px solid #e2e2e2;
-  border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 20px;
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
 }
 
 .chk-basket-item:hover {
@@ -35,15 +35,15 @@
 
 .chk-product-info-box {
   width: 100%;
-  margin-left: 20px;
+  margin-left: 1.25rem;
 }
 
 .chk-product-info-box div {
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 .chk-product-name {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: bolder;
   display: flex;
   justify-content: space-between;
@@ -60,36 +60,36 @@
 }
 
 .choose-address {
-  margin-top: 60px;
+  margin-top: 3.75rem;
 }
 
 .checkout-title:first-child {
-  margin-top: 50px;
+  margin-top: 3.125rem;
 }
 
 .checkout-title {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .chk-address-box {
-  margin-top: 30px;
+  margin-top: 1.875rem;
   display: flex;
-  gap: 10px;
+  gap: 0.625rem;
   border: 1px solid #e2e2e2;
-  border-radius: 10px;
-  padding: 20px;
+  border-radius: 0.625rem;
+  padding: 1.25rem;
 }
 
 .set-address {
-  margin-top: 50px;
+  margin-top: 3.125rem;
 }
 
 .set-address-box {
   border: 1px solid #e2e2e2;
-  border-radius: 10px;
-  padding: 20px;
+  border-radius: 0.625rem;
+  padding: 1.25rem;
   cursor: pointer;
   background-color: #fafafa;
 }
@@ -101,23 +101,23 @@
 }
 
 .set {
-  margin: 10px 0px;
+  margin: 0.625rem 0rem;
 }
 
 .checkout {
-  margin-top: 50px;
+  margin-top: 3.125rem;
 }
 
 .shipping-box,
 .payment-box {
   display: flex;
   justify-content: space-between;
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 
 .shipping-input {
   display: flex;
-  gap: 15px;
+  gap: 0.938rem;
 }
 
 .shipping-radio,
@@ -132,12 +132,12 @@
 }
 
 .chk-discount {
-  margin-top: 30px;
+  margin-top: 1.875rem;
 }
 
 .discount-code-input {
-  padding: 10px;
-  border-radius: 10px;
+  padding: 0.625rem;
+  border-radius: 0.625rem;
   border: 1px solid #e2e2e2;
   outline: none;
 }
@@ -148,8 +148,8 @@
   background: none;
   cursor: pointer;
   border: 1px solid #e2e2e2;
-  border-radius: 10px;
-  padding: 10px;
+  border-radius: 0.625rem;
+  padding: 0.625rem;
 }
 
 .chk-pay {
@@ -165,11 +165,11 @@
   color: #fff;
   background-color: #000;
   cursor: pointer;
-  padding: 10px;
+  padding: 0.625rem;
   border: 1px solid #e2e2e2;
-  border-radius: 20px;
-  min-width: 300px;
-  font-size: 24px;
+  border-radius: 1.25rem;
+  min-width: 18.75rem;
+  font-size: 1.5rem;
 }
 
 .chk-pay-btn:hover {

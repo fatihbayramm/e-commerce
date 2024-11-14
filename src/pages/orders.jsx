@@ -18,7 +18,29 @@ function Orders() {
   return (
     <>
       <Header />
-      <Container maxWidth="xl" className="orders-container"></Container>
+      <Container maxWidth="md" className="orders-container">
+        <h1>My Orders</h1>
+        {orders.map((order) => (
+          <div className="order" key={order.id}>
+            {order.order_items.map((item) => (
+              <div className="item-image" key={item.id}>
+                <div>
+                  <img
+                    src={`/media${item.product.image}`}
+                    className="order-item-image"
+                    alt="Product image"
+                  />
+                </div>
+              </div>
+            ))}
+            <div>
+              <div className="order-total-amount">
+                Total Amount: {order.total_amount}$
+              </div>
+            </div>
+          </div>
+        ))}
+      </Container>
       <Footer />
     </>
   );
