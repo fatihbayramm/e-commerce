@@ -1,6 +1,6 @@
 # E-Commerce
 
-E-commerce is a frontend project made with React by fetching data from an e-commerce service.
+E-commerce is a frontend project made with React.
 
 # Dependencies Used In The Project
 - Redux Toolkit
